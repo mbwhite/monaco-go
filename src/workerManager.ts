@@ -5,7 +5,7 @@
 'use strict';
 
 import {LanguageServiceDefaultsImpl} from './monaco.contribution';
-import {GoWorker} from './cssWorker';
+import {GoWorker} from './goWorker';
 
 import Promise = monaco.Promise;
 import IDisposable = monaco.IDisposable;
@@ -62,7 +62,7 @@ export class WorkerManager {
 			this._worker = monaco.editor.createWebWorker<GoWorker>({
 
 				// module that exports the create() method and returns a `GoWorker` instance
-				moduleId: 'vs/language/css/cssWorker',
+				moduleId: 'vs/language/go/goWorker',
 
 				label: this._defaults.languageId,
 

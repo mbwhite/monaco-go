@@ -34,11 +34,11 @@ gulp.task('release', ['clean-release','compile'], function() {
 	function bundleOne(moduleId, exclude) {
 		return rjs({
 			baseUrl: '/out/',
-			name: 'vs/language/css/' + moduleId,
+			name: 'vs/language/go/' + moduleId,
 			out: moduleId + '.js',
 			exclude: exclude,
 			paths: {
-				'vs/language/css': __dirname + '/out'
+				'vs/language/go': __dirname + '/out'
 			},
 			packages: [{
 				name: 'vscode-css-languageservice',
@@ -58,9 +58,9 @@ gulp.task('release', ['clean-release','compile'], function() {
 
 	return merge(
 		merge(
-			bundleOne('monaco.contribution', ['vs/language/css/goMode']),
+			bundleOne('monaco.contribution', ['vs/language/go/goMode']),
 			bundleOne('goMode'),
-			bundleOne('cssWorker')
+			bundleOne('goWorker')
 		)
 		.pipe(es.through(function(data) {
 			data.contents = new Buffer(

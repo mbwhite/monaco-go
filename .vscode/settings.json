@@ -4,6 +4,11 @@
 	"search.exclude": {
 		"**/node_modules": true,
 		"**/release": true,
-		"**/out": true
+		"**/out": true,
+
+		"release/**": true,
+		"out/**": true,
+
+		"*.log": true
 	}
 }

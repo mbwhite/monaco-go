@@ -14,18 +14,18 @@ declare var require: <T>(moduleId: [string], callback: (module: T) => void) => v
 
 // --- CSS configuration and defaults ---------
 
-export class LanguageServiceDefaultsImpl implements monaco.languages.css.LanguageServiceDefaults {
+export class LanguageServiceDefaultsImpl implements monaco.languages.go.LanguageServiceDefaults {
 
-	private _onDidChange = new Emitter<monaco.languages.css.LanguageServiceDefaults>();
-	private _diagnosticsOptions: monaco.languages.css.DiagnosticsOptions;
+	private _onDidChange = new Emitter<monaco.languages.go.LanguageServiceDefaults>();
+	private _diagnosticsOptions: monaco.languages.go.DiagnosticsOptions;
 	private _languageId: string;
 
-	constructor(languageId: string, diagnosticsOptions: monaco.languages.css.DiagnosticsOptions) {
+	constructor(languageId: string, diagnosticsOptions: monaco.languages.go.DiagnosticsOptions) {
 		this._languageId = languageId;
 		this.setDiagnosticsOptions(diagnosticsOptions);
 	}
 
-	get onDidChange(): IEvent<monaco.languages.css.LanguageServiceDefaults> {
+	get onDidChange(): IEvent<monaco.languages.go.LanguageServiceDefaults> {
 		return this._onDidChange.event;
 	}
 
@@ -33,17 +33,17 @@ export class LanguageServiceDefaultsImpl implements monaco.languages.css.Languag
 		return this._languageId;
 	}
 
-	get diagnosticsOptions(): monaco.languages.css.DiagnosticsOptions {
+	get diagnosticsOptions(): monaco.languages.go.DiagnosticsOptions {
 		return this._diagnosticsOptions;
 	}
 
-	setDiagnosticsOptions(options: monaco.languages.css.DiagnosticsOptions): void {
+	setDiagnosticsOptions(options: monaco.languages.go.DiagnosticsOptions): void {
 		this._diagnosticsOptions = options || Object.create(null);
 		this._onDidChange.fire(this);
 	}
 }
 
-const diagnosticDefault: monaco.languages.css.DiagnosticsOptions = {
+const diagnosticDefault: monaco.languages.go.DiagnosticsOptions = {
 	validate: true,
 	lint: {
 		compatibleVendorPrefixes: 'ignore',
@@ -80,12 +80,12 @@ function createAPI(): typeof monaco.languages.css {
 		scssDefaults: scssDefaults
 	}
 }
-monaco.languages.css = createAPI();
+monaco.languages.go = createAPI();
 
 // --- Registration to monaco editor ---
 
 function withMode(callback: (module: typeof mode) => void): void {
-	require<typeof mode>(['vs/language/css/goMode'], callback);
+	require<typeof mode>(['vs/language/go/goMode'], callback);
 }
 
 monaco.languages.onLanguage('less', () => {
