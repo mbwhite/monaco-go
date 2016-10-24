@@ -15,7 +15,7 @@ CSS plugin offers to configure the CSS/LESS/SCSS language support.
 </del>
 
 <del>
-Internally the CSS plugin uses the [vscode-css-languageservice](https://github.com/Microsoft/vscode-css-languageservice)
+Internally the CSS plugin uses the [vscode-go-languageservice](https://github.com/Microsoft/vscode-go-languageservice)
 node module, providing the implementation of the functionally listed above. The same module is also used
 in [Visual Studio Code](https://github.com/Microsoft/vscode) to power the CSS, LESS and SCSS editing experience.
 </del>
@@ -32,11 +32,26 @@ This npm module is bundled and distributed in the [monaco-editor](https://www.np
 
 ## Development
 
-* `git clone https://github.com/Microsoft/monaco-go`
-* `cd monaco-go`
-* `npm install .`
-* `npm run watch`
-* open `$/monaco-go/test/index.html` in your favorite browser.
+Requires <https://github.com/mbana/vscode-go-languageservice>.
+
+```sh
+git clone git@github.com:mbana/vscode-go-languageservice.git
+git clone git@github.com:mbana/monaco-go.git
+
+cd vscode-go-languageservice && \
+    npm install && \
+    sudo npm link && \
+    cd ..
+
+cd monaco-go && \
+    npm link vscode-go-languageservice && \
+    npm install && \
+    npm run watch
+```
+
+```sh
+open monaco-go/test/index.html
+```
 
 ## License
 [MIT](https://github.com/Microsoft/monaco-go/blob/master/LICENSE.md)

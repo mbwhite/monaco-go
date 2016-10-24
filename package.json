@@ -1,13 +1,13 @@
 {
   "name": "monaco-go",
   "version": "1.2.1",
-  "description": "CSS, LESS and SCSS plugin for the Monaco Editor",
+  "description": "Go plugin for the Monaco Editor",
   "scripts": {
     "compile": "gulp compile",
     "watch": "gulp watch",
     "prepublish": "gulp release",
-    "install-service-next": "npm install vscode-css-languageservice@next -f -S",
-    "install-service-local": "npm install ../vscode-css-languageservice -f -S"
+    "install-service-next": "npm install vscode-go-languageservice@next -f -S",
+    "install-service-local": "npm install ../vscode-go-languageservice -f -S"
   },
   "author": "Microsoft Corporation",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "object-assign": "^4.1.0",
     "rimraf": "^2.5.2",
     "typescript": "2.0.3",
-    "vscode-css-languageservice": "^1.0.8",
+    "vscode-go-languageservice": "^1.0.8",
     "vscode-languageserver-types": "^1.0.2"
   }
 }

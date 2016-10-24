@@ -7,7 +7,7 @@
 import Promise = monaco.Promise;
 import IWorkerContext = monaco.worker.IWorkerContext;
 
-import * as cssService from 'vscode-css-languageservice';
+import * as cssService from 'vscode-go-languageservice';
 import * as ls from 'vscode-languageserver-types';
 
 export class GoWorker {
