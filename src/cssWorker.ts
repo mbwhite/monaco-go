@@ -10,7 +10,7 @@ import IWorkerContext = monaco.worker.IWorkerContext;
 import * as cssService from 'vscode-css-languageservice';
 import * as ls from 'vscode-languageserver-types';
 
-export class CSSWorker {
+export class GoWorker {
 
 	// --- model sync -----------------------
 
@@ -117,6 +117,6 @@ export interface ICreateData {
 	languageSettings: cssService.LanguageSettings;
 }
 
-export function create(ctx:IWorkerContext, createData: ICreateData): CSSWorker {
-	return new CSSWorker(ctx, createData);
+export function create(ctx:IWorkerContext, createData: ICreateData): GoWorker {
+	return new GoWorker(ctx, createData);
 }

@@ -5,7 +5,7 @@
 'use strict';
 
 import {LanguageServiceDefaultsImpl} from './monaco.contribution';
-import {CSSWorker} from './cssWorker';
+import {GoWorker} from './cssWorker';
 
 import * as ls from 'vscode-languageserver-types';
 
@@ -19,7 +19,7 @@ import IDisposable = monaco.IDisposable;
 
 
 export interface WorkerAccessor {
-	(first: Uri, ...more: Uri[]): Promise<CSSWorker>
+	(first: Uri, ...more: Uri[]): Promise<GoWorker>
 }
 
 // --- diagnostics --- ---

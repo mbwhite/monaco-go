@@ -5,7 +5,7 @@
 'use strict';
 
 import {WorkerManager} from './workerManager';
-import {CSSWorker} from './cssWorker';
+import {GoWorker} from './cssWorker';
 import {LanguageServiceDefaultsImpl} from './monaco.contribution';
 import * as languageFeatures from './languageFeatures';
 
@@ -20,7 +20,7 @@ export function setupMode(defaults: LanguageServiceDefaultsImpl): void {
 	const client = new WorkerManager(defaults);
 	disposables.push(client);
 
-	const worker = (first: Uri, ...more: Uri[]): Promise<CSSWorker> => {
+	const worker = (first: Uri, ...more: Uri[]): Promise<GoWorker> => {
 		return client.getLanguageServiceWorker(...[first].concat(more));
 	};
 

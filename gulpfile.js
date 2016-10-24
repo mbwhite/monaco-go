@@ -24,9 +24,9 @@ gulp.task('release', ['clean-release','compile'], function() {
 	var BUNDLED_FILE_HEADER = [
 		'/*!-----------------------------------------------------------------------------',
 		' * Copyright (c) Microsoft Corporation. All rights reserved.',
-		' * monaco-css version: ' + headerVersion,
+		' * monaco-go version: ' + headerVersion,
 		' * Released under the MIT license',
-		' * https://github.com/Microsoft/monaco-css/blob/master/LICENSE.md',
+		' * https://github.com/Microsoft/monaco-go/blob/master/LICENSE.md',
 		' *-----------------------------------------------------------------------------*/',
 		''
 	].join('\n');
@@ -58,8 +58,8 @@ gulp.task('release', ['clean-release','compile'], function() {
 
 	return merge(
 		merge(
-			bundleOne('monaco.contribution', ['vs/language/css/cssMode']),
-			bundleOne('cssMode'),
+			bundleOne('monaco.contribution', ['vs/language/css/goMode']),
+			bundleOne('goMode'),
 			bundleOne('cssWorker')
 		)
 		.pipe(es.through(function(data) {
