@@ -67,15 +67,15 @@ const diagnosticDefault: monaco.languages.go.DiagnosticsOptions = {
 	}
 }
 
-const cssDefaults = new LanguageServiceDefaultsImpl('css', diagnosticDefault);
+const goDefaults = new LanguageServiceDefaultsImpl('go', diagnosticDefault);
 const scssDefaults = new LanguageServiceDefaultsImpl('scss', diagnosticDefault);
 const lessDefaults = new LanguageServiceDefaultsImpl('less', diagnosticDefault);
 
 
 // Export API
-function createAPI(): typeof monaco.languages.css {
+function createAPI(): typeof monaco.languages.go {
 	return {
-		cssDefaults: cssDefaults,
+		goDefaults: goDefaults,
 		lessDefaults: lessDefaults,
 		scssDefaults: scssDefaults
 	}
@@ -96,6 +96,6 @@ monaco.languages.onLanguage('scss', () => {
 	withMode(mode => mode.setupMode(scssDefaults));
 });
 
-monaco.languages.onLanguage('css', () => {
-	withMode(mode => mode.setupMode(cssDefaults));
+monaco.languages.onLanguage('go', () => {
+	withMode(mode => mode.setupMode(goDefaults));
 });

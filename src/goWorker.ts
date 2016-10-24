@@ -7,7 +7,7 @@
 import Promise = monaco.Promise;
 import IWorkerContext = monaco.worker.IWorkerContext;
 
-import * as cssService from 'vscode-go-languageservice';
+import * as goService from 'vscode-go-languageservice';
 import * as ls from 'vscode-languageserver-types';
 
 export class GoWorker {
@@ -15,8 +15,8 @@ export class GoWorker {
 	// --- model sync -----------------------
 
 	private _ctx:IWorkerContext;
-	private _languageService: cssService.LanguageService;
-	private _languageSettings: cssService.LanguageSettings;
+	private _languageService: goService.LanguageService;
+	private _languageSettings: goService.LanguageSettings;
 	private _languageId: string;
 
 	constructor(ctx:IWorkerContext, createData: ICreateData) {
@@ -24,14 +24,15 @@ export class GoWorker {
 		this._languageSettings = createData.languageSettings;
 		this._languageId = createData.languageId;
 		switch (this._languageId) {
-			case 'css':
-				this._languageService = cssService.getCSSLanguageService();
+			case 'go':
+				this._languageService = goService.getGoLanguageService();
 				break;
+
 			case 'less':
-				this._languageService = cssService.getLESSLanguageService();
+				this._languageService = goService.getLESSLanguageService();
 				break;
 			case 'scss':
-				this._languageService = cssService.getSCSSLanguageService();
+				this._languageService = goService.getSCSSLanguageService();
 				break;
 			default:
 				throw new Error('Invalid language id: ' + this._languageId);
@@ -114,7 +115,7 @@ export class GoWorker {
 
 export interface ICreateData {
 	languageId: string;
-	languageSettings: cssService.LanguageSettings;
+	languageSettings: goService.LanguageSettings;
 }
 
 export function create(ctx:IWorkerContext, createData: ICreateData): GoWorker {

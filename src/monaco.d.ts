@@ -33,7 +33,7 @@ declare module monaco.languages.go {
 		setDiagnosticsOptions(options: DiagnosticsOptions): void;
 	}
 
-	export var cssDefaults: LanguageServiceDefaults;
+	export var goDefaults: LanguageServiceDefaults;
 	export var lessDefaults: LanguageServiceDefaults;
 	export var scssDefaults: LanguageServiceDefaults;
 }

@@ -43,7 +43,7 @@ gulp.task('release', ['clean-release','compile'], function() {
 			packages: [{
 				name: 'vscode-go-languageservice',
 				location: __dirname + '/node_modules/vscode-go-languageservice/lib',
-				main: 'cssLanguageService'
+				main: 'goLanguageService'
 			}, {
 				name: 'vscode-languageserver-types',
 				location: __dirname + '/node_modules/vscode-languageserver-types/lib',

@@ -32,5 +32,8 @@
     "typescript": "2.0.3",
     "vscode-go-languageservice": "^1.0.8",
     "vscode-languageserver-types": "^1.0.2"
+  },
+  "dependencies": {
+    "vscode-go-languageservice": "file:///home/mbana/Desktop/vscode/mbana/vscode-go-languageservice"
   }
 }

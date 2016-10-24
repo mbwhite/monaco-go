@@ -32,25 +32,50 @@ This npm module is bundled and distributed in the [monaco-editor](https://www.np
 
 ## Development
 
-Requires <https://github.com/mbana/vscode-go-languageservice>.
+See:
+
+* [scripts/install.sh](scripts/install.sh).
+* [scripts/open.sh](scripts/open.sh).
+* Requires [vscode-go-languageservice](https://github.com/mbana/vscode-go-languageservice).
+
+---
 
 ```sh
-git clone git@github.com:mbana/vscode-go-languageservice.git
-git clone git@github.com:mbana/monaco-go.git
+#!/bin/sh -x
+
+DEPTH="--depth 1"
+REPOS="vscode-go-languageservice monaco-go"
+for REPO in $REPOS
+do
+    git clone $DEPTH git@github.com:mbana/$REPO.git
+done
 
 cd vscode-go-languageservice && \
-    npm install && \
-    sudo npm link && \
-    cd ..
+	npm install && \
+	sudo npm link && \
+	cd ..
 
+# the line npm install ../vscode-go-languageservice -f
+# is required...
 cd monaco-go && \
-    npm link vscode-go-languageservice && \
-    npm install && \
-    npm run watch
+	npm link vscode-go-languageservice && \
+	npm install ../vscode-go-languageservice -f -S && \
+	npm install && \
+	npm run watch
+
 ```
 
 ```sh
-open monaco-go/test/index.html
+#!/bin/bash -x
+
+TEST_FILE=$([[ -e "./test/index.html" ]] && echo "./test/index.html" || echo "monaco-go/test/index.html")
+
+OS_TYPE=$(echo $OSTYPE)
+case $OS_TYPE in
+  darwin*)  open $TEST_FILE ;;
+  linux*)   xdg-open $TEST_FILE ;;
+  *)        echo "unknown: ${OS_TYPE}" ;;
+esac
 ```
 
 ## License
