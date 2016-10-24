@@ -24,26 +24,7 @@
 <script src="../node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
 <script src="../node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
 
-<script>
-	require([
-		'vs/basic-languages/src/monaco.contribution',
-		'vs/language/go/monaco.contribution'
-	], function() {
-		var editor = monaco.editor.create(document.getElementById('container'), {
-			value:
-`package main
-
-
-import "fmt"
-
-func main() {
-    fmt.Println("hello world")
-}
-`,
-			language: 'go'
-		});
-	});
-</script>
+<script src="../out/test/monaco-go.js"></script>
 
 </body>
 </html>
