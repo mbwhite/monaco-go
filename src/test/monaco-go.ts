@@ -11,12 +11,12 @@ fetch(exampleUrl).then(exampleGo => exampleGo.text()).then(exampleGo => {
     ], function () {
         let GoMode = monaco.languages.go.goDefaults;
         // let languageId = GoMode.languageId;
-        let languageId = 'goLanguageService';
+        let GO_LANGUAGE_ID = 'go';
 
         let domElement: HTMLElement = document.getElementById('container');
         let options: IEditorConstructionOptions = {
             "value": exampleGo,
-            "language": "goLanguageService",
+            "language": GO_LANGUAGE_ID,
             "fontSize": 10,
             "lineNumbers": "on",
         };
@@ -32,7 +32,7 @@ fetch(exampleUrl).then(exampleGo => exampleGo.text()).then(exampleGo => {
 
         window.debug_update_editor = () => {
             let value = exampleGo;
-            let language = 'goLanguageService';
+            let language = GO_LANGUAGE_ID;
             let model: monaco.editor.IModel = monaco.editor.createModel(value, language);
 
             monaco.editor.setModelLanguage(model, language);

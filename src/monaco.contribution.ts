@@ -67,7 +67,9 @@ const diagnosticDefault: monaco.languages.go.DiagnosticsOptions = {
 	}
 }
 
-const goDefaults = new LanguageServiceDefaultsImpl('go', diagnosticDefault);
+const GO_LANGUAGE_ID = `go`;
+
+const goDefaults = new LanguageServiceDefaultsImpl(GO_LANGUAGE_ID, diagnosticDefault);
 const scssDefaults = new LanguageServiceDefaultsImpl('scss', diagnosticDefault);
 const lessDefaults = new LanguageServiceDefaultsImpl('less', diagnosticDefault);
 
@@ -85,6 +87,7 @@ monaco.languages.go = createAPI();
 // --- Registration to monaco editor ---
 
 function withMode(callback: (module: typeof mode) => void): void {
+    console.info(`withMode(${GO_LANGUAGE_ID}): `, callback);
 	require<typeof mode>(['vs/language/go/goMode'], callback);
 }
 
@@ -96,6 +99,7 @@ monaco.languages.onLanguage('scss', () => {
 	withMode(mode => mode.setupMode(scssDefaults));
 });
 
-monaco.languages.onLanguage('go', () => {
+monaco.languages.onLanguage(GO_LANGUAGE_ID, (...args) => {
+    console.info(`monaco.languages.onLanguage(${GO_LANGUAGE_ID}): `, ...args);
 	withMode(mode => mode.setupMode(goDefaults));
 });
