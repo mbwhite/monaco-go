@@ -4,7 +4,7 @@ TEST_FILE=$([[ -e "./test/index.html" ]] && echo "./test/index.html" || echo "mo
 
 OS_TYPE=$(echo $OSTYPE)
 case $OS_TYPE in
-  darwin*)  open $TEST_FILE ;;
-  linux*)   xdg-open $TEST_FILE ;;
+  darwin*)  open $TEST_FILE & ;;
+  linux*)   xdg-open $TEST_FILE & ;;
   *)        echo "unknown: ${OS_TYPE}" ;;
 esac
