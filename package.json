@@ -8,7 +8,7 @@
     "prepublish": "gulp release",
     "install-service-next": "npm install vscode-go-languageservice@next -f -S",
     "install-service-local": "npm install ../vscode-go-languageservice -f -S",
-    "lint": "node ./node_modules/./bin/tslint ./src/*.ts ./src/debugAdapter/*.ts ./test/*.ts"
+    "lint": "./node_modules/./bin/tslint ./src/*.ts ./src/debugAdapter/*.ts ./test/*.ts"
 
   },
   "author": "Microsoft Corporation",
