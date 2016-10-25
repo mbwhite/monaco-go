@@ -1,9 +1,15 @@
 {
-  "compilerOptions": {
-    "module": "umd",
-    "moduleResolution": "node",
-    "outDir": "../out",
-    "target": "es5",
-    "sourceMap": true
-  }
+    "compilerOptions": {
+        "target": "es5",
+        "module": "umd",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "inlineSources": false,
+        "declaration": true,
+        "stripInternal": true,
+        "lib": [
+            "es5"
+        ],
+        "outDir": "../out"
+    }
 }
