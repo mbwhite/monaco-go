@@ -3,3 +3,4 @@
 /release/
 *log*
 .dev-tmp/
+.vscode-test/
