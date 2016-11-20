@@ -1,15 +1,28 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "umd",
-        "moduleResolution": "node",
-        "sourceMap": true,
-        "inlineSources": false,
-        "declaration": true,
-        "stripInternal": true,
-        "lib": [
-            "es5"
-        ],
-        "outDir": "../out"
+		"target": "es2015",
+		"lib": [
+			"es2015",
+            "es2015.promise",
+            "dom"
+		],
+
+		"module": "umd",
+		"moduleResolution": "node",
+
+        "outDir": "../out",
+
+		"sourceMap": true,
+		"inlineSources": false,
+		"declaration": true,
+		"stripInternal": false,
+		"preserveConstEnums": true,
+		"noEmitOnError": true,
+		"pretty": true,
+		"inlineSourceMap": false,
+
+		"removeComments": false,
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true
     }
 }

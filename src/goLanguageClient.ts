@@ -8,16 +8,12 @@ import {
     CloseAction,
     TransportKind
 } from 'vscode-languageclient';
-
 import {
     Message
 } from 'vscode-jsonrpc';
-
 import {
     TextDocument
-
 } from 'vscode-languageserver-types';
-
 import Uri from 'vscode-uri';
 
 export class GoLanguageClient {

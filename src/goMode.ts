@@ -6,7 +6,8 @@ import { WorkerManager } from './workerManager';
 import { GoWorker } from './goWorker';
 import { LanguageServiceDefaultsImpl } from './monaco.contribution';
 import * as languageFeatures from './languageFeatures';
-import { GoLanguageClient } from './goLanguageClient';
+// import { GoLanguageClient } from './goLanguageClient';
+import { GoLanguageClient } from './go-language-client';
 
 import Promise = monaco.Promise;
 import Uri = monaco.Uri;
@@ -34,7 +35,3 @@ export function setupMode(defaults: LanguageServiceDefaultsImpl): void {
     disposables.push(monaco.languages.registerRenameProvider(languageId, new languageFeatures.RenameAdapter(worker)));
     disposables.push(new languageFeatures.DiagnostcsAdapter(languageId, worker));
 }
-
-
-
-
