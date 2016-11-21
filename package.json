@@ -32,6 +32,7 @@
     "typescript": "2.0.3",
     "vscode-css-languageservice": "^1.0.8",
     "vscode-languageserver-types": "^2.0.0-alpha.1",
+    "vscode-languageclient": "^3.0.0-alpha.2",
     "vscode-go-languageservice": "^1.1.0"
   }
 }
