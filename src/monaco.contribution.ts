@@ -2,6 +2,8 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+'use strict';
+
 import * as mode from './goMode';
 
 import Emitter = monaco.Emitter;
@@ -65,19 +67,13 @@ const diagnosticDefault: monaco.languages.go.DiagnosticsOptions = {
 	}
 }
 
-const GO_LANGUAGE_ID = `go`;
-
-const goDefaults = new LanguageServiceDefaultsImpl(GO_LANGUAGE_ID, diagnosticDefault);
-const scssDefaults = new LanguageServiceDefaultsImpl('scss', diagnosticDefault);
-const lessDefaults = new LanguageServiceDefaultsImpl('less', diagnosticDefault);
+const goDefaults = new LanguageServiceDefaultsImpl('go', diagnosticDefault);
 
 
 // Export API
 function createAPI(): typeof monaco.languages.go {
 	return {
-		goDefaults: goDefaults,
-		lessDefaults: lessDefaults,
-		scssDefaults: scssDefaults
+		go: goDefaults
 	}
 }
 monaco.languages.go = createAPI();
@@ -85,19 +81,9 @@ monaco.languages.go = createAPI();
 // --- Registration to monaco editor ---
 
 function withMode(callback: (module: typeof mode) => void): void {
-    console.info(`withMode(${GO_LANGUAGE_ID}): `, callback);
 	require<typeof mode>(['vs/language/go/goMode'], callback);
 }
 
-monaco.languages.onLanguage('less', () => {
-	withMode(mode => mode.setupMode(lessDefaults));
-});
-
-monaco.languages.onLanguage('scss', () => {
-	withMode(mode => mode.setupMode(scssDefaults));
-});
-
-monaco.languages.onLanguage(GO_LANGUAGE_ID, (...args) => {
-    console.info(`monaco.languages.onLanguage(${GO_LANGUAGE_ID}): `, ...args);
+monaco.languages.onLanguage('go', () => {
 	withMode(mode => mode.setupMode(goDefaults));
 });

@@ -11,8 +11,6 @@ fetch(exampleUrl).then(exampleGo => exampleGo.text()).then(exampleGo => {
         'vs/basic-languages/src/monaco.contribution',
         'vs/language/go/monaco.contribution'
     ], function () {
-        let GoMode = monaco.languages.go.goDefaults;
-        // let languageId = GoMode.languageId;
         let GO_LANGUAGE_ID = 'go';
 
         let domElement: HTMLElement = document.getElementById('container');
@@ -32,7 +30,7 @@ fetch(exampleUrl).then(exampleGo => exampleGo.text()).then(exampleGo => {
         console.log('monaco.editor.getModels(): %O', monaco.editor.getModels());
         console.log('monaco.editor.getModels()[]: %O', monaco.editor.getModels()[0]);
 
-        window.debug_update_editor = () => {
+        window['debug_update_editor'] = () => {
             let value = exampleGo;
             let language = GO_LANGUAGE_ID;
             let model: monaco.editor.IModel = monaco.editor.createModel(value, language);

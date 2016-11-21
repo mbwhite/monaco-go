@@ -1,14 +1,13 @@
 {
   "name": "monaco-go",
   "version": "1.2.1",
-  "description": "Go plugin for the Monaco Editor",
+  "description": "CSS, LESS and SCSS plugin for the Monaco Editor",
   "scripts": {
-    "compile": "./node_modules/.bin/gulp compile",
-    "watch": "./node_modules/.bin/gulp watch",
-    "prepublish": "./node_modules/.bin/gulp release",
-    "install-service-next": "npm install vscode-go-languageservice@next -f -S",
-    "install-service-local": "npm install ../vscode-go-languageservice -f -S",
-    "lint": "./node_modules/.bin/tslint ./src/*.ts ./src/debugAdapter/*.ts ./test/*.ts"
+    "compile": "gulp compile",
+    "watch": "gulp watch",
+    "prepublish": "gulp release",
+    "install-service-next": "npm install vscode-css-languageservice@next -f -S",
+    "install-service-local": "npm install ../vscode-css-languageservice -f -S"
   },
   "author": "Microsoft Corporation",
   "license": "MIT",
@@ -30,16 +29,9 @@
     "monaco-languages": "^0.6.1",
     "object-assign": "^4.1.0",
     "rimraf": "^2.5.2",
-    "tslint": "^3.14.0",
-    "typescript": "^2.1.1",
-    "vscode": "^0.11.17"
-  },
-  "dependencies": {
-    "@types/whatwg-fetch": "^0.0.32",
-    "vscode-go-languageservice": "file://Users/mbana/dev/vscode/mbana/vscode-go-languageservice",
-    "vscode-jsonrpc": "^3.0.0-alpha.2",
-    "vscode-languageclient": "^3.0.0-alpha.2",
+    "typescript": "2.0.3",
+    "vscode-css-languageservice": "^1.0.8",
     "vscode-languageserver-types": "^2.0.0-alpha.1",
-    "vscode-uri": "^1.0.0"
+    "vscode-go-languageservice": "^1.1.0"
   }
 }

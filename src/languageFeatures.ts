@@ -2,6 +2,8 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+'use strict';
+
 import {LanguageServiceDefaultsImpl} from './monaco.contribution';
 import {GoWorker} from './goWorker';
 
@@ -189,9 +191,9 @@ export class CompletionAdapter implements monaco.languages.CompletionItemProvide
 				return;
 			}
 			let items: monaco.languages.CompletionItem[] = info.items.map(entry => {
-				return {
+				let completionItem: monaco.languages.CompletionItem = {
 					label: entry.label,
-					insertText: entry.insertText,
+					insertText: <string>entry.insertText,
 					sortText: entry.sortText,
 					filterText: entry.filterText,
 					documentation: entry.documentation,
@@ -199,6 +201,7 @@ export class CompletionAdapter implements monaco.languages.CompletionItemProvide
 					kind: toCompletionItemKind(entry.kind),
 					textEdit: toTextEdit(entry.textEdit)
 				};
+				return completionItem;
 			});
 
 			return {

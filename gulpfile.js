@@ -17,77 +17,69 @@ var es = require('event-stream');
 gulp.task('clean-release', function(cb) { rimraf('release', { maxBusyTries: 1 }, cb); });
 gulp.task('release', ['clean-release','compile'], function() {
 
-    var sha1 = getGitVersion(__dirname);
-    var semver = require('./package.json').version;
-    var headerVersion = semver + '(' + sha1 + ')';
+	var sha1 = getGitVersion(__dirname);
+	var semver = require('./package.json').version;
+	var headerVersion = semver + '(' + sha1 + ')';
 
-    var BUNDLED_FILE_HEADER = [
-        '/*!-----------------------------------------------------------------------------',
-        ' * Copyright (c) Microsoft Corporation. All rights reserved.',
-        ' * monaco-go version: ' + headerVersion,
-        ' * Released under the MIT license',
-        ' * https://github.com/Microsoft/monaco-go/blob/master/LICENSE.md',
-        ' *-----------------------------------------------------------------------------*/',
-        ''
-    ].join('\n');
+	var BUNDLED_FILE_HEADER = [
+		'/*!-----------------------------------------------------------------------------',
+		' * Copyright (c) Microsoft Corporation. All rights reserved.',
+		' * monaco-go version: ' + headerVersion,
+		' * Released under the MIT license',
+		' * https://github.com/mbana/monaco-go/blob/master/LICENSE.md',
+		' *-----------------------------------------------------------------------------*/',
+		''
+	].join('\n');
 
-    function bundleOne(moduleId, exclude) {
-        return rjs({
-            baseUrl: '/out/',
-            name: 'vs/language/go/' + moduleId,
-            out: moduleId + '.js',
-            exclude: exclude,
-            paths: {
-                'vs/language/go': __dirname + '/out'
-            },
-            packages: [{
-                    name: 'vscode-go-languageservice',
-                    location: __dirname + '/node_modules/vscode-go-languageservice/lib',
-                    main: 'goLanguageService'
-                }, {
-                    name: 'vscode-languageserver-types',
-                    location: __dirname + '/node_modules/vscode-languageserver-types/lib',
-                    main: 'main'
-                }, {
-                    name: 'vscode-nls',
-                    location: __dirname + '/out/fillers',
-                    main: 'vscode-nls'
-                }, {
-                    name: 'vscode-uri',
-                    location: __dirname + '/node_modules/vscode-uri/lib',
-                    main: 'index'
-                }, {
-                    name: 'vscode-jsonrpc',
-                    location: __dirname + '/node_modules/vscode-jsonrpc/lib',
-                    main: 'main'
-                }, {
-                    name: 'vscode-languageclient',
-                    location: __dirname + '/node_modules/vscode-languageclient/lib',
-                    main: 'main'
-                }]
-        })
-    }
+	function bundleOne(moduleId, exclude) {
+		return rjs({
+			baseUrl: '/out/',
+			name: 'vs/language/go/' + moduleId,
+			out: moduleId + '.js',
+			exclude: exclude,
+			paths: {
+				'vs/language/go': __dirname + '/out'
+			},
+			packages: [{
+				name: 'vscode-css-languageservice',
+				location: __dirname + '/node_modules/vscode-css-languageservice/lib',
+				main: 'cssLanguageService'
+			}, {
+				name: 'vscode-go-languageservice',
+				location: __dirname + '/node_modules/vscode-go-languageservice/lib',
+				main: 'goLanguageService'
+			}, {
+				name: 'vscode-languageserver-types',
+				location: __dirname + '/node_modules/vscode-languageserver-types/lib',
+				main: 'main'
+			}, {
+				name: 'vscode-nls',
+				location: __dirname + '/out/fillers',
+				main: 'vscode-nls'
+			}]
+		})
+	}
 
-    return merge(
-        merge(
-            bundleOne('monaco.contribution', ['vs/language/go/goMode']),
-            bundleOne('goMode'),
-            bundleOne('goWorker')
-        )
+	return merge(
+		merge(
+			bundleOne('monaco.contribution', ['vs/language/go/goMode']),
+			bundleOne('goMode'),
+			bundleOne('goWorker')
+		)
 		.pipe(es.through(function(data) {
-                data.contents = new Buffer(
-                    BUNDLED_FILE_HEADER
-                    + data.contents.toString()
-                );
-                this.emit('data', data);
-            }))
-            .pipe(gulp.dest('./release/dev'))
-            .pipe(uglify({
-                preserveComments: 'some'
-            }))
-            .pipe(gulp.dest('./release/min')),
-        gulp.src('src/monaco.d.ts').pipe(gulp.dest('./release/min'))
-    );
+			data.contents = new Buffer(
+				BUNDLED_FILE_HEADER
+				+ data.contents.toString()
+			);
+			this.emit('data', data);
+		}))
+		.pipe(gulp.dest('./release/dev'))
+		.pipe(uglify({
+			preserveComments: 'some'
+		}))
+		.pipe(gulp.dest('./release/min')),
+		gulp.src('src/monaco.d.ts').pipe(gulp.dest('./release/min'))
+	);
 });
 
 
@@ -96,17 +88,17 @@ var compilation = tsb.create(assign({ verbose: true }, require('./src/tsconfig.j
 var tsSources = 'src/**/*.ts';
 
 function compileTask() {
-    return merge(
-        gulp.src(tsSources).pipe(compilation())
-    )
-        .pipe(gulp.dest('out'));
+	return merge(
+		gulp.src(tsSources).pipe(compilation())
+	)
+	.pipe(gulp.dest('out'));
 }
 
 gulp.task('clean-out', function(cb) { rimraf('out', { maxBusyTries: 1 }, cb); });
 gulp.task('compile', ['clean-out'], compileTask);
 gulp.task('compile-without-clean', compileTask);
 gulp.task('watch', ['compile'], function() {
-    gulp.watch(tsSources, ['compile-without-clean']);
+	gulp.watch(tsSources, ['compile-without-clean']);
 });
 
 
@@ -114,120 +106,120 @@ gulp.task('watch', ['compile'], function() {
  * Escape text such that it can be used in a javascript string enclosed by double quotes (")
  */
 function escapeText(text) {
-    // http://www.javascriptkit.com/jsref/escapesequence.shtml
-    // \b	Backspace.
-    // \f	Form feed.
-    // \n	Newline.
-    // \O	Nul character.
-    // \r	Carriage return.
-    // \t	Horizontal tab.
-    // \v	Vertical tab.
-    // \'	Single quote or apostrophe.
-    // \"	Double quote.
-    // \\	Backslash.
-    // \ddd	The Latin-1 character specified by the three octal digits between 0 and 377. ie, copyright symbol is \251.
-    // \xdd	The Latin-1 character specified by the two hexadecimal digits dd between 00 and FF.  ie, copyright symbol is \xA9.
-    // \udddd	The Unicode character specified by the four hexadecimal digits dddd. ie, copyright symbol is \u00A9.
-    var _backspace = '\b'.charCodeAt(0);
-    var _formFeed = '\f'.charCodeAt(0);
-    var _newLine = '\n'.charCodeAt(0);
-    var _nullChar = 0;
-    var _carriageReturn = '\r'.charCodeAt(0);
-    var _tab = '\t'.charCodeAt(0);
-    var _verticalTab = '\v'.charCodeAt(0);
-    var _backslash = '\\'.charCodeAt(0);
-    var _doubleQuote = '"'.charCodeAt(0);
+	// http://www.javascriptkit.com/jsref/escapesequence.shtml
+	// \b	Backspace.
+	// \f	Form feed.
+	// \n	Newline.
+	// \O	Nul character.
+	// \r	Carriage return.
+	// \t	Horizontal tab.
+	// \v	Vertical tab.
+	// \'	Single quote or apostrophe.
+	// \"	Double quote.
+	// \\	Backslash.
+	// \ddd	The Latin-1 character specified by the three octal digits between 0 and 377. ie, copyright symbol is \251.
+	// \xdd	The Latin-1 character specified by the two hexadecimal digits dd between 00 and FF.  ie, copyright symbol is \xA9.
+	// \udddd	The Unicode character specified by the four hexadecimal digits dddd. ie, copyright symbol is \u00A9.
+	var _backspace = '\b'.charCodeAt(0);
+	var _formFeed = '\f'.charCodeAt(0);
+	var _newLine = '\n'.charCodeAt(0);
+	var _nullChar = 0;
+	var _carriageReturn = '\r'.charCodeAt(0);
+	var _tab = '\t'.charCodeAt(0);
+	var _verticalTab = '\v'.charCodeAt(0);
+	var _backslash = '\\'.charCodeAt(0);
+	var _doubleQuote = '"'.charCodeAt(0);
 
-    var startPos = 0, chrCode, replaceWith = null, resultPieces = [];
+	var startPos = 0, chrCode, replaceWith = null, resultPieces = [];
 
-    for (var i = 0, len = text.length; i < len; i++) {
-        chrCode = text.charCodeAt(i);
-        switch (chrCode) {
-            case _backspace:
-                replaceWith = '\\b';
-                break;
-            case _formFeed:
-                replaceWith = '\\f';
-                break;
-            case _newLine:
-                replaceWith = '\\n';
-                break;
-            case _nullChar:
-                replaceWith = '\\0';
-                break;
-            case _carriageReturn:
-                replaceWith = '\\r';
-                break;
-            case _tab:
-                replaceWith = '\\t';
-                break;
-            case _verticalTab:
-                replaceWith = '\\v';
-                break;
-            case _backslash:
-                replaceWith = '\\\\';
-                break;
-            case _doubleQuote:
-                replaceWith = '\\"';
-                break;
-        }
-        if (replaceWith !== null) {
-            resultPieces.push(text.substring(startPos, i));
-            resultPieces.push(replaceWith);
-            startPos = i + 1;
-            replaceWith = null;
-        }
-    }
-    resultPieces.push(text.substring(startPos, len));
-    return resultPieces.join('');
+	for (var i = 0, len = text.length; i < len; i++) {
+		chrCode = text.charCodeAt(i);
+		switch (chrCode) {
+			case _backspace:
+				replaceWith = '\\b';
+				break;
+			case _formFeed:
+				replaceWith = '\\f';
+				break;
+			case _newLine:
+				replaceWith = '\\n';
+				break;
+			case _nullChar:
+				replaceWith = '\\0';
+				break;
+			case _carriageReturn:
+				replaceWith = '\\r';
+				break;
+			case _tab:
+				replaceWith = '\\t';
+				break;
+			case _verticalTab:
+				replaceWith = '\\v';
+				break;
+			case _backslash:
+				replaceWith = '\\\\';
+				break;
+			case _doubleQuote:
+				replaceWith = '\\"';
+				break;
+		}
+		if (replaceWith !== null) {
+			resultPieces.push(text.substring(startPos, i));
+			resultPieces.push(replaceWith);
+			startPos = i + 1;
+			replaceWith = null;
+		}
+	}
+	resultPieces.push(text.substring(startPos, len));
+	return resultPieces.join('');
 }
 
 function getGitVersion(repo) {
-    var git = path.join(repo, '.git');
-    var headPath = path.join(git, 'HEAD');
-    var head;
+	var git = path.join(repo, '.git');
+	var headPath = path.join(git, 'HEAD');
+	var head;
 
-    try {
-        head = fs.readFileSync(headPath, 'utf8').trim();
-    } catch (e) {
-        return void 0;
-    }
+	try {
+		head = fs.readFileSync(headPath, 'utf8').trim();
+	} catch (e) {
+		return void 0;
+	}
 
-    if (/^[0-9a-f]{40}$/i.test(head)) {
-        return head;
-    }
+	if (/^[0-9a-f]{40}$/i.test(head)) {
+		return head;
+	}
 
-    var refMatch = /^ref: (.*)$/.exec(head);
+	var refMatch = /^ref: (.*)$/.exec(head);
 
-    if (!refMatch) {
-        return void 0;
-    }
+	if (!refMatch) {
+		return void 0;
+	}
 
-    var ref = refMatch[1];
-    var refPath = path.join(git, ref);
+	var ref = refMatch[1];
+	var refPath = path.join(git, ref);
 
-    try {
-        return fs.readFileSync(refPath, 'utf8').trim();
-    } catch (e) {
-        // noop
-    }
+	try {
+		return fs.readFileSync(refPath, 'utf8').trim();
+	} catch (e) {
+		// noop
+	}
 
-    var packedRefsPath = path.join(git, 'packed-refs');
-    var refsRaw;
+	var packedRefsPath = path.join(git, 'packed-refs');
+	var refsRaw;
 
-    try {
-        refsRaw = fs.readFileSync(packedRefsPath, 'utf8').trim();
-    } catch (e) {
-        return void 0;
-    }
+	try {
+		refsRaw = fs.readFileSync(packedRefsPath, 'utf8').trim();
+	} catch (e) {
+		return void 0;
+	}
 
-    var refsRegex = /^([0-9a-f]{40})\s+(.+)$/gm;
-    var refsMatch;
-    var refs = {};
+	var refsRegex = /^([0-9a-f]{40})\s+(.+)$/gm;
+	var refsMatch;
+	var refs = {};
 
-    while (refsMatch = refsRegex.exec(refsRaw)) {
-        refs[refsMatch[2]] = refsMatch[1];
-    }
+	while (refsMatch = refsRegex.exec(refsRaw)) {
+		refs[refsMatch[2]] = refsMatch[1];
+	}
 
-    return refs[ref];
+	return refs[ref];
 }

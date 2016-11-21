@@ -2,6 +2,8 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+'use strict';
+
 import {LanguageServiceDefaultsImpl} from './monaco.contribution';
 import {GoWorker} from './goWorker';
 
@@ -59,7 +61,7 @@ export class WorkerManager {
 		if (!this._client) {
 			this._worker = monaco.editor.createWebWorker<GoWorker>({
 
-				// module that exports the create() method and returns a `GoWorker` instance
+				// module that exports the create() method and returns a `CSSWorker` instance
 				moduleId: 'vs/language/go/goWorker',
 
 				label: this._defaults.languageId,

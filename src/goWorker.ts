@@ -2,9 +2,12 @@
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
+'use strict';
+
 import Promise = monaco.Promise;
 import IWorkerContext = monaco.worker.IWorkerContext;
 
+import * as cssService from 'vscode-css-languageservice';
 import * as goService from 'vscode-go-languageservice';
 import * as ls from 'vscode-languageserver-types';
 
@@ -13,8 +16,9 @@ export class GoWorker {
 	// --- model sync -----------------------
 
 	private _ctx:IWorkerContext;
-	private _languageService: goService.LanguageService;
-	private _languageSettings: goService.LanguageSettings;
+	private _languageService: cssService.LanguageService;
+	private _goLanguageService: goService.LanguageService;
+	private _languageSettings: cssService.LanguageSettings;
 	private _languageId: string;
 
 	constructor(ctx:IWorkerContext, createData: ICreateData) {
@@ -23,14 +27,8 @@ export class GoWorker {
 		this._languageId = createData.languageId;
 		switch (this._languageId) {
 			case 'go':
-				this._languageService = goService.getGoLanguageService();
-				break;
-
-			case 'less':
-				this._languageService = goService.getLESSLanguageService();
-				break;
-			case 'scss':
-				this._languageService = goService.getSCSSLanguageService();
+				this._languageService = cssService.getCSSLanguageService();
+				this._goLanguageService = goService.getGoLanguageService();
 				break;
 			default:
 				throw new Error('Invalid language id: ' + this._languageId);
@@ -113,7 +111,7 @@ export class GoWorker {
 
 export interface ICreateData {
 	languageId: string;
-	languageSettings: goService.LanguageSettings;
+	languageSettings: cssService.LanguageSettings;
 }
 
 export function create(ctx:IWorkerContext, createData: ICreateData): GoWorker {
