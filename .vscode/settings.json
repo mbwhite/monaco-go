@@ -2,8 +2,11 @@
 {
 	"files.trimTrailingWhitespace": true,
 	"search.exclude": {
-		"**/node_modules": true,
 		// "**/release": true,
 		// "**/out": true
-	}
+		"**/node_modules": true
+	},
+
+	"tslint.enable": true,
+	"tslint.configFile": "./src/tslint.json"
 }

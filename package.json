@@ -3,9 +3,10 @@
   "version": "1.2.1",
   "description": "CSS, LESS and SCSS plugin for the Monaco Editor",
   "scripts": {
-    "compile": "gulp compile",
-    "watch": "gulp watch",
-    "prepublish": "gulp release",
+    "compile": "./node_modules/.bin/gulp compile",
+    "watch": "./node_modules/.bin/gulp watch",
+    "prepublish": "./node_modules/.bin/gulp release",
+    "lint": "./node_modules/.bin/tslint ./src/**/*.ts",
     "install-service-next": "npm install vscode-css-languageservice@next -f -S",
     "install-service-local": "npm install ../vscode-css-languageservice -f -S"
   },
@@ -29,10 +30,11 @@
     "monaco-languages": "^0.6.1",
     "object-assign": "^4.1.0",
     "rimraf": "^2.5.2",
+    "tslint": "^4.0.1",
     "typescript": "2.0.3",
     "vscode-css-languageservice": "^1.0.8",
     "vscode-languageserver-types": "^2.0.0-alpha.1",
     "vscode-languageclient": "^3.0.0-alpha.2",
-    "vscode-go-languageservice": "^1.1.0"
+    "vscode-go-languageservice": "file://Users/mbana/dev/vscode/mbana/vscode-go-languageservice"
   }
 }
