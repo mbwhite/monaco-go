@@ -1,12 +1,13 @@
 // Place your settings in this file to overwrite default and user settings.
 {
 	"files.trimTrailingWhitespace": true,
+
 	"search.exclude": {
 		// "**/release": true,
 		// "**/out": true
 		"**/node_modules": true
 	},
 
-	"tslint.enable": true,
-	"tslint.configFile": "./src/tslint.json"
+  "tslint.configFile": "./src/tslint.json",
+  "tslint.enable": true
 }
