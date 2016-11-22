@@ -7,7 +7,7 @@
     "watch": "./node_modules/.bin/gulp watch",
     "prepublish": "./node_modules/.bin/gulp release",
     "lint": "./node_modules/.bin/tslint ./src/**/*.ts",
-    "serve": "yarn run compile && ./node_modules/.bin/http-server -c-1 --utc",
+    "serve": "yarn run compile && ./node_modules/.bin/http-server -c-1 --utc -o",
     "install-service-next": "npm install vscode-css-languageservice@next -f -S",
     "install-service-local": "npm install ../vscode-css-languageservice -f -S"
   },
