@@ -1,3 +1,0 @@
-[submodule "src/sample/example"]
-	path = src/sample/example
-	url = git@github.com:golang/example.git

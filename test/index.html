@@ -11,7 +11,7 @@
 <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
 
 <script>
-	// Loading basic-languages to get the Go language definition
+	// Loading basic-languages to get the css language definition
 	var require = {
 		paths: {
 			'vs/basic-languages': '../node_modules/monaco-languages/release',
@@ -24,37 +24,20 @@
 <script src="../node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
 <script src="../node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
 
-<script>
-
+<script src="../out/sample/monaco-go.js"></script>
+<!--<script>
 var exampleUrl = "https://raw.githubusercontent.com/golang/example/master/hello/hello.go";
 fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); }).then(function (exampleGo) {
-    require([
-        'vs/basic-languages/src/monaco.contribution',
-        'vs/language/go/monaco.contribution'
-    ], function () {
-        var GO_LANGUAGE_ID = 'go';
-        var domElement = document.getElementById('container');
-        var options = {
-            "value": exampleGo,
-            "language": GO_LANGUAGE_ID,
-            "fontSize": 10,
-            "lineNumbers": "on",
-        };
-        var editor = monaco.editor.create(domElement, options);
-        if (editor) {
-            console.log('editor: %O', editor);
-            console.log('editor.model: %O', editor.getModel());
-        }
-        console.log('monaco.editor.getModels(): %O', monaco.editor.getModels());
-        console.log('monaco.editor.getModels()[]: %O', monaco.editor.getModels()[0]);
-        window['debug_update_editor'] = function () {
-            var value = exampleGo;
-            var language = GO_LANGUAGE_ID;
-            var model = monaco.editor.createModel(value, language);
-            monaco.editor.setModelLanguage(model, language);
-        };
-    });
-});
+	require([
+		'vs/basic-languages/src/monaco.contribution',
+		'vs/language/go/monaco.contribution'
+	], function() {
+		var editor = monaco.editor.create(document.getElementById('container'), {
+			value: exampleGo,
+			language: 'go'
+		});
+	});
+});-->
 </script>
 
 </body>

@@ -1,6 +1,5 @@
 /// <reference path="./whatwg-fetch.d.ts" />
 
-import Promise = monaco.Promise;
 import Emitter = monaco.Emitter;
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
@@ -8,10 +7,38 @@ import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
 declare var fetch: typeof window.fetch;
 declare var require: <T>(moduleId: [string], callback: (module: T) => void) => void;
 
-let url = `https://raw.githubusercontent.com/golang/example/master/hello/hello.go`;
-let goExample: Promise<string> = fetch(url).then(exampleGo => exampleGo.text());
+// let url = `https://raw.githubusercontent.com/golang/example/master/hello/hello.go`;
+// let goExample: Promise<string> = fetch(url).then(exampleGo => exampleGo.text());
 
-goExample.then((goExampleFile: string) => {
+let urls: string[] = [
+	'../../golang/example/appengine-hello/app.go',
+	'../../golang/example/gotypes/defsuses/main.go',
+	'../../golang/example/gotypes/doc/main.go',
+	'../../golang/example/gotypes/hello/hello.go',
+	'../../golang/example/gotypes/hugeparam/main.go',
+	'../../golang/example/gotypes/implements/main.go',
+	'../../golang/example/gotypes/lookup/lookup.go',
+	'../../golang/example/gotypes/nilfunc/main.go',
+	'../../golang/example/gotypes/pkginfo/main.go',
+	'../../golang/example/gotypes/skeleton/main.go',
+	'../../golang/example/gotypes/typeandvalue/main.go',
+	'../../golang/example/gotypes/weave.go',
+	'../../golang/example/hello/hello.go',
+	'../../golang/example/outyet/main.go',
+	'../../golang/example/outyet/main_test.go',
+	'../../golang/example/stringutil/reverse.go',
+	'../../golang/example/stringutil/reverse_test.go',
+	'../../golang/example/template/main.go'
+];
+
+let examplesRequests = urls.map(url => fetch(url).then(example => example.text()));
+Promise.all(examplesRequests).then((examples) => {
+	// get this file for now: ../golang/example/gotypes/hello/hello.go
+	if (examples.length <= 3) {
+		return;
+	}
+
+	let goExampleFile = examples[3];
 	require([
 		'vs/basic-languages/src/monaco.contribution',
 		'vs/language/go/monaco.contribution'
@@ -42,7 +69,7 @@ goExample.then((goExampleFile: string) => {
 			monaco.editor.setModelLanguage(model, language);
 		};
 	});
-}, (err) => {
+}).catch((err) => {
 	let msg = `Failed to fetch - url: ${url}, err: ${err}`;
 	console.error(msg);
 });
