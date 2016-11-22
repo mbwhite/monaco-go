@@ -3,28 +3,32 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-	<link rel="stylesheet" data-name="vs/editor/editor.main" href="../node_modules/monaco-editor-core/dev/vs/editor/editor.main.css">
+	<link rel="stylesheet" data-name="vs/editor/editor.main" href="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.css">
 </head>
 <body>
 
 <h2>Monaco Editor Go test page</h2>
 <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+<div id="example_files_container" style="width:800px;height:200px; margin-top: 64px;">
+	<h2>Examples</h2>
+	<div id="example_files" style="width:800px;height:200px;border:1px solid grey;"></div>
+</div>
 
 <script>
 	// Loading basic-languages to get the css language definition
 	var require = {
 		paths: {
-			'vs/basic-languages': '../node_modules/monaco-languages/release',
-			'vs/language/go': '../release/dev',
-			'vs': '../node_modules/monaco-editor-core/dev/vs'
+			'vs/basic-languages': './node_modules/monaco-languages/release',
+			'vs/language/go': './release/dev',
+			'vs': './node_modules/monaco-editor-core/dev/vs'
 		}
 	};
 </script>
-<script src="../node_modules/monaco-editor-core/dev/vs/loader.js"></script>
-<script src="../node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
-<script src="../node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
+<script src="./node_modules/monaco-editor-core/dev/vs/loader.js"></script>
+<script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
+<script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
 
-<script src="../out/sample/monaco-go.js"></script>
+<script src="./out/sample/monaco-go.js"></script>
 <!--<script>
 var exampleUrl = "https://raw.githubusercontent.com/golang/example/master/hello/hello.go";
 fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); }).then(function (exampleGo) {

@@ -31,8 +31,33 @@ let urls: string[] = [
 	'../../golang/example/template/main.go'
 ];
 
+let createExampleFileDom = (examples: string[] = []) => {
+	let EXAMPLES_ID = 'example_files';
+	let EXAMPLES_DIV = document.getElementById(EXAMPLES_ID);
+
+	examples.map((exampleFile, index) => {
+		let exampleName = urls[index];
+
+		let exampleDiv = document.createElement('div');
+		document.getElementById(EXAMPLES_ID).appendChild(exampleDiv);
+
+		var nameNode = document.createElement('h4');
+		nameNode.innerHTML = exampleName;
+		exampleDiv.appendChild(nameNode);
+
+		let fileNode = document.createElement('span');
+		fileNode.style.display = 'block';
+		fileNode.style.width = '100%';
+		fileNode.style['font-family'] = 'monospace';
+		fileNode.innerHTML = exampleFile;
+		exampleDiv.appendChild(fileNode);
+	});
+}
+
 let examplesRequests = urls.map(url => fetch(url).then(example => example.text()));
 Promise.all(examplesRequests).then((examples) => {
+	createExampleFileDom(examples);
+
 	// get this file for now: ../golang/example/gotypes/hello/hello.go
 	if (examples.length <= 3) {
 		return;
@@ -70,6 +95,6 @@ Promise.all(examplesRequests).then((examples) => {
 		};
 	});
 }).catch((err) => {
-	let msg = `Failed to fetch - url: ${url}, err: ${err}`;
+	let msg = `Failed to fetch - err: ${err}`;
 	console.error(msg);
 });
