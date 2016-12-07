@@ -65,7 +65,7 @@ const diagnosticDefault: monaco.languages.go.DiagnosticsOptions = {
 		float: 'ignore',
 		idSelector: 'ignore'
 	}
-}
+};
 
 const goDefaults = new LanguageServiceDefaultsImpl('go', diagnosticDefault);
 
@@ -74,7 +74,7 @@ const goDefaults = new LanguageServiceDefaultsImpl('go', diagnosticDefault);
 function createAPI(): typeof monaco.languages.go {
 	return {
 		go: goDefaults
-	}
+	};
 }
 monaco.languages.go = createAPI();
 

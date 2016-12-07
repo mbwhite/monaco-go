@@ -14,8 +14,8 @@ var uglify = require('gulp-uglify');
 var rimraf = require('rimraf');
 var es = require('event-stream');
 
-gulp.task('clean-release', function(cb) { rimraf('release', { maxBusyTries: 1 }, cb); });
-gulp.task('release', ['clean-release','compile'], function() {
+gulp.task('clean-release', function (cb) { rimraf('release', { maxBusyTries: 1 }, cb); });
+gulp.task('release', ['clean-release', 'compile'], function () {
 
 	var sha1 = getGitVersion(__dirname);
 	var semver = require('./package.json').version;
@@ -41,16 +41,12 @@ gulp.task('release', ['clean-release','compile'], function() {
 				'vs/language/go': __dirname + '/out'
 			},
 			packages: [{
-				name: 'vscode-css-languageservice',
-				location: __dirname + '/node_modules/vscode-css-languageservice/lib',
-				main: 'cssLanguageService'
-			}, {
-				name: 'vscode-go-languageservice',
-				location: __dirname + '/node_modules/vscode-go-languageservice/lib',
-				main: 'goLanguageService'
-			}, {
 				name: 'vscode-languageserver-types',
 				location: __dirname + '/node_modules/vscode-languageserver-types/lib',
+				main: 'main'
+			}, {
+				name: 'vscode-languageclient',
+				location: __dirname + '/node_modules/vscode-languageclient/lib',
 				main: 'main'
 			}, {
 				name: 'vscode-nls',
@@ -66,18 +62,18 @@ gulp.task('release', ['clean-release','compile'], function() {
 			bundleOne('goMode'),
 			bundleOne('goWorker')
 		)
-		.pipe(es.through(function(data) {
-			data.contents = new Buffer(
-				BUNDLED_FILE_HEADER
-				+ data.contents.toString()
-			);
-			this.emit('data', data);
-		}))
-		.pipe(gulp.dest('./release/dev'))
-		.pipe(uglify({
-			preserveComments: 'some'
-		}))
-		.pipe(gulp.dest('./release/min')),
+			.pipe(es.through(function (data) {
+				data.contents = new Buffer(
+					BUNDLED_FILE_HEADER
+					+ data.contents.toString()
+				);
+				this.emit('data', data);
+			}))
+			.pipe(gulp.dest('./release/dev'))
+			.pipe(uglify({
+				preserveComments: 'some'
+			}))
+			.pipe(gulp.dest('./release/min')),
 		gulp.src('src/monaco.d.ts').pipe(gulp.dest('./release/min'))
 	);
 });
@@ -91,13 +87,13 @@ function compileTask() {
 	return merge(
 		gulp.src(tsSources).pipe(compilation())
 	)
-	.pipe(gulp.dest('out'));
+		.pipe(gulp.dest('out'));
 }
 
-gulp.task('clean-out', function(cb) { rimraf('out', { maxBusyTries: 1 }, cb); });
+gulp.task('clean-out', function (cb) { rimraf('out', { maxBusyTries: 1 }, cb); });
 gulp.task('compile', ['clean-out'], compileTask);
 gulp.task('compile-without-clean', compileTask);
-gulp.task('watch', ['compile'], function() {
+gulp.task('watch', ['compile'], function () {
 	gulp.watch(tsSources, ['compile-without-clean']);
 });
 

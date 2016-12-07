@@ -1,12 +1,33 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-	"files.trimTrailingWhitespace": true,
-
 	"search.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+
 		// "**/release": true,
-		// "**/out": true
-		"**/node_modules": true
+		// "**/out": true,
+		"**/lib": true
 	},
+	"files.exclude": {
+		"**/node_modules": true,
+		"**/bower_components": true,
+
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+
+		// "**/release": true,
+		// "**/out": true,
+		"**/lib": true
+	},
+
+	"files.trimTrailingWhitespace": true,
 
   "tslint.configFile": "./src/tslint.json",
   "tslint.enable": true
