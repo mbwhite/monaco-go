@@ -1,6 +1,7 @@
 #!/bin/sh
 
 BUILD_FILES="find . -maxdepth 2 -mindepth 2 -type d -name node_modules -o -name out -o -name release"
+($BUILD_FILES) | xargs rm -fr
 
 ( \
   echo "########" && \
