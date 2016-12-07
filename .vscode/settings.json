@@ -12,15 +12,16 @@
 		"**/lib": true
 	},
 	"files.exclude": {
-		"**/node_modules": true,
+		// "**/release": true,
+		// "**/out": true,
+		// "**/lib": true,
+		// "**/node_modules": true,
 		"**/bower_components": true,
+
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
-		"**/.DS_Store": true,
-		// "**/release": true,
-		// "**/out": true,
-		"**/lib": true
+		"**/.DS_Store": true
 	},
 	"files.trimTrailingWhitespace": true,
 	"typescript.tsdk": "./node_modules/typescript/lib",
@@ -30,7 +31,7 @@
 	"typescript.useCodeSnippetsOnMethodSuggest": true,
 	"typescript.validate.enable": true,
 	"javascript.validate.enable": false,
-	"tslint.configFile": "./src/tslint.json",
+	"tslint.configFile": "./tslint.json",
 	"tslint.autoFixOnSave": true,
 	"tslint.enable": true
 }

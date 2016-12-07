@@ -5,11 +5,15 @@
 
     "module": "umd",
     "moduleResolution": "node",
-    "outDir": "../out",
+    "outDir": "./out",
     "target": "es5",
     "lib": [
       "dom",
       "es6"
     ]
-  }
+  },
+	"include": [
+		"./src/**/*",
+    "./test/**/*"
+	]
 }

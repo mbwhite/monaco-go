@@ -31,9 +31,9 @@ BUILD_FILES="find . -maxdepth 2 -mindepth 2 -type d -name node_modules -o -name 
   echo "########" \
 )
 
-( \
-  echo "########" && \
-  echo "serving" && \
-  npm run serve && \
-  echo "########" \
-)
+# ( \
+#  echo "########" && \
+#  echo "serving" && \
+#  npm run serve && \
+#  echo "########" \
+# )

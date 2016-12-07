@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 var gulp = require('gulp');
-var tsb = require('gulp-tsb');
+var ts = require('gulp-typescript');
 var assign = require('object-assign');
 var fs = require('fs');
 var path = require('path');
@@ -78,16 +78,12 @@ gulp.task('release', ['clean-release', 'compile'], function () {
 	);
 });
 
-
-var compilation = tsb.create(assign({ verbose: true }, require('./src/tsconfig.json').compilerOptions));
-
-var tsSources = 'src/**/*.ts';
-
+var tsProject = ts.createProject('./tsconfig.json');
 function compileTask() {
-	return merge(
-		gulp.src(tsSources).pipe(compilation())
-	)
-		.pipe(gulp.dest('out'));
+    var tsResult = tsProject.src()
+        .pipe(tsProject());
+
+    return tsResult.js.pipe(gulp.dest('out'));
 }
 
 gulp.task('clean-out', function (cb) { rimraf('out', { maxBusyTries: 1 }, cb); });
