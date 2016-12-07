@@ -8,19 +8,20 @@ import Promise = monaco.Promise;
 import IWorkerContext = monaco.worker.IWorkerContext;
 
 import * as ls from 'vscode-languageserver-types';
+import * as lc from 'vscode-languageclient';
 
 export class GoWorker {
 
 	// --- model sync -----------------------
 
-	private _ctx:IWorkerContext;
+	private _ctx: IWorkerContext;
 	// private _languageService: cssService.LanguageService;
 	// private _languageService: goService.LanguageService;
 	// private _languageSettings: cssService.LanguageSettings;
 	// private _languageSettings: goService.LanguageSettings;
 	private _languageId: string;
 
-	constructor(ctx:IWorkerContext, createData: ICreateData) {
+	constructor(ctx: IWorkerContext, createData: ICreateData) {
 		this._ctx = ctx;
 
 		console.log('createData: ', createData);
@@ -41,7 +42,7 @@ export class GoWorker {
 
 	// --- language service host ---------------
 
-    doValidation(uri: string): Promise<ls.Diagnostic[]> {
+	doValidation(uri: string): Promise<ls.Diagnostic[]> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -50,7 +51,7 @@ export class GoWorker {
 		// let diagnostics = this._languageService.doValidation(document, stylesheet);
 		// return Promise.as(diagnostics);
 	}
-    doComplete(uri: string, position: ls.Position): Promise<ls.CompletionList> {
+	doComplete(uri: string, position: ls.Position): Promise<ls.CompletionList> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -59,7 +60,7 @@ export class GoWorker {
 		// let completions = this._languageService.doComplete(document, position, stylesheet);
 		// return Promise.as(completions);
 	}
-    doHover(uri: string, position: ls.Position): Promise<ls.Hover> {
+	doHover(uri: string, position: ls.Position): Promise<ls.Hover> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -68,7 +69,7 @@ export class GoWorker {
 		// let hover = this._languageService.doHover(document, position, stylesheet);
 		// return Promise.as(hover);
 	}
-    findDefinition(uri: string, position: ls.Position): Promise<ls.Location> {
+	findDefinition(uri: string, position: ls.Position): Promise<ls.Location> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -77,7 +78,7 @@ export class GoWorker {
 		// let definition = this._languageService.findDefinition(document, position, stylesheet);
 		// return Promise.as(definition);
 	}
-    findReferences(uri: string, position: ls.Position): Promise<ls.Location[]> {
+	findReferences(uri: string, position: ls.Position): Promise<ls.Location[]> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -86,7 +87,7 @@ export class GoWorker {
 		// let references = this._languageService.findReferences(document, position, stylesheet);
 		// return Promise.as(references);
 	}
-    findDocumentHighlights(uri: string, position: ls.Position): Promise<ls.DocumentHighlight[]> {
+	findDocumentHighlights(uri: string, position: ls.Position): Promise<ls.DocumentHighlight[]> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -95,7 +96,7 @@ export class GoWorker {
 		// let highlights = this._languageService.findDocumentHighlights(document, position, stylesheet);
 		// return Promise.as(highlights);
 	}
-    findDocumentSymbols(uri: string): Promise<ls.SymbolInformation[]> {
+	findDocumentSymbols(uri: string): Promise<ls.SymbolInformation[]> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -104,7 +105,7 @@ export class GoWorker {
 		// let symbols = this._languageService.findDocumentSymbols(document, stylesheet);
 		// return Promise.as(symbols);
 	}
-    doCodeActions(uri: string, range: ls.Range, context: ls.CodeActionContext): Promise<ls.Command[]> {
+	doCodeActions(uri: string, range: ls.Range, context: ls.CodeActionContext): Promise<ls.Command[]> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -113,7 +114,7 @@ export class GoWorker {
 		// let actions = this._languageService.doCodeActions(document, range, context, stylesheet);
 		// return Promise.as(actions);
 	}
-    findColorSymbols(uri: string): Promise<ls.Range[]> {
+	findColorSymbols(uri: string): Promise<ls.Range[]> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -122,7 +123,7 @@ export class GoWorker {
 		// let colorSymbols = this._languageService.findColorSymbols(document, stylesheet);
 		// return Promise.as(colorSymbols);
 	}
-    doRename(uri: string, position: ls.Position, newName: string): Promise<ls.WorkspaceEdit> {
+	doRename(uri: string, position: ls.Position, newName: string): Promise<ls.WorkspaceEdit> {
 		return new Promise((resolve, reject) => {
 
 		});
@@ -169,6 +170,6 @@ export interface ICreateData {
 	};
 }
 
-export function create(ctx:IWorkerContext, createData: ICreateData): GoWorker {
+export function create(ctx: IWorkerContext, createData: ICreateData): GoWorker {
 	return new GoWorker(ctx, createData);
 }

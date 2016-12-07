@@ -3,12 +3,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import {LocalizeInfo, LocalizeFunc, Options, LoadFunc} from 'vscode-nls';
+import { LocalizeInfo, LocalizeFunc, Options, LoadFunc } from 'vscode-nls';
 
-export {LocalizeInfo, LocalizeFunc, Options, LoadFunc};
+export { LocalizeInfo, LocalizeFunc, Options, LoadFunc };
 
 function format(message: string, args: any[]): string {
-	let result:string;
+	let result: string;
 
 	if (args.length === 0) {
 		result = message;
@@ -22,13 +22,19 @@ function format(message: string, args: any[]): string {
 }
 
 function localize(key: string | LocalizeInfo, message: string, ...args: any[]): string {
+	if (key) { }
+
 	return format(message, args);
 }
 
 export function loadMessageBundle(file?: string): LocalizeFunc {
-    return localize;
+	if (file) { }
+
+	return localize;
 }
 
 export function config(opt?: Options | string): LoadFunc {
-    return loadMessageBundle;
+	if (opt) { }
+
+	return loadMessageBundle;
 }

@@ -1,11 +1,91 @@
-/// <reference path="./whatwg-fetch.d.ts" />
-
 import Emitter = monaco.Emitter;
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
 
-declare var fetch: typeof window.fetch;
-declare var require: <T>(moduleId: [string], callback: (module: T) => void) => void;
+// declarations for the fetch api
+// and requirejs
+declare class Request {
+	constructor(input: string | Request, init?: RequestInit);
+	method: string;
+	url: string;
+	headers: Headers;
+	context: RequestContext;
+	referrer: string;
+	mode: RequestMode;
+	credentials: RequestCredentials;
+	cache: RequestCache;
+}
+
+interface RequestInit {
+	method?: string;
+	headers?: HeaderInit | { [index: string]: string };
+	body?: BodyInit;
+	mode?: RequestMode;
+	credentials?: RequestCredentials;
+	cache?: RequestCache;
+}
+
+declare enum RequestContext {
+	'audio', 'beacon', 'cspreport', 'download', 'embed', 'eventsource', 'favicon', 'fetch',
+	'font', 'form', 'frame', 'hyperlink', 'iframe', 'image', 'imageset', 'import',
+	'internal', 'location', 'manifest', 'object', 'ping', 'plugin', 'prefetch', 'script',
+	'serviceworker', 'sharedworker', 'subresource', 'style', 'track', 'video', 'worker',
+	'xmlhttprequest', 'xslt'
+}
+declare enum RequestMode { 'same-origin', 'no-cors', 'cors' }
+declare enum RequestCredentials { 'omit', 'same-origin', 'include' }
+declare enum RequestCache { 'default', 'no-store', 'reload', 'no-cache', 'force-cache', 'only-if-cached' }
+
+declare class Headers {
+	append(name: string, value: string): void;
+	delete(name: string): void;
+	get(name: string): string;
+	getAll(name: string): Array<string>;
+	has(name: string): boolean;
+	set(name: string, value: string): void;
+}
+
+declare class Body {
+	bodyUsed: boolean;
+	arrayBuffer(): Promise<ArrayBuffer>;
+	blob(): Promise<Blob>;
+	formData(): Promise<FormData>;
+	json(): Promise<any>;
+	text(): Promise<string>;
+}
+declare class Response extends Body {
+	constructor(body?: BodyInit, init?: ResponseInit);
+	error(): Response;
+	redirect(url: string, status: number): Response;
+	type: ResponseType;
+	url: string;
+	status: number;
+	ok: boolean;
+	statusText: string;
+	headers: Headers;
+	clone(): Response;
+}
+
+declare enum ResponseType { 'basic', 'cors', 'default', 'error', 'opaque' }
+
+declare class ResponseInit {
+	status: number;
+	statusText: string;
+	headers: HeaderInit;
+}
+
+declare type HeaderInit = Headers | Array<string>;
+declare type BodyInit = Blob | FormData | string;
+declare type RequestInfo = Request | string;
+
+// declare var fetch: (url: string, init?: RequestInit) => Promise<Response>;
+// declare var require: <T>(moduleId: [string], callback: (module: T) => void) => void;
+// declare window.require = <T>(moduleId: [string], callback: (module: T) => void) => void;
+interface Window {
+	require<T>(moduleId: [string], callback: (module: T) => void): void;
+	fetch(url: string, init?: RequestInit): Promise<Response>;
+}
+
 
 // let url = `https://raw.githubusercontent.com/golang/example/master/hello/hello.go`;
 // let goExample: Promise<string> = fetch(url).then(exampleGo => exampleGo.text());
@@ -33,7 +113,7 @@ let urls: string[] = [
 
 let createExampleFileDom = (examples: string[] = []) => {
 	let EXAMPLES_ID = 'example_files';
-	let EXAMPLES_DIV = document.getElementById(EXAMPLES_ID);
+	// let EXAMPLES_DIV = document.getElementById(EXAMPLES_ID);
 
 	examples.map((exampleFile, index) => {
 		let exampleName = urls[index];
@@ -41,7 +121,7 @@ let createExampleFileDom = (examples: string[] = []) => {
 		let exampleDiv = document.createElement('div');
 		document.getElementById(EXAMPLES_ID).appendChild(exampleDiv);
 
-		var nameNode = document.createElement('h4');
+		let nameNode = document.createElement('h4');
 		nameNode.innerHTML = exampleName;
 		exampleDiv.appendChild(nameNode);
 
@@ -52,9 +132,9 @@ let createExampleFileDom = (examples: string[] = []) => {
 		fileNode.innerHTML = exampleFile;
 		exampleDiv.appendChild(fileNode);
 	});
-}
+};
 
-let examplesRequests = urls.map(url => fetch(url).then(example => example.text()));
+let examplesRequests = urls.map(url => window.fetch(url).then(example => example.text()));
 Promise.all(examplesRequests).then((examples) => {
 	createExampleFileDom(examples);
 
@@ -64,17 +144,14 @@ Promise.all(examplesRequests).then((examples) => {
 	}
 
 	let goExampleFile = examples[3];
-	require([
-		'vs/basic-languages/src/monaco.contribution',
-		'vs/language/go/monaco.contribution'
-	], function () {
 
+	let onModulesLoaded = function () {
 		let domElement: HTMLElement = document.getElementById('container');
 		let options: IEditorConstructionOptions = {
-			"value": goExampleFile,
-			"language": 'go',
-			"fontSize": 10,
-			"lineNumbers": "on"
+			'value': goExampleFile,
+			'language': 'go',
+			'fontSize': 10,
+			'lineNumbers': 'on'
 		};
 
 		let editor: IStandaloneCodeEditor = monaco.editor.create(domElement, options);
@@ -93,7 +170,13 @@ Promise.all(examplesRequests).then((examples) => {
 
 			monaco.editor.setModelLanguage(model, language);
 		};
-	});
+	};
+
+	window.require([
+		'vs/basic-languages/src/monaco.contribution',
+		'vs/language/go/monaco.contribution'
+	], onModulesLoaded);
+
 }).catch((err) => {
 	let msg = `Failed to fetch - err: ${err}`;
 	console.error(msg);

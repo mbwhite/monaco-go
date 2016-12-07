@@ -26,7 +26,7 @@ export class WorkerManager {
 	constructor(defaults: LanguageServiceDefaultsImpl) {
 		this._defaults = defaults;
 		this._worker = null;
-		this._idleCheckInterval = setInterval(() => this._checkIfIdle(), 30 * 1000);
+		this._idleCheckInterval = window.setInterval(() => this._checkIfIdle(), 30 * 1000);
 		this._lastUsedTime = 0;
 		this._configChangeListener = this._defaults.onDidChange(() => this._stopWorker());
 	}
@@ -89,9 +89,9 @@ export class WorkerManager {
 		let _client: GoWorker;
 		return toShallowCancelPromise(
 			this._getClient().then((client) => {
-				_client = client
+				_client = client;
 			}).then(_ => {
-				return this._worker.withSyncedResources(resources)
+				return this._worker.withSyncedResources(resources);
 			}).then(_ => _client)
 		);
 	}

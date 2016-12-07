@@ -1,0 +1,32 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "0.1.0",
+    "command": "tsc",
+    "isShellCommand": true,
+    "args": ["-w", "-p", "."],
+    "showOutput": "silent",
+    "isWatching": true,
+    "problemMatcher": "$tsc-watch",
+    "tasks": [
+        {
+            "taskName": "tslint",
+            "args": [],
+            "problemMatcher": {
+                "owner": "tslint",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "severity": "warning",
+                "pattern": {
+                    "regexp": "^\\(\\S.*\\) (\\S.*)\\[(\\d+), (\\d+)\\]:\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "message": 4
+                }
+            }
+        }
+    ]
+}

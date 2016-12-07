@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import {LanguageServiceDefaultsImpl} from './monaco.contribution';
+// import {LanguageServiceDefaultsImpl} from './monaco.contribution';
 import {GoWorker} from './goWorker';
 
 import * as ls from 'vscode-languageserver-types';
@@ -19,7 +19,7 @@ import IDisposable = monaco.IDisposable;
 
 
 export interface WorkerAccessor {
-	(first: Uri, ...more: Uri[]): Promise<GoWorker>
+	(first: Uri, ...more: Uri[]): Promise<GoWorker>;
 }
 
 // --- diagnostics --- ---
@@ -39,7 +39,7 @@ export class DiagnostcsAdapter {
 			let handle: number;
 			this._listener[model.uri.toString()] = model.onDidChangeContent(() => {
 				clearTimeout(handle);
-				handle = setTimeout(() => this._doValidate(model.uri, modeId), 500);
+				handle = window.setTimeout(() => this._doValidate(model.uri, modeId), 500);
 			});
 
 			this._doValidate(model.uri, modeId);
@@ -98,6 +98,8 @@ function toSeverity(lsSeverity: number): monaco.Severity {
 }
 
 function toDiagnostics(resource: Uri, diag: ls.Diagnostic): monaco.editor.IMarkerData {
+	if (resource) {	}
+
 	let code = typeof diag.code === 'number' ? String(diag.code) : <string>diag.code;
 
 	return {
@@ -121,12 +123,12 @@ function fromPosition(position: Position): ls.Position {
 	return { character: position.column - 1, line: position.lineNumber - 1 };
 }
 
-function fromRange(range: Range): ls.Range {
-	if (!range) {
-		return void 0;
-	}
-	return { start: fromPosition(range.getStartPosition()), end: fromPosition(range.getEndPosition()) };
-}
+// function fromRange(range: Range): ls.Range {
+// 	if (!range) {
+// 		return void 0;
+// 	}
+// 	return { start: fromPosition(range.getStartPosition()), end: fromPosition(range.getEndPosition()) };
+// }
 
 function toRange(range: ls.Range): Range {
 	if (!range) {
@@ -168,7 +170,7 @@ function toTextEdit(textEdit: ls.TextEdit): monaco.editor.ISingleEditOperation {
 	return {
 		range: toRange(textEdit.range),
 		text: textEdit.newText
-	}
+	};
 }
 
 export class CompletionAdapter implements monaco.languages.CompletionItemProvider {
@@ -181,7 +183,7 @@ export class CompletionAdapter implements monaco.languages.CompletionItemProvide
 	}
 
 	provideCompletionItems(model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<monaco.languages.CompletionList> {
-		const wordInfo = model.getWordUntilPosition(position);
+		// const wordInfo = model.getWordUntilPosition(position);
 		const resource = model.uri;
 
 		return wireCancellationToken(token, this._worker(resource).then(worker => {
@@ -268,7 +270,7 @@ export class DocumentHighlightAdapter implements monaco.languages.DocumentHighli
 		const resource = model.uri;
 
 		return wireCancellationToken(token, this._worker(resource).then(worker => {
-			return worker.findDocumentHighlights(resource.toString(), fromPosition(position))
+			return worker.findDocumentHighlights(resource.toString(), fromPosition(position));
 		}).then(entries => {
 			if (!entries) {
 				return;
@@ -319,6 +321,8 @@ export class ReferenceAdapter implements monaco.languages.ReferenceProvider {
 	}
 
 	provideReferences(model: monaco.editor.IReadOnlyModel, position: Position, context: monaco.languages.ReferenceContext, token: CancellationToken): Thenable<monaco.languages.Location[]> {
+		if (context) { }
+
 		const resource = model.uri;
 
 		return wireCancellationToken(token, this._worker(resource).then(worker => {

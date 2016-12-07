@@ -3,12 +3,10 @@
 	"search.exclude": {
 		"**/node_modules": true,
 		"**/bower_components": true,
-
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/.DS_Store": true,
-
 		// "**/release": true,
 		// "**/out": true,
 		"**/lib": true
@@ -16,19 +14,23 @@
 	"files.exclude": {
 		"**/node_modules": true,
 		"**/bower_components": true,
-
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/.DS_Store": true,
-
 		// "**/release": true,
 		// "**/out": true,
 		"**/lib": true
 	},
-
 	"files.trimTrailingWhitespace": true,
-
-  "tslint.configFile": "./src/tslint.json",
-  "tslint.enable": true
+	"typescript.tsdk": "./node_modules/typescript/lib",
+	// "typescript.tsserver.trace": "verbose",
+	// "typescript.check.tscVersion": true,
+	// "typescript.check.workspaceVersion": true,
+	"typescript.useCodeSnippetsOnMethodSuggest": true,
+	"typescript.validate.enable": true,
+	"javascript.validate.enable": false,
+	"tslint.configFile": "./src/tslint.json",
+	"tslint.autoFixOnSave": true,
+	"tslint.enable": true
 }

@@ -8,7 +8,7 @@ import * as mode from './goMode';
 
 import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
-import IDisposable = monaco.IDisposable;
+// import IDisposable = monaco.IDisposable;
 
 declare var require: <T>(moduleId: [string], callback: (module: T) => void) => void;
 
