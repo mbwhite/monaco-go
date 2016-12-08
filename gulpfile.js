@@ -31,6 +31,16 @@ gulp.task('release', ['clean-release', 'compile'], function () {
 		''
 	].join('\n');
 
+	var jsonrpcLocation = __dirname + '/node_modules/vscode-jsonrpc/lib';
+	if (!fs.existsSync(jsonrpcLocation)) {
+		var oldLocation = __dirname + '/node_modules/vscode-languageclient/node_modules/vscode-jsonrpc/lib';
+		if (!fs.existsSync(oldLocation)) {
+			console.error('Unable to find vscode-languageclient node module at ' + jsonrpcLocation + ' or ' + oldLocation);
+			return;
+		}
+		jsonrpcLocation = oldLocation;
+	}
+
 	function bundleOne(moduleId, exclude) {
 		return rjs({
 			baseUrl: '/out/',
@@ -42,16 +52,37 @@ gulp.task('release', ['clean-release', 'compile'], function () {
 			},
 			packages: [{
 				name: 'vscode-languageserver-types',
-				location: __dirname + '/node_modules/vscode-languageserver-types/lib',
-				main: 'main'
+				location: __dirname + '/node_modules/vscode-languageserver-types/lib'
+			}, {
+				name: 'vscode-jsonrpc',
+				location: jsonrpcLocation
 			}, {
 				name: 'vscode-languageclient',
-				location: __dirname + '/node_modules/vscode-languageclient/lib',
-				main: 'main'
+				location: __dirname + '/node_modules/vscode-languageclient/lib'
+			}, {
+				name: 'vscode',
+				location: __dirname + '/out/fillers',
+				main: 'vscode'
 			}, {
 				name: 'vscode-nls',
 				location: __dirname + '/out/fillers',
 				main: 'vscode-nls'
+			}, {
+				name: 'child_process',
+				location: __dirname + '/out/fillers',
+				main: 'child_process'
+			}, {
+				name: 'net',
+				location: __dirname + '/out/fillers',
+				main: 'net'
+			}, {
+				name: 'path',
+				location: __dirname + '/out/fillers',
+				main: 'path'
+			}, {
+				name: 'os',
+				location: __dirname + '/out/fillers',
+				main: 'os'
 			}]
 		})
 	}
@@ -59,8 +90,8 @@ gulp.task('release', ['clean-release', 'compile'], function () {
 	return merge(
 		merge(
 			bundleOne('monaco.contribution', ['vs/language/go/goMode']),
-			bundleOne('goMode'),
-			bundleOne('goWorker')
+			bundleOne('goMode', ['vscode-languageclient', 'vscode-languageserver-types']),
+			bundleOne('goWorker', ['vscode-languageclient', 'vscode-languageserver-types'])
 		)
 			.pipe(es.through(function (data) {
 				data.contents = new Buffer(

@@ -1,7 +1,8 @@
 #!/bin/sh
 
-BUILD_FILES="find . -maxdepth 2 -mindepth 2 -type d -name node_modules -o -name out -o -name release"
-($BUILD_FILES) | xargs rm -fr
+BUILD_FILES="find . -maxdepth 2 -type d -name node_modules -o -name out -o -name release"
+# BUILD_FILES="find . -maxdepth 2 -type d -name out -o -name release"
+($BUILD_FILES)
 
 ( \
   echo "########" && \
@@ -16,12 +17,10 @@ BUILD_FILES="find . -maxdepth 2 -mindepth 2 -type d -name node_modules -o -name 
 ( \
   echo "########" && \
   echo "`pwd`" && \
-  npm unlink  && \
   npm link "vscode-languageserver-types" && \
   npm link "vscode-languageclient" && \
   npm install && \
   npm run compile && \
-  npm link && \
   echo "########" \
 )
 
@@ -32,9 +31,9 @@ BUILD_FILES="find . -maxdepth 2 -mindepth 2 -type d -name node_modules -o -name 
   echo "########" \
 )
 
-# ( \
-#  echo "########" && \
-#  echo "serving" && \
-#  npm run serve && \
-#  echo "########" \
-# )
+( \
+ echo "########" && \
+ echo "serving" && \
+ npm run serve && \
+ echo "########" \
+)

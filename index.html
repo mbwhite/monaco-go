@@ -15,21 +15,198 @@
 </div>
 
 <script>
+
 	// Loading basic-languages to get the css language definition
 	var require = {
 		paths: {
+			'vscode': 'vscode',
+
+			'vscode-languageserver-types': '/node_modules/vscode-languageserver-types/lib/main',
+			'vscode-jsonrpc': '/node_modules/vscode-languageclient/node_modules/vscode-jsonrpc/lib/main',
+			'vscode-languageclient': '/node_modules/vscode-languageclient/lib/main',
+
 			'vs/basic-languages': '/node_modules/monaco-languages/release',
 			'vs/language/go': '/release/dev',
 			'vs': '/node_modules/monaco-editor-core/dev/vs'
 		}
 	};
 </script>
+
 <script src="./node_modules/monaco-editor-core/dev/vs/loader.js"></script>
 <script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
 <script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
 
-<script src="./out/sample/monaco-go.js"></script>
-<!--<script>
+<!--<script src="./out/sample/monaco-go.js"></script>-->
+<script>
+// define('Buffer', function () {
+    // /**
+    //  * Allocates a new buffer containing the given {str}.
+    //  *
+    //  * @param str String to store in buffer.
+    //  * @param encoding encoding to use, optional.  Default is 'utf8'
+    //  */
+    // new (str: string, encoding?: string): Buffer;
+	let Buffer = function(str, encoding) {
+		var uint8array = new TextEncoder(encoding).encode(str);
+		return uint8array;
+	};
+	let process = {
+		platform: 'win32',
+		kill: function(signal) {
+			// signal: 'SIGKILL'
+		},
+		// var stdInPipeName = process.env['STDIN_PIPE_NAME'];
+		// var stdOutPipeName = process.env['STDOUT_PIPE_NAME'];
+		env: {
+
+		}
+	};
+
+
+define('child_process', function () {
+	let child_process = {
+		ChildProcess: {
+		}
+	};
+
+	return child_process;
+});
+define('net', function () {
+	let net = {
+		connect: function() {
+			return {
+				unref: function() {
+				}
+			}
+		},
+		createServer: function() {
+			return {
+				listen: function () {
+				}
+			}
+		},
+	};
+
+	return net;
+});
+define('path', function () {
+	let path = {
+	};
+
+	return path;
+});
+define('os', function () {
+	let os = {
+	};
+
+	return os;
+});
+define('fs', function () {
+	let fs = {
+	};
+
+	return fs;
+});
+define('stream', function () {
+	let stream = {
+	};
+
+	return stream;
+});
+define('util', function () {
+	let util = {
+	};
+
+	return util;
+});
+
+define('vscode', [
+		'vs/basic-languages/src/monaco.contribution',
+		'vs/language/go/monaco.contribution'
+	], function (basic, go) {
+
+	class OutputChannel {
+		constructor(name = 'OutputChannel') {
+			this.name = name;
+			this.hide = true;
+		}
+
+		appendLine(value) {
+			if (!this.hide) {
+				let message = `LanguageClient:${this.name} - `;
+				console.info(message, value);
+			}
+		}
+
+		show(preserveFocus) {
+			this.hide = false;
+		}
+
+		hide() {
+			this.hide = true;
+		}
+	}
+
+	class WorkspaceConfig {
+		constructor(id = 'langserver-antha') {
+			this.id = id;
+			this.sections = {
+				'trace.server': 'verbose'
+			};
+		}
+
+		get(section, defaultValue) {
+			try {
+				let value = this.sections[section];
+
+				if (value) {
+					return value;
+				} else {
+					return defaultValue;
+				}
+			} catch(err) {
+				return defaultValue;
+			}
+		}
+	}
+
+	class Workspace {
+		constructor(workspaceConfigs = [new WorkspaceConfig()]) {
+			this.workspaceConfigs = workspaceConfigs;
+		}
+
+		getConfiguration(id) {
+			return this.workspaceConfigs.find((config) => {
+				return config.id === id;
+			});
+		}
+	}
+
+	let vscode = {
+		CompletionItem: function() {},
+		CodeLens: function() {},
+		Disposable: function() {},
+		languages: {
+			createDiagnosticCollection: function() {
+				return {};
+			}
+		},
+		workspace: new Workspace(),
+		window: {
+			createOutputChannel(name) {
+				return new OutputChannel(name);
+			},
+			showErrorMessage: function() { },
+			showInformationMessage: function() { },
+			showWarningMessage: function() { },
+		}
+	};
+
+	return vscode;
+});
+</script>
+
+<script>
 var exampleUrl = "https://raw.githubusercontent.com/golang/example/master/hello/hello.go";
 fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); }).then(function (exampleGo) {
 	require([
@@ -41,7 +218,7 @@ fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); }).then(f
 			language: 'go'
 		});
 	});
-});-->
+});
 </script>
 
 </body>

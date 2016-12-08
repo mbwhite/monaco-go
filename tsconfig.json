@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
+		"noImplicitAny": false,
+		"sourceMap": true,
+		"stripInternal": true,
 
-    "module": "umd",
+    "module": "amd",
     "moduleResolution": "node",
     "outDir": "./out",
     "target": "es5",
@@ -12,6 +13,9 @@
       "es6"
     ]
   },
+  "exclude": [
+    "./node_modules"
+  ],
 	"include": [
 		"./src/**/*",
     "./test/**/*"
