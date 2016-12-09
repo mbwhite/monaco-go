@@ -138,6 +138,7 @@ class Workspace {
 		this._workspaceConfigs = workspaceConfigs;
 		this._textDocuments = [];
 
+		monaco.editor.onDidCreateModel(this._onModelAdd);
 		monaco.editor.getModels().forEach(this._onModelAdd, this);
 	}
 
