@@ -7,8 +7,8 @@
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/.DS_Store": true,
-		// "**/release": true,
-		// "**/out": true,
+		"**/release": true,
+		"**/out": true,
 		"**/lib": true
 	},
 	"files.exclude": {

@@ -19,7 +19,7 @@
 	// Loading basic-languages to get the css language definition
 	var require = {
 		paths: {
-			'vscode': 'vscode',
+			'vscode': '/out/fillers/vscode',
 
 			'vscode-languageserver-types': '/node_modules/vscode-languageserver-types/lib/main',
 			'vscode-jsonrpc': '/node_modules/vscode-languageclient/node_modules/vscode-jsonrpc/lib/main',
@@ -120,91 +120,91 @@ define('util', function () {
 	return util;
 });
 
-define('vscode', [
-		'vs/basic-languages/src/monaco.contribution',
-		'vs/language/go/monaco.contribution'
-	], function (basic, go) {
+// define('vscode', [
+// 		'vs/basic-languages/src/monaco.contribution',
+// 		'vs/language/go/monaco.contribution'
+// 	], function (basic, go) {
 
-	class OutputChannel {
-		constructor(name = 'OutputChannel') {
-			this.name = name;
-			this.hide = true;
-		}
+// 	class OutputChannel {
+// 		constructor(name = 'OutputChannel') {
+// 			this.name = name;
+// 			this.hide = true;
+// 		}
 
-		appendLine(value) {
-			if (!this.hide) {
-				let message = `LanguageClient:${this.name} - `;
-				console.info(message, value);
-			}
-		}
+// 		appendLine(value) {
+// 			if (!this.hide) {
+// 				let message = `LanguageClient:${this.name} - `;
+// 				console.info(message, value);
+// 			}
+// 		}
 
-		show(preserveFocus) {
-			this.hide = false;
-		}
+// 		show(preserveFocus) {
+// 			this.hide = false;
+// 		}
 
-		hide() {
-			this.hide = true;
-		}
-	}
+// 		hide() {
+// 			this.hide = true;
+// 		}
+// 	}
 
-	class WorkspaceConfig {
-		constructor(id = 'langserver-antha') {
-			this.id = id;
-			this.sections = {
-				'trace.server': 'verbose'
-			};
-		}
+// 	class WorkspaceConfig {
+// 		constructor(id = 'langserver-antha') {
+// 			this.id = id;
+// 			this.sections = {
+// 				'trace.server': 'verbose'
+// 			};
+// 		}
 
-		get(section, defaultValue) {
-			try {
-				let value = this.sections[section];
+// 		get(section, defaultValue) {
+// 			try {
+// 				let value = this.sections[section];
 
-				if (value) {
-					return value;
-				} else {
-					return defaultValue;
-				}
-			} catch(err) {
-				return defaultValue;
-			}
-		}
-	}
+// 				if (value) {
+// 					return value;
+// 				} else {
+// 					return defaultValue;
+// 				}
+// 			} catch(err) {
+// 				return defaultValue;
+// 			}
+// 		}
+// 	}
 
-	class Workspace {
-		constructor(rootPath = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver', workspaceConfigs = [new WorkspaceConfig()]) {
-			this.rootPath = rootPath;
-			this.workspaceConfigs = workspaceConfigs;
-		}
+// 	class Workspace {
+// 		constructor(rootPath = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver', workspaceConfigs = [new WorkspaceConfig()]) {
+// 			this.rootPath = rootPath;
+// 			this.workspaceConfigs = workspaceConfigs;
+// 		}
 
-		getConfiguration(id) {
-			return this.workspaceConfigs.find((config) => {
-				return config.id === id;
-			});
-		}
-	}
+// 		getConfiguration(id) {
+// 			return this.workspaceConfigs.find((config) => {
+// 				return config.id === id;
+// 			});
+// 		}
+// 	}
 
-	let vscode = {
-		CompletionItem: function() {},
-		CodeLens: function() {},
-		Disposable: function() {},
-		languages: {
-			createDiagnosticCollection: function() {
-				return {};
-			}
-		},
-		workspace: new Workspace(),
-		window: {
-			createOutputChannel(name) {
-				return new OutputChannel(name);
-			},
-			showErrorMessage: function() { },
-			showInformationMessage: function() { },
-			showWarningMessage: function() { },
-		}
-	};
+// 	let vscode = {
+// 		CompletionItem: function() {},
+// 		CodeLens: function() {},
+// 		Disposable: function() {},
+// 		languages: {
+// 			createDiagnosticCollection: function() {
+// 				return {};
+// 			}
+// 		},
+// 		workspace: new Workspace(),
+// 		window: {
+// 			createOutputChannel(name) {
+// 				return new OutputChannel(name);
+// 			},
+// 			showErrorMessage: function() { },
+// 			showInformationMessage: function() { },
+// 			showWarningMessage: function() { },
+// 		}
+// 	};
 
-	return vscode;
-});
+// 	return vscode;
+// });
 </script>
 
 <script>

@@ -60,13 +60,13 @@ gulp.task('release', ['clean-release', 'compile'], function () {
 				name: 'vscode-languageclient',
 				location: __dirname + '/node_modules/vscode-languageclient/lib'
 			}, {
-				name: 'vscode',
-				location: __dirname + '/out/fillers',
-				main: 'vscode'
-			}, {
 				name: 'vscode-nls',
 				location: __dirname + '/out/fillers',
 				main: 'vscode-nls'
+			}, {
+				name: 'vscode',
+				location: __dirname + '/out/fillers',
+				main: 'vscode'
 			}, {
 				name: 'child_process',
 				location: __dirname + '/out/fillers',
