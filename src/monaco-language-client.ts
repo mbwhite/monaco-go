@@ -1,14 +1,33 @@
-import * as lc from 'vscode-languageclient';
+import {
+	SynchronizeOptions,
+	LanguageClientOptions,
+	ServerOptions,
+	LanguageClient,
+	StreamInfo,
+} from 'vscode-languageclient';
 import * as WebSocketStream from './web-socket-stream';
 
-export function create(): lc.LanguageClient {
-	let serverOptions: () => Thenable<lc.StreamInfo> = () => {
+class MonacoLanguageClient extends LanguageClient {
+	constructor(id: string, serverOptions: ServerOptions, clientOptions: LanguageClientOptions, forceDebug: boolean = false) {
+		super(id, serverOptions, clientOptions, forceDebug);
+	}
+}
+
+export function create(): LanguageClient {
+	let id = 'langserver-antha';
+	let serverOptions: () => Thenable<StreamInfo> = () => {
 		return WebSocketStream.create();
 	};
-	let clientOptions: lc.LanguageClientOptions = {
+
+	let synchronize: SynchronizeOptions = {
+		configurationSection: null,
+		fileEvents: null
+	};
+	let clientOptions: LanguageClientOptions = {
+		synchronize,
 	};
 	let forceDebug: boolean = false;
 
-	let client = new lc.LanguageClient('langserver-antha', serverOptions, clientOptions, forceDebug);
+	let client = new MonacoLanguageClient(id, serverOptions, clientOptions, forceDebug);
 	return client;
 }

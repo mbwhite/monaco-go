@@ -171,7 +171,8 @@ define('vscode', [
 	}
 
 	class Workspace {
-		constructor(workspaceConfigs = [new WorkspaceConfig()]) {
+		constructor(rootPath = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver', workspaceConfigs = [new WorkspaceConfig()]) {
+			this.rootPath = rootPath;
 			this.workspaceConfigs = workspaceConfigs;
 		}
 

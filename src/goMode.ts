@@ -8,7 +8,7 @@ import { WorkerManager } from './workerManager';
 import { GoWorker } from './goWorker';
 import { LanguageServiceDefaultsImpl } from './monaco.contribution';
 import * as languageFeatures from './languageFeatures';
-import { LanguageClient } from; 'vscode-languageclient';
+import { LanguageClient } from 'vscode-languageclient';
 import * as MonacoLanguageClient from './monaco-language-client';
 
 import MonacoPromise = monaco.Promise;
