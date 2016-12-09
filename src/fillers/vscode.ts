@@ -1,11 +1,72 @@
 import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
 import IModel = monaco.editor.IModel;
+
 import {
-	DocumentSelector, DocumentFilter
+	DocumentSelector, DocumentFilter,
+	DidOpenTextDocumentParams
 } from 'vscode-languageclient';
+import {
+	TextDocumentItem
+} from 'vscode-languageserver-types';
 
 declare type TextDocument = IModel;
+
+// todo: need to implemennt the rest of these CanvasPathMethods. see this file,
+// http://127.0.0.1:8080/node_modules/vscode-languageclient/src/codeConverter.ts.
+//
+// textDocument: TextDocumentItem
+//
+// 	function asOpenTextDocumentParams(textDocument: code.TextDocument): proto.DidOpenTextDocumentParams {
+// 		return {
+// 			textDocument: {
+// 				uri: _uriConverter(textDocument.uri),
+// 				languageId: textDocument.languageId,
+// 				version: textDocument.version,
+// 				text: textDocument.getText()
+// 			}
+// 		};
+// 	}
+
+// class TextDocumentImpl implements IModel {
+class TextDocumentImpl {
+	public constructor() {
+	}
+
+    /**
+     * An item to transfer a text document from the client to the
+     * server.
+     */
+	// export interface TextDocumentItem {
+
+	/**
+	 * The text document's uri.
+	 */
+	public get uri(): string {
+		return '';
+	}
+	/**
+	 * The text document's language identifier
+	 */
+	public get languageId(): string {
+		return '';
+	}
+	/**
+	 * The version number of this document (it will strictly increase after each
+	 * change, including undo/redo).
+	 */
+	public get version(): number {
+		return 0;
+	}
+	/**
+	 * The content of the opened text document.
+	 */
+	public get text(): string {
+		return '';
+	}
+
+	// }
+}
 
 class OutputChannel {
 	private _name: string = 'OutputChannel';
