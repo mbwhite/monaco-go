@@ -2,7 +2,6 @@
 
 import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
-
 import {
 	DataCallback,
 	MessageWriter, MessageReader,
@@ -45,15 +44,19 @@ export class WebSocketMessageReader implements MessageReader {
 			// data:
 			// "Content-Length: 207\r\nContent-Type: application/vscode-jsonrpc; charset=utf8\r\n\r\n{\"id\":0,\"result\":{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"definitionProvider\":true,\"referencesProvider\":true,\"documentSymbolProvider\":true,\"workspaceSymbolProvider\":true}},\"jsonrpc\":\"2.0\"}"
 
-			if (!this.callback && data.length === 0) {
-				return;
+			if (!this.callback || typeof data !== 'string') {
+				// noop
 			} else {
 				this.onMessage(data);
 			}
 		};
 	}
 
-	private onMessage(data: any) {
+	private onMessage(data: string) {
+		if (data.length === 0) {
+			return;
+		}
+
 		const CRLF = '\r\n';
 		const SEPARATOR = `${CRLF}${CRLF}`;
 

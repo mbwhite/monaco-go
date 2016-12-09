@@ -24,6 +24,8 @@ export function create(): LanguageClient {
 		fileEvents: null
 	};
 	let clientOptions: LanguageClientOptions = {
+
+		documentSelector: ['go'],
 		synchronize,
 	};
 	let forceDebug: boolean = false;
