@@ -28,7 +28,7 @@ export class WebSocketMessageReader implements MessageReader {
 	private partialMessageEmitter: Emitter<PartialMessageInfo>;
 	private callback: DataCallback;
 
-	public constructor(private ws: WebSocket) {
+	constructor(private ws: WebSocket) {
 		this.errorEmitter = new Emitter<Error>();
 		this.closeEmitter = new Emitter<void>();
 		this.attachHandlers();
@@ -69,15 +69,15 @@ export class WebSocketMessageReader implements MessageReader {
 		this.callback(msg);
 	}
 
-	public get onError(): IEvent<Error> {
+	get onError(): IEvent<Error> {
 		return this.errorEmitter.event;
 	}
 
-	public get onClose(): IEvent<void> {
+	get onClose(): IEvent<void> {
 		return this.closeEmitter.event;
 	}
 
-	public get onPartialMessage(): IEvent<PartialMessageInfo> {
+	get onPartialMessage(): IEvent<PartialMessageInfo> {
 		return this.partialMessageEmitter.event;
 	}
 }
@@ -86,12 +86,12 @@ export class WebSocketMessageWriter implements MessageWriter {
 	private errorEmitter: Emitter<[Error, Message, number]>;
 	private closeEmitter: Emitter<void>;
 
-	public constructor(private ws: WebSocket) {
+	constructor(private ws: WebSocket) {
 		this.errorEmitter = new Emitter<[Error, Message, number]>();
 		this.closeEmitter = new Emitter<void>();
 	}
 
-	public write(msg: Message): void {
+	write(msg: Message): void {
 		let json: string = JSON.stringify(msg);
 		let data = this.toRpc(json);
 
@@ -113,11 +113,11 @@ export class WebSocketMessageWriter implements MessageWriter {
 		return rpc;
 	}
 
-	public get onError(): IEvent<[Error, Message, number]> {
+	get onError(): IEvent<[Error, Message, number]> {
 		return this.errorEmitter.event;
 	}
 
-	public get onClose(): IEvent<void> {
+	get onClose(): IEvent<void> {
 		return this.closeEmitter.event;
 	}
 }
@@ -129,70 +129,33 @@ export class WebSocketStream implements StreamInfo {
 	constructor(private ws: WebSocket) {
 		this.writer = new WebSocketMessageWriter(ws);
 		this.reader = new WebSocketMessageReader(ws);
-
-		// this.writer = {
-		// 	write(msg: lc.Message): void {
-		// 		console.info('WebSocketStream:write - ', msg);
-		// 		ws.send(msg);
-		// 	},
-
-		// 	onClose(closeHandler) {
-		// 		ws.onclose = (ev: CloseEvent): any => {
-		// 			console.info('writer:onclose: ', ev);
-		// 		};
-		// 	},
-		// 	onError(writeErrorHandler) {
-		// 		ws.onerror = (ev: ErrorEvent): any => {
-		// 			console.info('writer:onerror: ', ev);
-		// 		};
-		// 	}
-		// };
-		// // listen(callback: DataCallback): void {
-		// this.reader = {
-		// 	listen(callback: lc.DataCallback): void {
-		// 		ws.onmessage = (ev: MessageEvent): any => {
-		// 			console.info('WebSocketStream:onmessage - ', ev.data, ev);
-		// 		};
-		// 	},
-
-		// 	onClose(closeHandler) {
-		// 		ws.onclose = (ev: CloseEvent): any => {
-		// 			console.info('reader:onclose: ', ev);
-		// 		};
-		// 	},
-		// 	onError(writeErrorHandler) {
-		// 		ws.onerror = (ev: ErrorEvent): any => {
-		// 			console.info('reader:onerror: ', ev);
-		// 		};
-		// 	}
-		// };
 	}
-}
 
-export function create(): Promise<StreamInfo> {
-	return new Promise((resolve, reject) => {
-		let ws: WebSocket;
+	static create(): Promise<StreamInfo> {
+		return new Promise((resolve, reject) => {
+			let ws: WebSocket;
 
-		try {
-			ws = new WebSocket('ws://localhost:4389');
+			try {
+				ws = new WebSocket('ws://localhost:4389');
 
-			ws.onopen = (ev: Event): any => {
-				let streamInfo: StreamInfo = new WebSocketStream(ws);
-				resolve(streamInfo);
+				ws.onopen = (ev: Event): any => {
+					let streamInfo: StreamInfo = new WebSocketStream(ws);
+					resolve(streamInfo);
+				};
+			} catch (err) {
+				reject(err);
+			}
+
+			ws.onclose = (ev: CloseEvent): any => {
+				// console.info('WebSocketStream:onclose - CloseEvent: ', ev);
 			};
-		} catch (err) {
-			reject(err);
-		}
-
-		ws.onclose = (ev: CloseEvent): any => {
-			console.info('WebSocketStream:onclose - CloseEvent: ', ev);
-		};
-		ws.onerror = (ev: ErrorEvent): any => {
-			console.info('WebSocketStream:onerror - ErrorEvent: ', ev);
-			reject(ev.error);
-		};
-		ws.onmessage = (ev: MessageEvent): any => {
-			console.info('WebSocketStream:onmessage - MessageEvent: ', ev);
-		};
-	});
+			ws.onerror = (ev: ErrorEvent): any => {
+				// console.info('WebSocketStream:onerror - ErrorEvent: ', ev);
+				reject(ev.error);
+			};
+			ws.onmessage = (ev: MessageEvent): any => {
+				// console.info('WebSocketStream:onmessage - MessageEvent: ', ev);
+			};
+		});
+	}
 }
