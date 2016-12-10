@@ -57,6 +57,8 @@ export class MonacoWorkspace {
 	private _textDocuments: TextDocument[] = [];
 	private _onDidOpenTextDocument = new Emitter<TextDocument>();
 	private _onDidChangeTextDocument = new Emitter<TextDocumentChangeEvent>();
+	private _onDidSaveTextDocument = new Emitter<TextDocument>(); // noop
+	private _onDidCloseTextDocument = new Emitter<TextDocument>();
 	public rootPath: string;
 
 	constructor(rootPath = MonacoWorkspace.ROOT_PATH, workspaceConfigs = [new MonacoWorkspaceConfig()]) {
@@ -64,7 +66,26 @@ export class MonacoWorkspace {
 		this._workspaceConfigs = workspaceConfigs;
 
 		monaco.editor.onDidCreateModel(this._onModelAdd);
+		monaco.editor.onWillDisposeModel(this._onModelRemove);
 		monaco.editor.getModels().forEach(this._onModelAdd, this);
+
+		// this._disposables.push()
+	}
+
+	get onDidOpenTextDocument(): IEvent<TextDocument> {
+		return this._onDidOpenTextDocument.event;
+	}
+
+	get onDidChangeTextDocument(): IEvent<TextDocumentChangeEvent> {
+		return this._onDidChangeTextDocument.event;
+	}
+
+	get onDidSaveTextDocument(): IEvent<TextDocument> {
+		return this._onDidSaveTextDocument.event;
+	}
+
+	get onDidCloseTextDocument(): IEvent<TextDocument> {
+		return this._onDidCloseTextDocument.event;
 	}
 
 	private _onModelAdd(model: monaco.editor.IModel): void {
@@ -89,24 +110,9 @@ export class MonacoWorkspace {
 		});
 	}
 
-	private _toTextDocumentContentChangeEvent(e: monaco.editor.IModelContentChangedEvent2): TextDocumentContentChangeEvent {
-		let range = Range.lift(e.range);
-		let rangeLength = e.rangeLength;
-		let text = e.text;
-
-		return {
-			range,
-			rangeLength,
-			text,
-		};
-	}
-
-	get onDidOpenTextDocument(): IEvent<TextDocument> {
-		return this._onDidOpenTextDocument.event;
-	}
-
-	get onDidChangeTextDocument(): IEvent<TextDocumentChangeEvent> {
-		return this._onDidChangeTextDocument.event;
+	private _onModelRemove(model: monaco.editor.IModel): void {
+		let textDocument = new TextDocument(model);
+		this._onDidCloseTextDocument.fire(textDocument);
 	}
 
 	get textDocuments() {
@@ -117,5 +123,17 @@ export class MonacoWorkspace {
 		return this._workspaceConfigs.find((config: MonacoWorkspaceConfig) => {
 			return config.id === id;
 		});
+	}
+
+	private _toTextDocumentContentChangeEvent(e: monaco.editor.IModelContentChangedEvent2): TextDocumentContentChangeEvent {
+		let range = Range.lift(e.range);
+		let rangeLength = e.rangeLength;
+		let text = e.text;
+
+		return {
+			range,
+			rangeLength,
+			text,
+		};
 	}
 }
