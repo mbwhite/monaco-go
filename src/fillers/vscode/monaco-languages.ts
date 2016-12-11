@@ -2,12 +2,20 @@ import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
 import Uri = monaco.Uri;
 import Disposable = monaco.IDisposable;
+import Position = monaco.Position;
+import CancellationToken = monaco.CancellationToken;
 
+import Thenable = monaco.Thenable;
+import Definition = monaco.languages.Definition;
+import Hover = monaco.languages.Hover;
 import HoverProvider = monaco.languages.HoverProvider;
 import DefinitionProvider = monaco.languages.DefinitionProvider;
 import ReferenceProvider = monaco.languages.ReferenceProvider;
 import DocumentSymbolProvider = monaco.languages.DocumentSymbolProvider;
 // import WorkspaceSymbolProvider = monaco.languages.WorkspaceSymbolProvider
+
+import Range = monaco.Range;
+import MarkedString = monaco.MarkedString;
 
 import {
 	DocumentSelector, DocumentFilter,
@@ -15,13 +23,38 @@ import {
 } from 'vscode-languageclient';
 
 import {
-	TextDocumentItem
+	TextDocumentItem, MarkedString as LSMarkedString
 } from 'vscode-languageserver-types';
 
 import {
 	TextDocument,
 	TextLine
 } from './monaco-text-document';
+
+
+function toMarkedStringArray(contents: LSMarkedString | LSMarkedString[]): MarkedString[] {
+	if (!contents) {
+		return void 0;
+	}
+	if (Array.isArray(contents)) {
+		return (<LSMarkedString[]>contents);
+	}
+	return [<LSMarkedString>contents];
+}
+
+/**
+ * Creates a new hover object.
+ *
+ * @param contents The contents of the hover.
+ * @param range The range to which the hover applies.
+ */
+export function MonacoHover(contents: LSMarkedString | LSMarkedString[], range?: Range): Hover {
+	let hover: Hover = {
+		range,
+		contents: toMarkedStringArray(contents)
+	};
+	return hover;
+}
 
 export class MonacoLanguages {
 	constructor() {
@@ -42,17 +75,28 @@ export class MonacoLanguages {
 	}
 
 	// ”capabilities;": {;
-	//         "textDocumentSync";: 1,
-	//         "hoverProvider";: true,
-	//         "definitionProvider";: true,
-	//         "referencesProvider";: true,
-	//         "documentSymbolProvider";: true,
-	//         "workspaceSymbolProvider";: true;
+	//         "textDocumentSync": 1,
+	//         "hoverProvider": true,
+	//         "definitionProvider": true,
+	//         "referencesProvider": true,
+	//         "documentSymbolProvider": true,
+	//         "workspaceSymbolProvider": true;
 	//     }
 
 	registerHoverProvider(selector: DocumentSelector, provider: HoverProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
-		return monaco.languages.registerHoverProvider(languageId, provider);
+		return monaco.languages.registerHoverProvider(languageId, {
+			provideHover: (model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<Hover> => {
+				// let textDocument = new TextDocument(model);
+
+				// adjust positions for vscode-languageclient
+				let vscodePosition = position.clone();
+				vscodePosition['line'] = position.lineNumber - 1;
+				vscodePosition['character'] = position.column - 1;
+
+				return <Thenable<Hover>>provider.provideHover(model, vscodePosition, token);
+			}
+		});
 	}
 
 	registerDefinitionProvider(selector: DocumentSelector, provider: DefinitionProvider): Disposable {

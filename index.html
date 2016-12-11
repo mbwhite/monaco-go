@@ -8,7 +8,7 @@
 <body>
 
 <h2>Monaco Editor Go test page</h2>
-<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+<div id="container" style="width:1000px;height:900px;border:1px solid grey"></div>
 <div id="example_files_container" style="width:800px;height:200px; margin-top: 64px;">
 	<h2>Examples</h2>
 	<div id="example_files" style="width:800px;height:200px;border:1px solid grey;"></div>
@@ -112,15 +112,35 @@ define('util', function () {
 </script>
 
 <script>
-var exampleUrl = "https://raw.githubusercontent.com/golang/example/master/hello/hello.go";
+// var exampleUrl = "https://raw.githubusercontent.com/golang/example/master/hello/hello.go";
+let exampleUrl = 'https://raw.githubusercontent.com/mbana/go-langserver/master/langserver/cmd/langserver-go/langserver-go.go';
+
 fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); }).then(function (exampleGo) {
 	require([
 		'vs/basic-languages/src/monaco.contribution',
 		'vs/language/go/monaco.contribution'
 	], function() {
+		// possible uri values:
+		//
+		// ./.dev-tmp/langserver-antha_client_valid.log
+		// ./langserver/cmd/langserver-antha/langserver-antha
+		// ./langserver/cmd/langserver-antha/langserver-go.go
+		// ./langserver/cmd/langserver-go/langserver-go.go
+		// ./langserver/langserver_test.go
+		let rootPath = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver';
+		let filePath = '/langserver/cmd/langserver-go/langserver-go.go';
+		let uri = [
+			'file://',
+			rootPath,
+			filePath
+		].join('');
+
+		var language = 'go';
+		let value = exampleGo;
+		let model = monaco.editor.createModel(value, language, uri);
+
 		var editor = monaco.editor.create(document.getElementById('container'), {
-			value: exampleGo,
-			language: 'go'
+			model: model
 		});
 	});
 });

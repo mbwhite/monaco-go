@@ -35,6 +35,42 @@ This npm module is bundled and distributed in the [monaco-editor](https://www.np
 
 ---
 
+# `monaco-go`
+
+## screenshot
+
+![monaco-go-lsp](/images/monaco-go-lsp.png)
+
+## live demo
+
+todo.
+
+## `Dockerfile`
+
+[./build/docker/README.md](./build/docker/README.md).
+
+## `submodules`
+
+todo: add submodule checkout to the build.
+
+To make building this easier---the features are in certain branches---the deps are submodules:
+
+```sh
+[submodule "golang/example"]
+	path = golang/example
+	url = git@github.com:golang/example.git
+[submodule "submodules/vscode-languageserver-node"]
+	path = submodules/vscode-languageserver-node
+	url = git@github.com:mbana/vscode-languageserver-node.git
+	branch = monaco
+[submodule "submodules/go-langserver"]
+	path = submodules/go-langserver
+	url = git@github.com:mbana/go-langserver.git
+	branch = websocket-gorilla
+```
+
+---
+
 ## Development
 
 See:
