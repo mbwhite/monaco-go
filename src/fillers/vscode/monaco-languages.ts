@@ -56,6 +56,15 @@ export function MonacoHover(contents: LSMarkedString | LSMarkedString[], range?:
 	return hover;
 }
 
+// ”capabilities": {
+// 	"textDocumentSync": 1,
+// 	"hoverProvider": true,
+// 	"definitionProvider": true,
+// 	"referencesProvider": true,
+// 	"documentSymbolProvider": true,
+// 	//"workspaceSymbolProvider": true;
+// }
+
 export class MonacoLanguages {
 	constructor() {
 	}
@@ -73,15 +82,6 @@ export class MonacoLanguages {
 		}
 		return languageId;
 	}
-
-	// ”capabilities;": {;
-	//         "textDocumentSync": 1,
-	//         "hoverProvider": true,
-	//         "definitionProvider": true,
-	//         "referencesProvider": true,
-	//         "documentSymbolProvider": true,
-	//         "workspaceSymbolProvider": true;
-	//     }
 
 	registerHoverProvider(selector: DocumentSelector, provider: HoverProvider): Disposable {
 		let languageId = this._getLanguageId(selector);

@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<link rel="stylesheet" data-name="vs/editor/editor.main" href="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.css">
 </head>
+
 <body>
 
-<h2>Monaco Editor Go test page</h2>
-<div id="container" style="width:1000px;height:900px;border:1px solid grey"></div>
-<div id="example_files_container" style="width:800px;height:200px; margin-top: 64px;">
-	<h2>Examples</h2>
-	<div id="example_files" style="width:800px;height:200px;border:1px solid grey;"></div>
-</div>
+	<h2>Monaco Editor Go test page</h2>
+	<div id="container" style="width:1000px;height:900px;border:1px solid grey"></div>
+	<div id="example_files_container" style="width:800px;height:200px; margin-top: 64px;">
+		<h2>Examples</h2>
+		<div id="example_files" style="width:800px;height:200px;border:1px solid grey;"></div>
+	</div>
 
-<script>
+	<script>
 	// Loading basic-languages to get the css language definition
 	var require = {
 		paths: {
@@ -29,122 +31,13 @@
 			'vs': '/node_modules/monaco-editor-core/dev/vs'
 		}
 	};
-</script>
+	</script>
+	<script src="./node_modules/monaco-editor-core/dev/vs/loader.js"></script>
+	<script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
+	<script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
 
-<script src="./node_modules/monaco-editor-core/dev/vs/loader.js"></script>
-<script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
-<script src="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
-
-<script>
-let Buffer = function(str, encoding) {
-	var uint8array = new TextEncoder(encoding).encode(str);
-	return uint8array;
-};
-
-let process = {
-	platform: 'win32',
-	kill: function(signal) {
-		// signal: 'SIGKILL'
-	},
-	env: {
-	}
-};
-</script>
-
-<!--replace with out/fillers-->
-<script>
-define('child_process', function () {
-	let child_process = {
-		ChildProcess: {
-		}
-	};
-
-	return child_process;
-});
-define('net', function () {
-	let net = {
-		connect: function() {
-			return {
-				unref: function() {
-				}
-			}
-		},
-		createServer: function() {
-			return {
-				listen: function () {
-				}
-			}
-		},
-	};
-
-	return net;
-});
-define('path', function () {
-	let path = {
-	};
-
-	return path;
-});
-define('os', function () {
-	let os = {
-	};
-
-	return os;
-});
-define('fs', function () {
-	let fs = {
-	};
-
-	return fs;
-});
-define('stream', function () {
-	let stream = {
-	};
-
-	return stream;
-});
-define('util', function () {
-	let util = {
-	};
-
-	return util;
-});
-</script>
-
-<script>
-// var exampleUrl = "https://raw.githubusercontent.com/golang/example/master/hello/hello.go";
-let exampleUrl = 'https://raw.githubusercontent.com/mbana/go-langserver/master/langserver/cmd/langserver-go/langserver-go.go';
-
-fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); }).then(function (exampleGo) {
-	require([
-		'vs/basic-languages/src/monaco.contribution',
-		'vs/language/go/monaco.contribution'
-	], function() {
-		// possible uri values:
-		//
-		// ./.dev-tmp/langserver-antha_client_valid.log
-		// ./langserver/cmd/langserver-antha/langserver-antha
-		// ./langserver/cmd/langserver-antha/langserver-go.go
-		// ./langserver/cmd/langserver-go/langserver-go.go
-		// ./langserver/langserver_test.go
-		let rootPath = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver';
-		let filePath = '/langserver/cmd/langserver-go/langserver-go.go';
-		let uri = [
-			'file://',
-			rootPath,
-			filePath
-		].join('');
-
-		var language = 'go';
-		let value = exampleGo;
-		let model = monaco.editor.createModel(value, language, uri);
-
-		var editor = monaco.editor.create(document.getElementById('container'), {
-			model: model
-		});
-	});
-});
-</script>
-
+	<script src="/demo/fillers.js"></script>
+	<script src="/demo/monaco-go.js"></script>
 </body>
+
 </html>

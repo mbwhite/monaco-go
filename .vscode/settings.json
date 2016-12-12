@@ -1,28 +1,33 @@
 // Place your settings in this file to overwrite default and user settings.
 {
 	"search.exclude": {
-		"**/node_modules": true,
-		"**/bower_components": true,
-		"**/submodules": true,
-		"**/.git": true,
-		"**/.svn": true,
-		"**/.hg": true,
-		"**/.DS_Store": true,
 		"**/release": true,
 		"**/out": true,
-		"**/lib": true
-	},
-	"files.exclude": {
-		// "**/release": true,
-		// "**/out": true,
-		// "**/lib": true,
-		// "**/node_modules": true,
-		"**/bower_components": true,
+		"**/lib": true,
+		"**/submodules": true,
+		"**/node_modules": true,
 
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
-		"**/.DS_Store": true
+		"**/.DS_Store": true,
+
+		"**/bower_components": true
+
+	},
+	"files.exclude": {
+		"**/release": true,
+		"**/out": true,
+		"**/lib": true,
+		// "**/submodules": true,
+		"**/node_modules": true,
+
+		"**/.git": true,
+		"**/.svn": true,
+		"**/.hg": true,
+		"**/.DS_Store": true,
+
+		"**/bower_components": true
 	},
 	"files.trimTrailingWhitespace": true,
 	"editor.tabSize": 4,

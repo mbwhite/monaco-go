@@ -1,0 +1,67 @@
+class MonacoGo {
+	static getExampleUrl() {
+		const BRANCH_PREFIX = 'https://raw.githubusercontent.com/mbana/go-langserver/websocket-gorilla';
+		// const BRANCH_PREFIX = 'https://raw.githubusercontent.com/mbana/go-langserver/master';
+		const filePath = '/langserver/cmd/langserver-antha/langserver-go.go';
+		let exampleUrl = [
+			BRANCH_PREFIX,
+			filePath
+		].join('');
+
+		return {
+			exampleUrl,
+			filePath
+		};
+	}
+
+	static toUri(filePath) {
+		const SCHEME = 'file://';
+		const WORKSPACE_ROOT_PATH = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver';
+
+		let uri = [
+			SCHEME,
+			WORKSPACE_ROOT_PATH,
+			filePath
+		].join('');
+		return uri;
+	}
+
+	static createModel(exampleGo, filePath) {
+		// possible uri values:
+		//
+		// ./.dev-tmp/langserver-antha_client_valid.log
+		// ./langserver/cmd/langserver-antha/langserver-antha
+		// ./langserver/cmd/langserver-antha/langserver-go.go
+		// ./langserver/cmd/langserver-go/langserver-go.go
+		// ./langserver/langserver_test.go
+
+		let value = exampleGo;
+		var language = 'go';
+		let uri = MonacoGo.toUri(filePath);
+
+		let model = monaco.editor.createModel(value, language, uri);
+		return model;
+	}
+}
+
+let {
+	exampleUrl,
+	filePath
+} = MonacoGo.getExampleUrl();
+
+let examplePromise = fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); });
+examplePromise.then(function (exampleGo) {
+	require([
+		'vs/basic-languages/src/monaco.contribution',
+		'vs/language/go/monaco.contribution'
+	], function () {
+		let editorOpts = {
+			model: MonacoGo.createModel(exampleGo, filePath)
+		};
+
+		let editor = monaco.editor.create(
+			document.getElementById('container'),
+			editorOpts
+		);
+	});
+});

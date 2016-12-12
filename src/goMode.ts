@@ -17,6 +17,15 @@ import MonacoPromise = monaco.Promise;
 import Uri = monaco.Uri;
 import IDisposable = monaco.IDisposable;
 
+// ”capabilities": {
+// 	"textDocumentSync": 1,
+// 	"hoverProvider": true,
+// 	"definitionProvider": true,
+// 	"referencesProvider": true,
+// 	"documentSymbolProvider": true,
+// 	//"workspaceSymbolProvider": true;
+// }
+
 export function setupMode(defaults: LanguageServiceDefaultsImpl): void {
 	let disposables: IDisposable[] = [];
 
@@ -41,7 +50,3 @@ export function setupMode(defaults: LanguageServiceDefaultsImpl): void {
 	disposables.push(monaco.languages.registerRenameProvider(languageId, new languageFeatures.RenameAdapter(worker)));
 	disposables.push(new languageFeatures.DiagnostcsAdapter(languageId, worker));
 }
-
-
-
-
