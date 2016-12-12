@@ -4,6 +4,7 @@ import Uri = monaco.Uri;
 import Disposable = monaco.IDisposable;
 import Position = monaco.Position;
 import Range = monaco.Range;
+import Location = monaco.languages.Location;
 import CancellationToken = monaco.CancellationToken;
 
 import Thenable = monaco.Thenable;
@@ -36,3 +37,17 @@ export function MonacoRange(start: Position, end: Position): Range {
 	return new Range(start.lineNumber, start.column, end.lineNumber, end.column);
 }
 
+
+/**
+ * Creates a new location object.
+ *
+ * @param uri The resource identifier.
+ * @param rangeOrPosition The range or position. Positions will be converted to an empty range.
+ */
+export function MonacoLocation(uri: Uri, range: Range): Location {
+	let location: Location  = {
+		uri,
+		range
+	};
+	return location;
+}

@@ -24,7 +24,7 @@ export class GoWorker {
 	constructor(ctx: IWorkerContext, createData: ICreateData) {
 		this._ctx = ctx;
 
-		console.log('createData: ', createData);
+		// console.log('createData: ', createData);
 
 		this._languageId = 'go';
 		// this._languageSettings = createData.languageSettings;

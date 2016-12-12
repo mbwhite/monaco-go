@@ -19,15 +19,17 @@ import { TextDocument, TextLine } from './vscode/monaco-text-document';
 import { MonacoOutputChannel } from './vscode/monaco-output-channel';
 import {
 	MonacoPosition as Position,
-	MonacoRange as Range
+	MonacoRange as Range,
+	MonacoLocation as Location
 } from './vscode/monaco-position';
 
+export { Uri };
 export { MonacoWindow };
 export { MonacoLanguages, Hover };
 export { MonacoWorkspace };
 export { TextDocument, TextLine };
 export { MonacoOutputChannel };
-export { Position, Range };
+export { Position, Range, Location };
 
 export function CompletionItem() { };
 

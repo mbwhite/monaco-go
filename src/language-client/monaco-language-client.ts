@@ -10,6 +10,8 @@ import {
 	WebSocketStream
 } from './web-socket-stream';
 
+import * as languageFeatures from '../languageFeatures';
+
 export class MonacoLanguageClient extends LanguageClient {
 	constructor(id: string, serverOptions: ServerOptions, clientOptions: LanguageClientOptions, forceDebug: boolean = false) {
 		super(id, serverOptions, clientOptions, forceDebug);

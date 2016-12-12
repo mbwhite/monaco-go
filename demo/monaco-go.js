@@ -18,12 +18,11 @@ class MonacoGo {
 		const SCHEME = 'file://';
 		const WORKSPACE_ROOT_PATH = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver';
 
-		let uri = [
+		return [
 			SCHEME,
 			WORKSPACE_ROOT_PATH,
 			filePath
 		].join('');
-		return uri;
 	}
 
 	static createModel(exampleGo, filePath) {
@@ -39,8 +38,7 @@ class MonacoGo {
 		var language = 'go';
 		let uri = MonacoGo.toUri(filePath);
 
-		let model = monaco.editor.createModel(value, language, uri);
-		return model;
+		return monaco.editor.createModel(value, language, uri);
 	}
 }
 
@@ -55,8 +53,9 @@ examplePromise.then(function (exampleGo) {
 		'vs/basic-languages/src/monaco.contribution',
 		'vs/language/go/monaco.contribution'
 	], function () {
+		let model = MonacoGo.createModel(exampleGo, filePath);
 		let editorOpts = {
-			model: MonacoGo.createModel(exampleGo, filePath)
+			model
 		};
 
 		let editor = monaco.editor.create(

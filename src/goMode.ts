@@ -11,7 +11,7 @@ import * as languageFeatures from './languageFeatures';
 import { LanguageClient } from 'vscode-languageclient';
 import {
 	MonacoLanguageClient
-} from './monaco-language-client';
+} from './language-client/monaco-language-client';
 
 import MonacoPromise = monaco.Promise;
 import Uri = monaco.Uri;
@@ -41,12 +41,12 @@ export function setupMode(defaults: LanguageServiceDefaultsImpl): void {
 
 	let languageId = defaults.languageId;
 
-	disposables.push(monaco.languages.registerCompletionItemProvider(languageId, new languageFeatures.CompletionAdapter(worker)));
+	// disposables.push(monaco.languages.registerCompletionItemProvider(languageId, new languageFeatures.CompletionAdapter(worker)));
 	// disposables.push(monaco.languages.registerHoverProvider(languageId, new languageFeatures.HoverAdapter(worker)));
-	disposables.push(monaco.languages.registerDocumentHighlightProvider(languageId, new languageFeatures.DocumentHighlightAdapter(worker)));
-	disposables.push(monaco.languages.registerDefinitionProvider(languageId, new languageFeatures.DefinitionAdapter(worker)));
-	disposables.push(monaco.languages.registerReferenceProvider(languageId, new languageFeatures.ReferenceAdapter(worker)));
-	disposables.push(monaco.languages.registerDocumentSymbolProvider(languageId, new languageFeatures.DocumentSymbolAdapter(worker)));
-	disposables.push(monaco.languages.registerRenameProvider(languageId, new languageFeatures.RenameAdapter(worker)));
-	disposables.push(new languageFeatures.DiagnostcsAdapter(languageId, worker));
+	// disposables.push(monaco.languages.registerDocumentHighlightProvider(languageId, new languageFeatures.DocumentHighlightAdapter(worker)));
+	// disposables.push(monaco.languages.registerDefinitionProvider(languageId, new languageFeatures.DefinitionAdapter(worker)));
+	// disposables.push(monaco.languages.registerReferenceProvider(languageId, new languageFeatures.ReferenceAdapter(worker)));
+	// disposables.push(monaco.languages.registerDocumentSymbolProvider(languageId, new languageFeatures.DocumentSymbolAdapter(worker)));
+	// disposables.push(monaco.languages.registerRenameProvider(languageId, new languageFeatures.RenameAdapter(worker)));
+	// disposables.push(new languageFeatures.DiagnostcsAdapter(languageId, worker));
 }

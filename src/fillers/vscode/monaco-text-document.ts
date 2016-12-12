@@ -141,9 +141,7 @@ export class TextDocument {
 	 * @readonly
 	 */
 	get version(): number {
-		let alternativeVersionId = this.model.getAlternativeVersionId();
 		let versionId = this.model.getVersionId();
-
 		return versionId;
 	}
 

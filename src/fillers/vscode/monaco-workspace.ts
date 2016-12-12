@@ -27,7 +27,7 @@ export class MonacoWorkspaceConfig {
 	constructor(id: string = 'langserver-antha') {
 		this._id = id;
 		this._sections = {
-			'trace.server': 'verbose'
+			'trace.server': 'messages'
 		};
 	}
 

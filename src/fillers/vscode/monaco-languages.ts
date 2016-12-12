@@ -11,10 +11,13 @@ import Hover = monaco.languages.Hover;
 import HoverProvider = monaco.languages.HoverProvider;
 import DefinitionProvider = monaco.languages.DefinitionProvider;
 import ReferenceProvider = monaco.languages.ReferenceProvider;
+import ReferenceContext = monaco.languages.ReferenceContext;
 import DocumentSymbolProvider = monaco.languages.DocumentSymbolProvider;
 // import WorkspaceSymbolProvider = monaco.languages.WorkspaceSymbolProvider
 
+import IReadOnlyModel = monaco.editor.IReadOnlyModel;
 import Range = monaco.Range;
+import Location = monaco.languages.Location;
 import MarkedString = monaco.MarkedString;
 
 import {
@@ -101,12 +104,32 @@ export class MonacoLanguages {
 
 	registerDefinitionProvider(selector: DocumentSelector, provider: DefinitionProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
-		return monaco.languages.registerDefinitionProvider(languageId, provider);
+		return monaco.languages.registerDefinitionProvider(languageId, {
+			provideDefinition(model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<monaco.languages.Definition> {
+				const resource = model.uri;
+				// adjust positions for vscode-languageclient
+				let vscodePosition = position.clone();
+				vscodePosition['line'] = position.lineNumber - 1;
+				vscodePosition['character'] = position.column - 1;
+
+				return <Thenable<monaco.languages.Definition>>provider.provideDefinition(model, vscodePosition, token);
+			}
+		});
 	}
 
 	registerReferenceProvider(selector: DocumentSelector, provider: ReferenceProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
-		return monaco.languages.registerReferenceProvider(languageId, provider);
+		return monaco.languages.registerReferenceProvider(languageId, {
+			provideReferences(model: IReadOnlyModel, position: Position, context: ReferenceContext, token: CancellationToken): Location[] | Thenable<Location[]> {
+				const resource = model.uri;
+				// adjust positions for vscode-languageclient
+				let vscodePosition = position.clone();
+				vscodePosition['line'] = position.lineNumber - 1;
+				vscodePosition['character'] = position.column - 1;
+
+				return provider.provideReferences(model, vscodePosition, context, token);
+			}
+		});
 	}
 
 	registerDocumentSymbolProvider(selector: DocumentSelector, provider: DocumentSymbolProvider): Disposable {
