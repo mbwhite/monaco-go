@@ -1,5 +1,7 @@
 # `monaco-go`
 
+The implementation is mostly derived from [monaco-css](https://github.com/Microsoft/monaco-css) but uses WebSocket as the transport to talk to the [go-langserver](https://github.com/sourcegraph/go-langserver).
+
 ## screenshot
 
 ![monaco-go-lsp](/images/monaco-go-lsp.png)
@@ -12,35 +14,14 @@
 
 todo.
 
-## `Dockerfile`
+## build
 
-[./build/docker/README.md](./build/docker/README.md).
+todo.
 
-## `submodules`
-
-todo: add submodule checkout to the build.
-
-To make building this easier---the features are in certain branches---the deps are submodules:
-
-```sh
-[submodule "golang/example"]
-	path = golang/example
-	url = git@github.com:golang/example.git
-[submodule "submodules/vscode-languageserver-node"]
-	path = submodules/vscode-languageserver-node
-	url = git@github.com:mbana/vscode-languageserver-node.git
-	branch = monaco
-[submodule "submodules/go-langserver"]
-	path = submodules/go-langserver
-	url = git@github.com:mbana/go-langserver.git
-	branch = websocket-gorilla
-```
-
-
+* `build`: [/build/README.md](/build/README.md).
+* `Dockerfile`: [/build/docker/README.md](/build/docker/README.md).
 
 ---
-
-
 
 # Monaco CSS
 
@@ -76,58 +57,3 @@ This npm module is bundled and distributed in the [monaco-editor](https://www.np
 
 ## License
 [MIT](https://github.com/Microsoft/monaco-css/blob/master/LICENSE.md)
-
----
-
-# old
-
-## Development
-
-See:
-
-* [scripts/install.sh](scripts/install.sh).
-* [scripts/open.sh](scripts/open.sh).
-* Requires [vscode-go-languageservice](https://github.com/mbana/vscode-go-languageservice).
-
----
-
-```sh
-#!/bin/sh -x
-
-DEPTH="--depth 1"
-REPOS="vscode-go-languageservice monaco-go"
-for REPO in $REPOS
-do
-    git clone $DEPTH git@github.com:mbana/$REPO.git
-done
-
-cd vscode-go-languageservice && \
-	npm install && \
-	sudo npm link && \
-	cd ..
-
-# the line npm install ../vscode-go-languageservice -f
-# is required...
-cd monaco-go && \
-	npm link vscode-go-languageservice && \
-	npm install ../vscode-go-languageservice -f -S && \
-	npm install && \
-	npm run watch
-
-```
-
-```sh
-#!/bin/bash -x
-
-TEST_FILE=$([[ -e "./test/index.html" ]] && echo "./test/index.html" || echo "monaco-go/test/index.html")
-
-OS_TYPE=$(echo $OSTYPE)
-case $OS_TYPE in
-  darwin*)  open $TEST_FILE ;;
-  linux*)   xdg-open $TEST_FILE ;;
-  *)        echo "unknown: ${OS_TYPE}" ;;
-esac
-```
-
-## License
-[MIT](https://github.com/Microsoft/monaco-go/blob/master/LICENSE.md)

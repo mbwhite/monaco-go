@@ -1,5 +1,23 @@
-# `monaco-go`
-
-## `Dockerfile`
+# build
 
 todo.
+
+## `submodules`
+
+todo: add submodule checkout to the build.
+
+To make building this easier---the features are in certain branches---the deps are submodules:
+
+```sh
+[submodule "golang/example"]
+	path = golang/example
+	url = git@github.com:golang/example.git
+[submodule "submodules/vscode-languageserver-node"]
+	path = submodules/vscode-languageserver-node
+	url = git@github.com:mbana/vscode-languageserver-node.git
+	branch = monaco
+[submodule "submodules/go-langserver"]
+	path = submodules/go-langserver
+	url = git@github.com:mbana/go-langserver.git
+	branch = websocket-gorilla
+```
