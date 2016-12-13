@@ -9,3 +9,7 @@
 	path = submodules/go-langserver
 	url = git@github.com:mbana/go-langserver.git
 	branch = websocket-gorilla
+[submodule "submodules/jsonrpc2"]
+	path = submodules/jsonrpc2
+	url = git@github.com:mbana/jsonrpc2.git
+	branch = jsonrpc-websocket-gorilla
