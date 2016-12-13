@@ -1,3 +1,7 @@
 /node_modules/
 /out/
 /release/
+
+# temp dev stuff
+.dev-tmp/
+.tmp/
