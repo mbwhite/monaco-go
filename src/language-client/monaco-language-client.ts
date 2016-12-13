@@ -4,6 +4,7 @@ import {
 	ServerOptions,
 	LanguageClient,
 	StreamInfo,
+	DocumentSelector,
 } from 'vscode-languageclient';
 
 import {
@@ -23,13 +24,19 @@ export class MonacoLanguageClient extends LanguageClient {
 			return WebSocketStream.create();
 		};
 
+		let initializationOptions = {
+			'rootImportPath': 'github.com/sourcegraph/go-langserver/langserver',
+			'GOPATH': '/Users/mbana/go',
+			'GOROOT': '/usr/local/opt/go/libexec',
+		};
+		let documentSelector: DocumentSelector = ['go'];
 		let synchronize: SynchronizeOptions = {
 			configurationSection: null,
 			fileEvents: null
 		};
 		let clientOptions: LanguageClientOptions = {
-
-			documentSelector: ['go'],
+			initializationOptions,
+			documentSelector,
 			synchronize,
 		};
 		let forceDebug: boolean = false;
@@ -38,3 +45,11 @@ export class MonacoLanguageClient extends LanguageClient {
 		return client;
 	}
 }
+
+// BuildContext: &InitializeBuildContextParams{
+// 					GOOS:     "linux",
+// 					GOARCH:   "amd64",
+// 					GOPATH:   "/",
+// 					GOROOT:   "/goroot",
+// 					Compiler: runtime.Compiler,
+// 				},

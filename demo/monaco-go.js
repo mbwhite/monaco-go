@@ -2,9 +2,12 @@ class MonacoGo {
 	static getExampleUrl() {
 		const BRANCH_PREFIX = 'https://raw.githubusercontent.com/mbana/go-langserver/websocket-gorilla';
 		// const BRANCH_PREFIX = 'https://raw.githubusercontent.com/mbana/go-langserver/master';
-		const filePath = '/langserver/cmd/langserver-antha/langserver-go.go';
+		// const filePath = '/langserver/cmd/langserver-antha/langserver-go.go';
+		const filePrefix = '/langserver';
+		const filePath = '/handler.go';
 		let exampleUrl = [
 			BRANCH_PREFIX,
+			filePrefix,
 			filePath
 		].join('');
 
@@ -16,7 +19,7 @@ class MonacoGo {
 
 	static toUri(filePath) {
 		const SCHEME = 'file://';
-		const WORKSPACE_ROOT_PATH = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver';
+		const WORKSPACE_ROOT_PATH = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver';
 
 		return [
 			SCHEME,

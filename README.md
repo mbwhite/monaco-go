@@ -6,6 +6,8 @@
 
 ![find-references.png](/images/find-references.png)
 
+![document-symbol.png](/images/document-symbol.png)
+
 ## live demo
 
 todo.
@@ -34,7 +36,11 @@ To make building this easier---the features are in certain branches---the deps a
 	branch = websocket-gorilla
 ```
 
+
+
 ---
+
+
 
 # Monaco CSS
 
