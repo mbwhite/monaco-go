@@ -10,13 +10,32 @@ The implementation is mostly derived from [monaco-css](https://github.com/Micros
 
 ![document-symbol.png](/images/document-symbol.png)
 
-## live demo
-
-todo.
-
 ## build
 
-todo.
+### `monaco-go`
+
+The browser will launch at the address http://127.0.0.1:8080/ once the build is done.
+
+```sh
+wget -qO- https://raw.githubusercontent.com/mbana/monaco-go/master/build/get.sh | /bin/sh
+```
+or
+
+```sh
+( \
+  REPOS_DIR="/tmp/repos/ghub" && \
+  mkdir -p $REPOS_DIR && cd $REPOS_DIR && \
+  git@github.com:mbana/monaco-go.git && \
+  cd monaco-go && \
+  ./build/all.sh \
+)
+```
+
+### `go-langserver` and `jsonrpc2`
+
+todo: need to make these custom-built versions appear in the `GOPATH`.
+
+### docs
 
 * `build`: [/build/README.md](/build/README.md).
 * `Dockerfile`: [/build/docker/README.md](/build/docker/README.md).
