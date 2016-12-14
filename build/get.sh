@@ -6,5 +6,5 @@
   cd $REPOS_DIR && \
   git clone --recursive git@github.com:mbana/monaco-go.git && \
   cd monaco-go && \
-  ./build/all.sh \
+  ./build/docker.sh \
 )
