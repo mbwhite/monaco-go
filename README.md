@@ -28,7 +28,10 @@ WIP but these are partly supported:
 Execute below to download repo, build and run using Docker:
 
 ```sh
-wget -qO- https://raw.githubusercontent.com/mbana/monaco-go/master/build/get.sh | /bin/bash
+( \
+	wget -qO- https://raw.githubusercontent.com/mbana/monaco-go/master/build/get.sh | /bin/bash \
+) && \
+docker run -p 8080:8080 -it monaco-go:latest
 ```
 
 ### locally
