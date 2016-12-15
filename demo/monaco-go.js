@@ -19,7 +19,7 @@ class MonacoGo {
 
 	static toUri(filePath) {
 		const SCHEME = 'file://';
-		const WORKSPACE_ROOT_PATH = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver';
+		const WORKSPACE_ROOT_PATH = '/go/src/github.com/sourcegraph/go-langserver/langserver';
 
 		return [
 			SCHEME,

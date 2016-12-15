@@ -51,7 +51,7 @@ export class MonacoWorkspaceConfig {
 }
 
 export class MonacoWorkspace {
-	public static ROOT_PATH: string = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver';
+	public static ROOT_PATH: string = '/go/src/github.com/sourcegraph/go-langserver/langserver';
 
 	private _workspaceConfigs: MonacoWorkspaceConfig[];
 	private _textDocuments: TextDocument[] = [];
