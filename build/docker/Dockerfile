@@ -116,4 +116,9 @@ RUN \
   source $NVM_DIR/nvm.sh; \
   ./build/all.sh
 
-ENTRYPOINT ["/bin/bash", "-c", "source $NVM_DIR/nvm.sh; npm run serve"]
+EXPOSE 4389
+
+ENTRYPOINT [ \
+  "/bin/bash", "-c", \
+  "source $NVM_DIR/nvm.sh; langserver-antha -mode ws -trace & npm run serve" \
+]

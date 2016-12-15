@@ -17,8 +17,8 @@ docker build \
 
 echo "--------"
 echo "run commands:"
-echo "docker run -p 8080:8080 -it $IMAGE_NAME_REV"
-echo "docker run -p 8080:8080 -it $IMAGE_NAME_LATEST"
+echo "docker run -p 8080:8080 -p 4389:4389 -it $IMAGE_NAME_REV"
+echo "docker run -p 8080:8080 -p 4389:4389 -it $IMAGE_NAME_LATEST"
 echo "--------"
 
 # docker run -p 8080:8080 -it $IMAGE_NAME_LATEST
