@@ -8,8 +8,9 @@ WIP but these are partly supported:
 
 * `textDocumentSync`
 * `hoverProvider`
-* `definitionProvider`
-* `referencesProvider`
+* `definitionProvider`: going to definition works but navigating back and
+forths isn't.
+* `referencesProvider`: references are listed, navigating to them however isn't.
 * `documentSymbolProvider`
 * <del>`workspaceSymbolProvider`</del>
 

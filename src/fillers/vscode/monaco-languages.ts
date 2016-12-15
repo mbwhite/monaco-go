@@ -90,12 +90,9 @@ export class MonacoLanguages {
 		let languageId = this._getLanguageId(selector);
 		return monaco.languages.registerHoverProvider(languageId, {
 			provideHover: (model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<Hover> => {
+				console.log('this: ', this);
 				// let textDocument = new TextDocument(model);
-
-				// adjust positions for vscode-languageclient
-				let vscodePosition = position.clone();
-				vscodePosition['line'] = position.lineNumber - 1;
-				vscodePosition['character'] = position.column - 1;
+				let vscodePosition = MonacoLanguages.toVSCodePosition(position);
 
 				return <Thenable<Hover>>provider.provideHover(model, vscodePosition, token);
 			}
@@ -104,21 +101,16 @@ export class MonacoLanguages {
 
 	registerDefinitionProvider(selector: DocumentSelector, provider: DefinitionProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
-		let monacoLanguages = this;
 		return monaco.languages.registerDefinitionProvider(languageId, {
 			provideDefinition(model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<monaco.languages.Definition> {
-				const resource = model.uri;
-				// adjust positions for vscode-languageclient
-				let vscodePosition = position.clone();
-				vscodePosition['line'] = position.lineNumber - 1;
-				vscodePosition['character'] = position.column - 1;
+				let vscodePosition = MonacoLanguages.toVSCodePosition(position);
 
 				// hack: create models - otherwise you can't jump to the definition
 				let definition = <Thenable<monaco.languages.Definition>>provider.provideDefinition(model, vscodePosition, token);
 				return definition.then((definition) => {
 					if (definition instanceof Array) {
 						return Promise.all(definition.map((location) => {
-							return monacoLanguages.tryLoadModel(location.uri).then((model) => {
+							return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
 								window['langserverEditor'].setModel(model);
 
 								return location;
@@ -127,7 +119,7 @@ export class MonacoLanguages {
 							return locations;
 						});
 					} else {
-						return monacoLanguages.tryLoadModel(definition.uri).then((model) => {
+						return MonacoLanguages.tryLoadModel(definition.uri).then((model) => {
 							return definition;
 						});
 					}
@@ -138,23 +130,16 @@ export class MonacoLanguages {
 
 	registerReferenceProvider(selector: DocumentSelector, provider: ReferenceProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
-		let monacoLanguages = this;
 		return monaco.languages.registerReferenceProvider(languageId, {
 			provideReferences(model: IReadOnlyModel, position: Position, context: ReferenceContext, token: CancellationToken): Thenable<MLocation[]> {
-				const resource = model.uri;
-				// adjust positions for vscode-languageclient
-				let vscodePosition = position.clone();
-				vscodePosition['line'] = position.lineNumber - 1;
-				vscodePosition['character'] = position.column - 1;
-
-				// return <Thenable<MLocation[]>>provider.provideReferences(model, vscodePosition, context, token);
+				let vscodePosition = MonacoLanguages.toVSCodePosition(position);
 
 				// hack: create models - otherwise you can't jump to the definition
 				let references = <Thenable<MLocation[]>>provider.provideReferences(model, vscodePosition, context, token);
 				return references.then((references) => {
 					if (references instanceof Array) {
 						return Promise.all(references.map((location) => {
-							return monacoLanguages.tryLoadModel(location.uri).then((model) => {
+							return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
 								return location;
 							});
 						})).then((locations) => {
@@ -162,7 +147,7 @@ export class MonacoLanguages {
 						});
 					} else {
 						let location = <MLocation>references;
-						return monacoLanguages.tryLoadModel(location.uri).then((model) => {
+						return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
 							return references;
 						});
 					}
@@ -183,6 +168,8 @@ export class MonacoLanguages {
 		};
 	}
 
+	// todo: needs doing - since it allows viewing where in the file
+	// there's an error
 	createDiagnosticCollection() {
 		return {};
 	}
@@ -202,6 +189,14 @@ export class MonacoLanguages {
 		}
 	}
 
+	// adjust positions for vscode-languageclient
+	static toVSCodePosition(monacoPos: any) {
+		let codePos = monacoPos.clone();
+		codePos['line'] = monacoPos.lineNumber - 1;
+		codePos['character'] = monacoPos.column - 1;
+		return codePos;
+	}
+
 	private _match(selector: DocumentSelector, document: TextDocument): number {
 		if (typeof selector === 'string') {
 			let modeId = document.model.getModeId();
@@ -211,19 +206,27 @@ export class MonacoLanguages {
 		}
 	}
 
-	private tryLoadModel(uri: Uri): Promise<monaco.editor.IModel> {
-		let model = this.findModel(uri);
+	static tryLoadModel(uri: Uri): Promise<monaco.editor.IModel> {
+		let doFindModel = () => {
+			return MonacoLanguages.findModel(uri);
+		};
+
+		let model = doFindModel();
 		if (model) {
 			return Promise.resolve(model);
 		}
 
-		return this.fetchFile(uri).then((value) => {
-			let language = 'go';
-			return monaco.editor.createModel(value, language, uri);
+		return MonacoLanguages.fetchFile(uri).then((value) => {
+			let model = doFindModel();
+			if (!model) {
+				let language = 'go';
+				model = monaco.editor.createModel(value, language, uri);
+			}
+			return model;
 		});
 	}
 
-	private findModel(uri: Uri): monaco.editor.IModel {
+	static findModel(uri: Uri): monaco.editor.IModel {
 		let models = monaco.editor.getModels();
 		if (!models || !models.length) {
 			return null;
@@ -234,7 +237,7 @@ export class MonacoLanguages {
 		});
 	}
 
-	private fetchFile(uri: Uri): Promise<string> {
+	static fetchFile(uri: Uri): Promise<string> {
 		let fileUrl = uri.toString();
 		return window.fetch(fileUrl).then((fetchedFile) => {
 			return fetchedFile.text();
