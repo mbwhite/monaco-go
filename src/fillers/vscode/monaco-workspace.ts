@@ -8,7 +8,6 @@ import {
 	DocumentSelector, DocumentFilter,
 	DidOpenTextDocumentParams,
 } from 'vscode-languageclient';
-
 import {
 	TextDocumentItem,
 } from 'vscode-languageserver-types';
@@ -17,7 +16,6 @@ import {
 	TextDocument, TextLine,
 	TextDocumentContentChangeEvent, TextDocumentChangeEvent,
 } from './monaco-text-document';
-
 import * as vscodeToMonaco from './vscode-to-monaco-utils';
 
 export class MonacoWorkspaceConfig {

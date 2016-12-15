@@ -9,7 +9,6 @@ import {
 	DocumentSelector, DocumentFilter,
 	DidOpenTextDocumentParams
 } from 'vscode-languageclient';
-
 import {
 	TextDocumentItem
 } from 'vscode-languageserver-types';

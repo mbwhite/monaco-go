@@ -4,7 +4,6 @@ import Uri = monaco.Uri;
 import Disposable = monaco.IDisposable;
 import Position = monaco.Position;
 import CancellationToken = monaco.CancellationToken;
-
 import Thenable = monaco.Thenable;
 import Definition = monaco.languages.Definition;
 import Hover = monaco.languages.Hover;
@@ -14,7 +13,6 @@ import ReferenceProvider = monaco.languages.ReferenceProvider;
 import ReferenceContext = monaco.languages.ReferenceContext;
 import DocumentSymbolProvider = monaco.languages.DocumentSymbolProvider;
 // import WorkspaceSymbolProvider = monaco.languages.WorkspaceSymbolProvider
-
 import IReadOnlyModel = monaco.editor.IReadOnlyModel;
 import Range = monaco.Range;
 import Location = monaco.languages.Location;
@@ -24,16 +22,13 @@ import {
 	DocumentSelector, DocumentFilter,
 	DidOpenTextDocumentParams
 } from 'vscode-languageclient';
-
 import {
 	TextDocumentItem, MarkedString as LSMarkedString
 } from 'vscode-languageserver-types';
-
 import {
 	TextDocument,
 	TextLine
 } from './monaco-text-document';
-
 
 function toMarkedStringArray(contents: LSMarkedString | LSMarkedString[]): MarkedString[] {
 	if (!contents) {

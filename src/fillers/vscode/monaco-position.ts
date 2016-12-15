@@ -6,7 +6,6 @@ import Position = monaco.Position;
 import Range = monaco.Range;
 import Location = monaco.languages.Location;
 import CancellationToken = monaco.CancellationToken;
-
 import Thenable = monaco.Thenable;
 import Definition = monaco.languages.Definition;
 import Hover = monaco.languages.Hover;
@@ -14,7 +13,6 @@ import HoverProvider = monaco.languages.HoverProvider;
 import DefinitionProvider = monaco.languages.DefinitionProvider;
 import ReferenceProvider = monaco.languages.ReferenceProvider;
 import DocumentSymbolProvider = monaco.languages.DocumentSymbolProvider;
-
 import SymbolKind = monaco.languages.SymbolKind;
 import SymbolInformation = monaco.languages.SymbolInformation;
 

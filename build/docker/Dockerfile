@@ -118,6 +118,12 @@ RUN \
 
 EXPOSE 4389
 
+# create symlink of the GOPATH and see that
+# that it works...
+RUN \
+  ln -s $GOPATH go && \
+  ls -lah ./go/src
+
 ENTRYPOINT [ \
   "/bin/bash", "-c", \
   "source $NVM_DIR/nvm.sh; langserver-antha -mode ws -trace & npm run serve" \

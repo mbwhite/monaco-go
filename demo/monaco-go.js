@@ -1,45 +1,36 @@
 class MonacoGo {
+	// i've created a symlink to $GOPATH in the root of the webserver
 	static getExampleUrl() {
-		const BRANCH_PREFIX = 'https://raw.githubusercontent.com/mbana/go-langserver/websocket-gorilla';
-		// const BRANCH_PREFIX = 'https://raw.githubusercontent.com/mbana/go-langserver/master';
-		// const filePath = '/langserver/cmd/langserver-antha/langserver-go.go';
+		const dirPrefix = '/go/src/github.com/sourcegraph/go-langserver';
 		const filePrefix = '/langserver';
-		const filePath = '/handler.go';
+		const fileName = '/handler.go';
 		let exampleUrl = [
-			BRANCH_PREFIX,
+			dirPrefix,
 			filePrefix,
-			filePath
+			fileName
 		].join('');
 
 		return {
 			exampleUrl,
-			filePath
+			fileName
 		};
 	}
 
-	static toUri(filePath) {
-		const SCHEME = 'file://';
+	static toUri(fileName) {
+        const SCHEME_PREFIX_HTTP = 'http://localhost:8080';
 		const WORKSPACE_ROOT_PATH = '/go/src/github.com/sourcegraph/go-langserver/langserver';
 
 		return [
-			SCHEME,
+			SCHEME_PREFIX_HTTP,
 			WORKSPACE_ROOT_PATH,
-			filePath
+			fileName
 		].join('');
 	}
 
-	static createModel(exampleGo, filePath) {
-		// possible uri values:
-		//
-		// ./.dev-tmp/langserver-antha_client_valid.log
-		// ./langserver/cmd/langserver-antha/langserver-antha
-		// ./langserver/cmd/langserver-antha/langserver-go.go
-		// ./langserver/cmd/langserver-go/langserver-go.go
-		// ./langserver/langserver_test.go
-
+	static createModel(exampleGo, fileName) {
 		let value = exampleGo;
 		var language = 'go';
-		let uri = MonacoGo.toUri(filePath);
+		let uri = MonacoGo.toUri(fileName);
 
 		return monaco.editor.createModel(value, language, uri);
 	}
@@ -47,7 +38,7 @@ class MonacoGo {
 
 let {
 	exampleUrl,
-	filePath
+	fileName
 } = MonacoGo.getExampleUrl();
 
 let examplePromise = fetch(exampleUrl).then(function (exampleGo) { return exampleGo.text(); });
@@ -56,7 +47,7 @@ examplePromise.then(function (exampleGo) {
 		'vs/basic-languages/src/monaco.contribution',
 		'vs/language/go/monaco.contribution'
 	], function () {
-		let model = MonacoGo.createModel(exampleGo, filePath);
+		let model = MonacoGo.createModel(exampleGo, fileName);
 		let editorOpts = {
 			model
 		};
