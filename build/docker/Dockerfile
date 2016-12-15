@@ -76,6 +76,37 @@ RUN \
 RUN curl -s $GOLANG_DOWNLOAD_URL | tar -C /usr/local -xz
 RUN go version
 
+RUN go get -x github.com/sourcegraph/go-langserver/langserver/cmd/langserver-go
+RUN ls -lah `which langserver-go`
+
+# use the branches of the fork
+RUN \
+	cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
+  git remote add mbana https://github.com/mbana/go-langserver.git && \
+  git fetch mbana && \
+  git checkout --track -b websocket-gorilla mbana/websocket-gorilla && \
+  ls -lah langserver/cmd/langserver-{antha,go} && \
+  go get -x ./...
+
+# use the branches of the fork
+RUN \
+	cd $GOPATH/src/github.com/sourcegraph/jsonrpc2 && \
+  git remote add mbana https://github.com/mbana/jsonrpc2.git && \
+  git fetch mbana && \
+  git checkout --track -b jsonrpc-websocket-gorilla mbana/jsonrpc-websocket-gorilla
+
+# fetch deps, then build
+RUN \
+	cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
+  go get -x ./... && \
+  go install -x -v -a github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
+  ls -lah `which langserver-antha`
+
+# run build and force success
+RUN \
+  langserver-antha --help; \
+  exit 0
+
 RUN mkdir -p $HOME/monaco-go
 
 COPY . $HOME/monaco-go
