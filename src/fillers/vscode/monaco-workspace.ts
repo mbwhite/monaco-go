@@ -63,8 +63,8 @@ export class MonacoWorkspace {
 		this.rootPath = rootPath;
 		this._workspaceConfigs = workspaceConfigs;
 
-		monaco.editor.onDidCreateModel(this._onModelAdd);
-		monaco.editor.onWillDisposeModel(this._onModelRemove);
+		monaco.editor.onDidCreateModel(this._onModelAdd.bind(this));
+		monaco.editor.onWillDisposeModel(this._onModelRemove.bind(this));
 		monaco.editor.getModels().forEach(this._onModelAdd, this);
 		// todo
 		// this._disposables.push()

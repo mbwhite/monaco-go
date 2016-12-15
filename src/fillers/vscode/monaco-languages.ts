@@ -5,7 +5,6 @@ import Disposable = monaco.IDisposable;
 import Position = monaco.Position;
 import CancellationToken = monaco.CancellationToken;
 import Thenable = monaco.Thenable;
-import Definition = monaco.languages.Definition;
 import Hover = monaco.languages.Hover;
 import HoverProvider = monaco.languages.HoverProvider;
 import DefinitionProvider = monaco.languages.DefinitionProvider;
@@ -13,9 +12,9 @@ import ReferenceProvider = monaco.languages.ReferenceProvider;
 import ReferenceContext = monaco.languages.ReferenceContext;
 import DocumentSymbolProvider = monaco.languages.DocumentSymbolProvider;
 // import WorkspaceSymbolProvider = monaco.languages.WorkspaceSymbolProvider
+import MLocation = monaco.languages.Location;
 import IReadOnlyModel = monaco.editor.IReadOnlyModel;
 import Range = monaco.Range;
-import Location = monaco.languages.Location;
 import MarkedString = monaco.MarkedString;
 
 import {
@@ -23,7 +22,8 @@ import {
 	DidOpenTextDocumentParams
 } from 'vscode-languageclient';
 import {
-	TextDocumentItem, MarkedString as LSMarkedString
+	TextDocumentItem, MarkedString as LSMarkedString,
+	Definition, Location,
 } from 'vscode-languageserver-types';
 import {
 	TextDocument,
@@ -63,6 +63,11 @@ export function MonacoHover(contents: LSMarkedString | LSMarkedString[], range?:
 // 	//"workspaceSymbolProvider": true;
 // }
 
+// add definition for fetch api
+interface Window {
+	fetch(url: string, init?: RequestInit): Promise<any>;
+}
+
 export class MonacoLanguages {
 	constructor() {
 	}
@@ -99,6 +104,7 @@ export class MonacoLanguages {
 
 	registerDefinitionProvider(selector: DocumentSelector, provider: DefinitionProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
+		let monacoLanguages = this;
 		return monaco.languages.registerDefinitionProvider(languageId, {
 			provideDefinition(model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<monaco.languages.Definition> {
 				const resource = model.uri;
@@ -107,22 +113,60 @@ export class MonacoLanguages {
 				vscodePosition['line'] = position.lineNumber - 1;
 				vscodePosition['character'] = position.column - 1;
 
-				return <Thenable<monaco.languages.Definition>>provider.provideDefinition(model, vscodePosition, token);
+				// hack: create models - otherwise you can't jump to the definition
+				let definition = <Thenable<monaco.languages.Definition>>provider.provideDefinition(model, vscodePosition, token);
+				return definition.then((definition) => {
+					if (definition instanceof Array) {
+						return Promise.all(definition.map((location) => {
+							return monacoLanguages.tryLoadModel(location.uri).then((model) => {
+								window['langserverEditor'].setModel(model);
+
+								return location;
+							});
+						})).then((locations) => {
+							return locations;
+						});
+					} else {
+						return monacoLanguages.tryLoadModel(definition.uri).then((model) => {
+							return definition;
+						});
+					}
+				});
 			}
 		});
 	}
 
 	registerReferenceProvider(selector: DocumentSelector, provider: ReferenceProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
+		let monacoLanguages = this;
 		return monaco.languages.registerReferenceProvider(languageId, {
-			provideReferences(model: IReadOnlyModel, position: Position, context: ReferenceContext, token: CancellationToken): Location[] | Thenable<Location[]> {
+			provideReferences(model: IReadOnlyModel, position: Position, context: ReferenceContext, token: CancellationToken): Thenable<MLocation[]> {
 				const resource = model.uri;
 				// adjust positions for vscode-languageclient
 				let vscodePosition = position.clone();
 				vscodePosition['line'] = position.lineNumber - 1;
 				vscodePosition['character'] = position.column - 1;
 
-				return provider.provideReferences(model, vscodePosition, context, token);
+				// return <Thenable<MLocation[]>>provider.provideReferences(model, vscodePosition, context, token);
+
+				// hack: create models - otherwise you can't jump to the definition
+				let references = <Thenable<MLocation[]>>provider.provideReferences(model, vscodePosition, context, token);
+				return references.then((references) => {
+					if (references instanceof Array) {
+						return Promise.all(references.map((location) => {
+							return monacoLanguages.tryLoadModel(location.uri).then((model) => {
+								return location;
+							});
+						})).then((locations) => {
+							return locations;
+						});
+					} else {
+						let location = <MLocation>references;
+						return monacoLanguages.tryLoadModel(location.uri).then((model) => {
+							return references;
+						});
+					}
+				});
 			}
 		});
 	}
@@ -137,6 +181,10 @@ export class MonacoLanguages {
 			dispose() {
 			}
 		};
+	}
+
+	createDiagnosticCollection() {
+		return {};
 	}
 
 	// see this file:
@@ -163,7 +211,148 @@ export class MonacoLanguages {
 		}
 	}
 
-	createDiagnosticCollection() {
-		return {};
+	private tryLoadModel(uri: Uri): Promise<monaco.editor.IModel> {
+		let model = this.findModel(uri);
+		if (model) {
+			return Promise.resolve(model);
+		}
+
+		return this.fetchFile(uri).then((value) => {
+			let language = 'go';
+			return monaco.editor.createModel(value, language, uri);
+		});
+	}
+
+	private findModel(uri: Uri): monaco.editor.IModel {
+		let models = monaco.editor.getModels();
+		if (!models || !models.length) {
+			return null;
+		}
+
+		return models.find((model) => {
+			return model.uri.toString() === uri.toString();
+		});
+	}
+
+	private fetchFile(uri: Uri): Promise<string> {
+		let fileUrl = uri.toString();
+		return window.fetch(fileUrl).then((fetchedFile) => {
+			return fetchedFile.text();
+		});
 	}
 }
+
+// provideDefinition:
+//
+// {
+// 	"result": [
+// 		{
+// 			"uri": {
+// 				"scheme": "http",
+// 				"authority": "localhost:8080",
+// 				"path": "/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"fsPath": "/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"query": "",
+// 				"fragment": "",
+// 				"external": "http://localhost:8080/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"$mid": 1
+// 			},
+// 			"range": {
+// 				"startLineNumber": 33,
+// 				"startColumn": 8,
+// 				"endLineNumber": 33,
+// 				"endColumn": 24
+// 			}
+// 		},
+// 		{
+// 			"uri": {
+// 				"scheme": "http",
+// 				"authority": "localhost:8080",
+// 				"path": "/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"fsPath": "/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"query": "",
+// 				"fragment": "",
+// 				"external": "http://localhost:8080/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"$mid": 1
+// 			},
+// 			"range": {
+// 				"startLineNumber": 45,
+// 				"startColumn": 35,
+// 				"endLineNumber": 45,
+// 				"endColumn": 51
+// 			}
+// 		},
+// 		{
+// 			"uri": {
+// 				"scheme": "http",
+// 				"authority": "localhost:8080",
+// 				"path": "/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"fsPath": "/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"query": "",
+// 				"fragment": "",
+// 				"external": "http://localhost:8080/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go",
+// 				"$mid": 1
+// 			},
+// 			"range": {
+// 				"startLineNumber": 153,
+// 				"startColumn": 14,
+// 				"endLineNumber": 153,
+// 				"endColumn": 30
+// 			}
+// 		},
+// 		{
+// 			"uri": {
+// 				"scheme": "http",
+// 				"authority": "localhost:8080",
+// 				"path": "/go/src/github.com/sourcegraph/go-langserver/langserver/langserver_test.go",
+// 				"fsPath": "/go/src/github.com/sourcegraph/go-langserver/langserver/langserver_test.go",
+// 				"query": "",
+// 				"fragment": "",
+// 				"external": "http://localhost:8080/go/src/github.com/sourcegraph/go-langserver/langserver/langserver_test.go",
+// 				"$mid": 1
+// 			},
+// 			"range": {
+// 				"startLineNumber": 559,
+// 				"startColumn": 43,
+// 				"endLineNumber": 559,
+// 				"endColumn": 59
+// 			}
+// 		},
+// 		{
+// 			"uri": {
+// 				"scheme": "http",
+// 				"authority": "localhost:8080",
+// 				"path": "/go/src/github.com/sourcegraph/go-langserver/langserver/loader_test.go",
+// 				"fsPath": "/go/src/github.com/sourcegraph/go-langserver/langserver/loader_test.go",
+// 				"query": "",
+// 				"fragment": "",
+// 				"external": "http://localhost:8080/go/src/github.com/sourcegraph/go-langserver/langserver/loader_test.go",
+// 				"$mid": 1
+// 			},
+// 			"range": {
+// 				"startLineNumber": 69,
+// 				"startColumn": 21,
+// 				"endLineNumber": 69,
+// 				"endColumn": 37
+// 			}
+// 		},
+// 		{
+// 			"uri": {
+// 				"scheme": "http",
+// 				"authority": "localhost:8080",
+// 				"path": "/go/src/github.com/sourcegraph/go-langserver/langserver/lspx.go",
+// 				"fsPath": "/go/src/github.com/sourcegraph/go-langserver/langserver/lspx.go",
+// 				"query": "",
+// 				"fragment": "",
+// 				"external": "http://localhost:8080/go/src/github.com/sourcegraph/go-langserver/langserver/lspx.go",
+// 				"$mid": 1
+// 			},
+// 			"range": {
+// 				"startLineNumber": 11,
+// 				"startColumn": 6,
+// 				"endLineNumber": 11,
+// 				"endColumn": 22
+// 			}
+// 		}
+// 	]
+// }

@@ -48,13 +48,11 @@ examplePromise.then(function (exampleGo) {
 		'vs/language/go/monaco.contribution'
 	], function () {
 		let model = MonacoGo.createModel(exampleGo, fileName);
-		let editorOpts = {
-			model
-		};
 
-		let editor = monaco.editor.create(
-			document.getElementById('container'),
-			editorOpts
+		window.langserverEditor = monaco.editor.create(
+			document.getElementById('container')
 		);
+
+		window.langserverEditor.setModel(model);
 	});
 });
