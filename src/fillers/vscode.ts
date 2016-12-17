@@ -29,6 +29,9 @@ import {
 	MonacoLocation as Location,
 	MonacoSymbolInformation as SymbolInformation,
 } from './vscode/monaco-position';
+import {
+	MonacoDiagnostic, MonacoDiagnosticCollection
+} from './vscode/monaco-diagnostic';
 
 export { Uri };
 export { MonacoWindow };
@@ -45,6 +48,10 @@ export {
 	Location,
 	SymbolInformation
 };
+// export {
+// 	MonacoDiagnostic as Diagnostic,
+// 	MonacoDiagnosticCollection as DiagnosticCollection,
+// };
 
 export function CompletionItem() { };
 

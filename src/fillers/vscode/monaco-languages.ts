@@ -29,6 +29,9 @@ import {
 	TextDocument,
 	TextLine
 } from './monaco-text-document';
+import {
+	MonacoDiagnostic, MonacoDiagnosticCollection
+} from './monaco-diagnostic';
 
 function toMarkedStringArray(contents: LSMarkedString | LSMarkedString[]): MarkedString[] {
 	if (!contents) {
@@ -168,10 +171,8 @@ export class MonacoLanguages {
 		};
 	}
 
-	// todo: needs doing - since it allows viewing where in the file
-	// there's an error
 	createDiagnosticCollection() {
-		return {};
+		return new MonacoDiagnosticCollection();
 	}
 
 	// see this file:

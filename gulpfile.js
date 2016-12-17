@@ -83,6 +83,10 @@ gulp.task('release', ['clean-release', 'compile'], function () {
 				name: 'os',
 				location: __dirname + '/out/fillers',
 				main: 'os'
+			},{
+				name: 'lodash',
+				location: __dirname + '/node_modules/lodash',
+				main: 'lodash'
 			}]
 		})
 	}
