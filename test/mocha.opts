@@ -1,0 +1,4 @@
+out/test
+--recursive
+--ui tdd
+--useColors true
