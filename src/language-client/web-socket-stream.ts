@@ -45,10 +45,10 @@ export class WebSocketStream implements StreamInfo {
 			}
 
 			ws.onclose = (ev: CloseEvent): any => {
-				// console.info('WebSocketStream:onclose - CloseEvent: ', ev);
+				console.error('WebSocketStream:onclose - CloseEvent: ', ev);
 			};
 			ws.onerror = (ev: ErrorEvent): any => {
-				// console.info('WebSocketStream:onerror - ErrorEvent: ', ev);
+				console.error('WebSocketStream:onerror - ErrorEvent: ', ev);
 				reject(ev.error);
 			};
 			ws.onmessage = (ev: MessageEvent): any => {
