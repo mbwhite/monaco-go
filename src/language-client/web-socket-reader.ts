@@ -32,12 +32,12 @@ export class WebSocketMessageReader implements MessageReader {
 			if (!this.callback || typeof data !== 'string') {
 				// noop
 			} else {
-				this.onMessage(data);
+				this.handleJsonRpcMessage(data);
 			}
 		};
 	}
 
-	private onMessage(data: string) {
+	private handleJsonRpcMessage(data: string) {
 		if (data.length === 0) {
 			return;
 		}

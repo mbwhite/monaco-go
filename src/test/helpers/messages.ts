@@ -1,12 +1,18 @@
+// new TextEncoder().encode(data)
+// new TextDecoder().decode(new TextEncoder().encode(data))
+
+// Content-Length: 270
+// Content-Type: application/vscode-jsonrpc; charset=utf8
+
+// {"id":0,"result":{"capabilities":{"textDocumentSync":1,"hoverProvider":true,"definitionProvider":true,"referencesProvider":true,"documentSymbolProvider":true,"workspaceSymbolProvider":true,"xworkspaceReferencesProvider":true,"xdefinitionProvider":true}},"jsonrpc":"2.0"}
+let INIT_BYTES = [67,111,110,116,101,110,116,45,76,101,110,103,116,104,58,32,50,55,48,13,10,67,111,110,116,101,110,116,45,84,121,112,101,58,32,97,112,112,108,105,99,97,116,105,111,110,47,118,115,99,111,100,101,45,106,115,111,110,114,112,99,59,32,99,104,97,114,115,101,116,61,117,116,102,56,13,10,13,10,123,34,105,100,34,58,48,44,34,114,101,115,117,108,116,34,58,123,34,99,97,112,97,98,105,108,105,116,105,101,115,34,58,123,34,116,101,120,116,68,111,99,117,109,101,110,116,83,121,110,99,34,58,49,44,34,104,111,118,101,114,80,114,111,118,105,100,101,114,34,58,116,114,117,101,44,34,100,101,102,105,110,105,116,105,111,110,80,114,111,118,105,100,101,114,34,58,116,114,117,101,44,34,114,101,102,101,114,101,110,99,101,115,80,114,111,118,105,100,101,114,34,58,116,114,117,101,44,34,100,111,99,117,109,101,110,116,83,121,109,98,111,108,80,114,111,118,105,100,101,114,34,58,116,114,117,101,44,34,119,111,114,107,115,112,97,99,101,83,121,109,98,111,108,80,114,111,118,105,100,101,114,34,58,116,114,117,101,44,34,120,119,111,114,107,115,112,97,99,101,82,101,102,101,114,101,110,99,101,115,80,114,111,118,105,100,101,114,34,58,116,114,117,101,44,34,120,100,101,102,105,110,105,116,105,111,110,80,114,111,118,105,100,101,114,34,58,116,114,117,101,125,125,44,34,106,115,111,110,114,112,99,34,58,34,50,46,48,34,125];
+// let buffer = new Buffer(INIT_BYTES);
+let INIT = new Buffer(INIT_BYTES).toString();
+let MANY = [];
+
 let TestMessages = {
-	ONE: ``,
-	MANY: [`Content-Length: 765
-Content-Type: application/vscode-jsonrpc; charset=utf8
-
-{"method":"textDocument/publishDiagnostics","params":{"uri":"file:///Users/mbana/go/src/github.com/sourcegraph/go-langserver/langservermodes/websocket.go","diagnostics":[{"range":{"start":{"line":51,"character":7},"end":{"line":51,"character":11}},"severity":1,"source":"go","message":"undeclared name: conn"},{"range":{"start":{"line":53,"character":1},"end":{"line":53,"character":7}},"severity":1,"source":"go","message":"undeclared name: asdasd"},{"range":{"start":{"line":53,"character":1},"end":{"line":53,"character":7}},"severity":1,"source":"go","message":"asdasd (invalid operand) is not used"},{"range":{"start":{"line":51,"character":1},"end":{"line":51,"character":3}},"severity":1,"source":"go","message":"bb declared but not used"}]},"jsonrpc":"2.0"}Content-Length: 268
-Content-Type: application/vscode-jsonrpc; charset=utf8
-
-{"id":4,"result":{"contents":[{"language":"go","value":"func NewHandler() Handler"},{"language":"markdown","value":"NewHandler creates a Go language server handler. \n\n"}],"range":{"start":{"line":56,"character":23},"end":{"line":56,"character":33}}},"jsonrpc":"2.0"}`]
+	INIT,
+	MANY,
 };
 
 export { TestMessages };

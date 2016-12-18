@@ -5,3 +5,5 @@
 # temp dev stuff
 .dev-tmp/
 .tmp/
+
+go

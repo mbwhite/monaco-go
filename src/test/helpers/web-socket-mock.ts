@@ -6,7 +6,7 @@ export class WebSocketMock {
 
 	set onmessage(callback) {
 		let entry = callback;
-		this._callbacks.push[entry];
+		this._callbacks.push(entry);
 	}
 
 	fireOnMessage(messages: string[]) {
