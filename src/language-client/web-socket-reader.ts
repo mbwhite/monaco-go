@@ -32,9 +32,40 @@ export class WebSocketMessageReader implements MessageReader {
 			if (!this.callback || typeof data !== 'string') {
 				// noop
 			} else {
-				this.handleJsonRpcMessage(data);
+				this.handleMessages(data);
 			}
 		};
+	}
+
+	private handleMessages(data: string) {
+		let msgs = this.splitMessages(data);
+
+		// console.info('WebSocketMessageReader:onmessage - msgs.length ', msgs.length);
+		msgs.map((data) => {
+			this.handleJsonRpcMessage(data);
+		});
+	}
+
+	private splitMessages(data: string) {
+		const searchString = 'Content-Length:';
+
+		let msgs = [];
+
+		let from = data.indexOf(searchString, 0);
+		for (let end = 0; end !== -1; ) {
+			end = data.indexOf(searchString, from + 1);
+			let msg: string;
+			if (end === -1) {
+				msg = data.substring(from);
+			} else {
+				msg = data.substring(from, end);
+			}
+
+			from = end;
+			msgs.push( msg );
+		}
+
+		return msgs;
 	}
 
 	private handleJsonRpcMessage(data: string) {
