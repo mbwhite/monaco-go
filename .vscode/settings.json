@@ -4,36 +4,36 @@
 		"**/release": true,
 		"**/out": true,
 		"**/lib": true,
-		"**/submodules": true,
 		"**/node_modules": true,
-
+		"**/submodules": true,
+		"**/go": true,
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/.DS_Store": true,
-
 		"**/bower_components": true
-
 	},
 	"files.exclude": {
 		"**/release": true,
 		"**/out": true,
 		"**/lib": true,
-		// "**/submodules": true,
 		"**/node_modules": true,
-
+		"**/submodules": true,
+		"**/go": true,
 		"**/.git": true,
 		"**/.svn": true,
 		"**/.hg": true,
 		"**/.DS_Store": true,
-
 		"**/bower_components": true
 	},
 	"files.trimTrailingWhitespace": true,
-	"editor.tabSize": 4,
+	"editor.tabSize": 2,
 	"editor.insertSpaces": false,
 	"editor.wrappingColumn": 0,
-    "editor.rulers": [80, 120],
+	"editor.rulers": [
+		80,
+		120
+	],
 	"typescript.tsdk": "./node_modules/typescript/lib",
 	// "typescript.tsserver.trace": "verbose",
 	// "typescript.check.tscVersion": true,
