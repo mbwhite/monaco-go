@@ -6,14 +6,19 @@ Go lang mode for [monaco-editor](https://github.com/Microsoft/monaco-editor). Th
 
 WIP but these are partly supported:
 
-* `textDocumentSync`
-* `hoverProvider`
-* `definitionProvider`: going to definition works but navigating back and
+* `capabilities.textDocumentSync`
+* `textDocument/didChange`
+* `textDocument/didClose`
+* `textDocument/didOpen`
+* `textDocument/hover`
+* `textDocument/definition`: going to definition works but navigating back and
 forths isn't.
-* `referencesProvider`: references are listed, navigating to them however isn't.
-* `textDocument/publishDiagnostics`.
-* `documentSymbolProvider`: wip.
-* <del>`workspaceSymbolProvider`</del>
+* `textDocument/references`: references are listed, navigating to them however isn't.
+* `textDocument/publishDiagnostics`
+* `textDocument/documentSymbol`: wip.
+* <del>`workspace/symbol`</del>: fairly large feature-set, i think.
+
+See: [Language Server Protocol](https://github.com/Microsoft/language-server-protocol/blob/master/protocol.md).
 
 ## screenshot
 

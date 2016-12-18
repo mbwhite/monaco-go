@@ -99,7 +99,7 @@ RUN \
 RUN \
 	cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
   go get -x ./... && \
-  go install -x -v -a github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
+  go install -x -v -a -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
   ls -lah `which langserver-antha`
 
 # run build and force success
