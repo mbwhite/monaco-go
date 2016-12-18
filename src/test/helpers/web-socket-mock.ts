@@ -10,8 +10,8 @@ export class WebSocketMock {
 	}
 
 	fireOnMessage(messages: string[]) {
-		this._callbacks.forEach((callback) => {
-			messages.forEach((message) => {
+		return this._callbacks.map((callback) => {
+			return messages.map((message) => {
 				// let ev: MessageEvent
 				let ev = {
 					data: message
