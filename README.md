@@ -11,7 +11,8 @@ WIP but these are partly supported:
 * `definitionProvider`: going to definition works but navigating back and
 forths isn't.
 * `referencesProvider`: references are listed, navigating to them however isn't.
-* `documentSymbolProvider`
+* `textDocument/publishDiagnostics`.
+* `documentSymbolProvider`: wip.
 * <del>`workspaceSymbolProvider`</del>
 
 ## screenshot
@@ -21,6 +22,9 @@ forths isn't.
 ![find-references.png](/images/find-references.png)
 
 ![document-symbol.png](/images/document-symbol.png)
+
+![publish-diagnostics.png](/images/publish-diagnostics.png)
+
 
 ## build
 

@@ -1,12 +1,16 @@
+const GOPATH = '';
+const ROOT_PATH = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver';
+const ROOT_IMPORT_PATH = 'src/github.com/sourcegraph/go-langserver/langserver/';
+
 class MonacoGo {
 	// i've created a symlink to $GOPATH in the root of the webserver
 	static getExampleUrl() {
-		const dirPrefix = '/go/src/github.com/sourcegraph/go-langserver';
-		const filePrefix = '/langserver';
-		const fileName = '/handler.go';
+		const dirPrefix = '/go/';
+		const packagePrefix = 'src/github.com/sourcegraph/go-langserver/langserver/';
+		const fileName = 'modes/websocket.go'
 		let exampleUrl = [
 			dirPrefix,
-			filePrefix,
+			packagePrefix,
 			fileName
 		].join('');
 
@@ -17,14 +21,17 @@ class MonacoGo {
 	}
 
 	static toUri(fileName) {
-        const SCHEME_PREFIX_HTTP = 'http://localhost:8080';
-		const WORKSPACE_ROOT_PATH = '/go/src/github.com/sourcegraph/go-langserver/langserver';
+		// const SCHEME_PREFIX_HTTP = 'http://localhost:8080';
+		// const WORKSPACE_ROOT_PATH = 'src/github.com/sourcegraph/go-langserver/langserver';
 
-		return [
-			SCHEME_PREFIX_HTTP,
-			WORKSPACE_ROOT_PATH,
+		const SCHEME_PREFIX = 'http:///Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver';
+		let fullPath = [
+			SCHEME_PREFIX,
+			// WORKSPACE_ROOT_PATH,
 			fileName
 		].join('');
+
+		return monaco.Uri.parse(fullPath);
 	}
 
 	static createModel(exampleGo, fileName) {

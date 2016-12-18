@@ -3,6 +3,7 @@ import IEvent = monaco.IEvent;
 import Uri = monaco.Uri;
 import Range = monaco.Range;
 import IRange = monaco.IRange;
+import * as _ from 'lodash';
 
 import {
 	DocumentSelector, DocumentFilter,
@@ -24,8 +25,23 @@ export class MonacoWorkspaceConfig {
 
 	constructor(id: string = 'langserver-antha') {
 		this._id = id;
+		this.parseSections();
+	}
+
+	private parseSections() {
+		const STORAGE_KEY = 'monaco.workspace.langserver-antha';
+		const TRACE_DEFAULT = 'messages';
+
+		let trace = TRACE_DEFAULT;
+
+		let langserverStr = localStorage.getItem(STORAGE_KEY);
+		if (langserverStr) {
+			let langserverJson = JSON.parse(langserverStr);
+			trace = _.get(langserverJson, 'trace.server', TRACE_DEFAULT);
+		}
+
 		this._sections = {
-			'trace.server': 'verbose'
+			'trace.server': trace
 		};
 	}
 
@@ -49,7 +65,7 @@ export class MonacoWorkspaceConfig {
 }
 
 export class MonacoWorkspace {
-	public static ROOT_PATH: string = '/go/src/github.com/sourcegraph/go-langserver/langserver';
+	public static ROOT_PATH: string = 'src/github.com/sourcegraph/go-langserver/langserver';
 
 	private _workspaceConfigs: MonacoWorkspaceConfig[];
 	private _textDocuments: TextDocument[] = [];
@@ -59,13 +75,14 @@ export class MonacoWorkspace {
 	private _onDidCloseTextDocument = new Emitter<TextDocument>();
 	public rootPath: string;
 
-	private constructor(rootPath = MonacoWorkspace.ROOT_PATH, workspaceConfigs = [new MonacoWorkspaceConfig()]) {
+	private constructor(rootPath: string = MonacoWorkspace.ROOT_PATH, workspaceConfigs = [new MonacoWorkspaceConfig()]) {
 		this.rootPath = rootPath;
 		this._workspaceConfigs = workspaceConfigs;
 
 		monaco.editor.onDidCreateModel(this._onModelAdd.bind(this));
 		monaco.editor.onWillDisposeModel(this._onModelRemove.bind(this));
 		monaco.editor.getModels().forEach(this._onModelAdd, this);
+
 		// todo
 		// this._disposables.push()
 	}
@@ -94,6 +111,25 @@ export class MonacoWorkspace {
 
 		return monacoWorkspace;
 	}
+
+	// private static setRootPath(monacoWorkspace: MonacoWorkspace) {
+	// 	let workspaceStr = localStorage.getItem(STORAGE_KEY);
+	// 	if (workspaceStr) {
+	// 		try {
+	// 			let workspace = JSON.parse(workspaceStr);
+	// 			let rootPath = workspace.rootPath ? workspace.rootPath : MonacoWorkspace.ROOT_PATH;
+
+	// 			monacoWorkspace = new MonacoWorkspace(rootPath);
+	// 		} catch (err) {
+	// 			console.error('MonacoWorkspace.create: ', err);
+	// 		}
+	// 	} else {
+	// 		let workspace = JSON.stringify({
+	// 			rootPath: monacoWorkspace.rootPath
+	// 		});
+	// 		localStorage.setItem(STORAGE_KEY, workspace);
+	// 	}
+	// }
 
 	get onDidOpenTextDocument(): IEvent<TextDocument> {
 		return this._onDidOpenTextDocument.event;

@@ -1,12 +1,58 @@
 import Uri = monaco.Uri;
+import Range = monaco.Range;
+import Severity = monaco.Severity;
 import {
 	TextDocumentItem, MarkedString as LSMarkedString,
 	Definition, Location, Diagnostic
 } from 'vscode-languageserver-types';
 import * as _ from 'lodash';
 
+export { Severity as MonacoDiagnosticSeverity };
+
+/**
+ * Represents a diagnostic, such as a compiler error or warning. Diagnostic objects
+ * are only valid in the scope of a file.
+ */
 export class MonacoDiagnostic {
-	constructor(parameters) {
+	/**
+	 * The range to which this diagnostic applies.
+	 */
+	public range: Range;
+
+	/**
+	 * The human-readable message.
+	 */
+	public message: string;
+
+	/**
+	 * A human-readable string describing the source of this
+	 * diagnostic, e.g. 'typescript' or 'super lint'.
+	 */
+	public source: string;
+
+	/**
+	 * The severity, default is [error](#DiagnosticSeverity.Error).
+	 */
+	public severity: Severity;
+
+	/**
+	 * A code or identifier for this diagnostics. Will not be surfaced
+	 * to the user, but should be used for later processing, e.g. when
+	 * providing [code actions](#CodeActionContext).
+	 */
+	public code: string | number;
+
+	/**
+	 * Creates a new diagnostic object.
+	 *
+	 * @param range The range to which this diagnostic applies.
+	 * @param message The human-readable message.
+	 * @param severity The severity, default is [error](#DiagnosticSeverity.Error).
+	 */
+	constructor(range: Range, message: string, severity?: Severity) {
+		this.range = range;
+		this.message = message;
+		this.severity = Severity.Error;
 	}
 }
 
@@ -158,6 +204,51 @@ export class MonacoDiagnosticCollection {
 	}
 
 	private setModelMarkers(uri: Uri, diagnostics: Diagnostic[]) {
+		let model = monaco.editor.getModel(uri);
+		if (!model) {
+			let models = monaco.editor.getModels();
+			console.log('setModelMarkers - uri: ', uri.toString());
+			console.log('setModelMarkers - uri: ', uri);
+			console.log('setModelMarkers - diagnostics: ', diagnostics);
+			console.log('setModelMarkers - models: ', models);
+			return;
+		}
 
+		let languageId = 'go';
+		let markers = diagnostics.map((diagnostic) => {
+			return this.toDiagnostics(uri, diagnostic);
+		});
+		monaco.editor.setModelMarkers(model, languageId, markers);
+	}
+
+	private toDiagnostics(uri: Uri, diag: Diagnostic): monaco.editor.IMarkerData {
+		if (!uri) {
+			return;
+		}
+
+		let code = typeof diag.code === 'number' ? String(diag.code) : <string>diag.code;
+		let range: Range = <any>diag.range;
+
+		return {
+			severity: diag.severity,
+			startLineNumber: range.startLineNumber,
+			startColumn: range.startColumn,
+			endLineNumber: range.endLineNumber,
+			endColumn: range.endColumn,
+			message: diag.message,
+			code: code,
+			source: diag.source
+		};
+
+		// return {
+		// 	severity: toSeverity(diag.severity),
+		// 	startLineNumber: diag.range.start.line + 1,
+		// 	startColumn: diag.range.start.character + 1,
+		// 	endLineNumber: diag.range.end.line + 1,
+		// 	endColumn: diag.range.end.character + 1,
+		// 	message: diag.message,
+		// 	code: code,
+		// 	source: diag.source
+		// };
 	}
 }

@@ -30,7 +30,9 @@ import {
 	MonacoSymbolInformation as SymbolInformation,
 } from './vscode/monaco-position';
 import {
-	MonacoDiagnostic, MonacoDiagnosticCollection
+	MonacoDiagnostic as Diagnostic,
+	MonacoDiagnosticCollection as DiagnosticCollection,
+	MonacoDiagnosticSeverity as DiagnosticSeverity,
 } from './vscode/monaco-diagnostic';
 
 export { Uri };
@@ -48,10 +50,11 @@ export {
 	Location,
 	SymbolInformation
 };
-// export {
-// 	MonacoDiagnostic as Diagnostic,
-// 	MonacoDiagnosticCollection as DiagnosticCollection,
-// };
+export {
+	Diagnostic,
+	DiagnosticCollection,
+	DiagnosticSeverity,
+};
 
 export function CompletionItem() { };
 
