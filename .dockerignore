@@ -1,0 +1,6 @@
+./go/
+./go
+go/
+
+submodules/go-langserver
+submodules/jsonrpc2

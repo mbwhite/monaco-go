@@ -239,7 +239,12 @@ export class MonacoLanguages {
 	}
 
 	static fetchFile(uri: Uri): Promise<string> {
-		let fileUrl = uri.toString();
+		// "http:/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go"
+		let filePath = uri.toString();
+
+		let prefix = '/Users/mbana/';
+		let fileUrl = filePath.includes(prefix) ? filePath.replace(prefix, '') : filePath;
+
 		return window.fetch(fileUrl).then((fetchedFile) => {
 			return fetchedFile.text();
 		});

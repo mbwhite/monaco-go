@@ -7,7 +7,7 @@ class MonacoGo {
 	static getExampleUrl() {
 		const dirPrefix = '/go/';
 		const packagePrefix = 'src/github.com/sourcegraph/go-langserver/langserver/';
-		const fileName = 'modes/websocket.go'
+		const fileName = '/modes/websocket.go'
 		let exampleUrl = [
 			dirPrefix,
 			packagePrefix,

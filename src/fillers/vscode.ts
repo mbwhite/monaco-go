@@ -1,6 +1,6 @@
 import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
-import Uri = monaco.Uri;
+import MonacoUri = monaco.Uri;
 
 import {
 	DocumentSelector,
@@ -35,7 +35,7 @@ import {
 	MonacoDiagnosticSeverity as DiagnosticSeverity,
 } from './vscode/monaco-diagnostic';
 
-export { Uri };
+export { MonacoUri as Uri };
 export { MonacoWindow };
 export {
 	MonacoLanguages,

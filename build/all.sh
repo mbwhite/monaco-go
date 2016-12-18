@@ -18,25 +18,15 @@
 )
 
 # build:
-# jsonrpc2
-# go-langserver
-DIR_JSONRPC2="`pwd`/submodules/jsonrpc2"
-DIR_LANGSERVER="`pwd`/submodules/go-langserver/langserver/cmd/langserver-antha"
-(\
-	cd $DIR_JSONRPC2 && \
-  echo `pwd` \
-)
-(\
-	cd $DIR_LANGSERVER && \
-  echo `pwd` \
-)
-
-# build:
 # monaco
+# `npm run test` is a bad hack to get around commonjs module required
+# for testing
 ( \
   echo `pwd` && \
   npm link "vscode-languageserver-types" && \
   npm link "vscode-languageclient" && \
   npm install --silent && \
+  npm run compile && \
+  npm run test && \
   npm run compile \
 )

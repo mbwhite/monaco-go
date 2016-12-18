@@ -2,7 +2,7 @@ import 'mocha';
 import { assert } from 'chai';
 import './helpers/monaco-mock';
 import { WebSocketMock } from './helpers/web-socket-mock';
-import { TestMessages } from './helpers/messages';
+import { TestMessages } from './messages/messages';
 import { WebSocketMessageReader } from '../language-client/web-socket-reader';
 import { DataCallback, Message } from 'vscode-languageclient';
 

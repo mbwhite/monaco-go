@@ -12,7 +12,7 @@ ENV CLICOLOR=1
 ENV LSCOLORS=GxFxCxDxBxegedabagaced
 ENV GREP_OPTIONS='--color=auto'
 
-ENV HOME /root
+ENV HOME /Users/mbana
 
 ENV NVM_DIR $HOME/.nvm
 ENV NODE_VERSION v7.0.0
@@ -20,10 +20,10 @@ ENV YARN_VERSION 0.17.8
 
 ENV GOLANG_VERSION 1.7.4
 ENV GOLANG_DOWNLOAD_URL https://storage.googleapis.com/golang/go$GOLANG_VERSION.linux-amd64.tar.gz
-ENV GOPATH /go
+ENV GOPATH $HOME/go
 ENV GOROOT /usr/local/go
 
-ENV PATH /usr/local/go/bin:/go/bin:/usr/local/bin:$PATH
+ENV PATH /usr/local/go/bin:$GOPATH/bin:/usr/local/bin:$PATH
 
 RUN \
   echo America/Los_Angeles | sudo tee /etc/timezone && \
@@ -73,13 +73,25 @@ RUN \
   echo "node: " `node --version` && \
   echo "npm: " `npm --version`
 
+ENV WEBSOCKET_PORT 4389
+ENV LANGSERVER_ADDR ":$WEBSOCKET_PORT"
+
+# get go
+RUN mkdir -p $GOPATH
 RUN curl -s $GOLANG_DOWNLOAD_URL | tar -C /usr/local -xz
 RUN go version
 
-RUN go get -x github.com/sourcegraph/go-langserver/langserver/cmd/langserver-go
-RUN ls -lah `which langserver-go`
-
+# get langserver and its deps
+RUN \
+  go get -x github.com/sourcegraph/go-langserver/langserver/cmd/langserver-go && \
+  cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
+  go get -x ./...
 # use the branches of the fork
+RUN \
+	cd $GOPATH/src/github.com/sourcegraph/jsonrpc2 && \
+  git remote add mbana https://github.com/mbana/jsonrpc2.git && \
+  git fetch mbana && \
+  git checkout --track -b jsonrpc-websocket-gorilla mbana/jsonrpc-websocket-gorilla
 RUN \
 	cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
   git remote add mbana https://github.com/mbana/go-langserver.git && \
@@ -87,44 +99,38 @@ RUN \
   git checkout --track -b websocket-gorilla mbana/websocket-gorilla && \
   ls -lah langserver/cmd/langserver-{antha,go} && \
   go get -x ./...
-
-# use the branches of the fork
+# build langserver
 RUN \
-	cd $GOPATH/src/github.com/sourcegraph/jsonrpc2 && \
-  git remote add mbana https://github.com/mbana/jsonrpc2.git && \
-  git fetch mbana && \
-  git checkout --track -b jsonrpc-websocket-gorilla mbana/jsonrpc-websocket-gorilla
-
-# fetch deps, then build
-RUN \
-	cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
-  go get -x ./... && \
-  go install -x -v -a -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
+  go build -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
+  go install -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
   ls -lah `which langserver-antha`
-
-# run build and force success
+# check langserver binary is ok
 RUN \
   langserver-antha --help; \
   exit 0
 
+# build monaco
 RUN mkdir -p $HOME/monaco-go
-
 COPY . $HOME/monaco-go
 WORKDIR $HOME/monaco-go
-
 RUN \
   source $NVM_DIR/nvm.sh; \
   ./build/all.sh
 
-EXPOSE 4389
+EXPOSE $WEBSOCKET_PORT
 
 # create symlink of the GOPATH and see that
 # that it works...
 RUN \
-  ln -s $GOPATH go && \
-  ls -lah ./go/src
+  ln -s $GOPATH go; \
+  ls -lah ./go/src; \
+  exit 0
 
 ENTRYPOINT [ \
   "/bin/bash", "-c", \
-  "source $NVM_DIR/nvm.sh; langserver-antha -mode ws -trace & npm run serve" \
+  "source $NVM_DIR/nvm.sh; langserver-antha -mode ws -trace -addr $LANGSERVER_ADDR & npm run serve" \
 ]
+# ENTRYPOINT [ \
+#   "/bin/bash", "-c", \
+#   "source $NVM_DIR/nvm.sh; npm run serve" \
+# ]
