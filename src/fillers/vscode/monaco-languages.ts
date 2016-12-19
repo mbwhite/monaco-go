@@ -115,6 +115,7 @@ export class MonacoLanguages {
 						return Promise.all(definition.map((location) => {
 							return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
 								window['langserverEditor'].setModel(model);
+								MonacoLanguages.updateFileContainer(location.uri);
 
 								return location;
 							});
@@ -242,12 +243,21 @@ export class MonacoLanguages {
 		// "http:/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go"
 		let filePath = uri.toString();
 
-		let prefix = '/Users/mbana/';
+		let prefix = '/Users/mbana';
 		let fileUrl = filePath.includes(prefix) ? filePath.replace(prefix, '') : filePath;
 
 		return window.fetch(fileUrl).then((fetchedFile) => {
 			return fetchedFile.text();
 		});
+	}
+
+	static updateFileContainer(uri: Uri) {
+		let filePath = uri.toString();
+		let prefix = 'http:';
+		let fullFileUri = filePath.includes(prefix) ? filePath.replace(prefix, '') : filePath;
+
+		let elFileUri = document.getElementById('file_uri');
+		elFileUri.innerHTML = fullFileUri;
 	}
 }
 

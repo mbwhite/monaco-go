@@ -101,6 +101,8 @@ RUN \
   go get -x ./...
 # build langserver
 RUN \
+  go build -race github.com/sourcegraph/jsonrpc2 && \
+  go install -race github.com/sourcegraph/jsonrpc2 && \
   go build -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
   go install -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
   ls -lah `which langserver-antha`

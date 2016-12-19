@@ -8,10 +8,27 @@
 </head>
 
 <body>
-
 	<h4 style="margin: initial 0; margin-top: 0;">Monaco Editor Go test page</h4>
-	<div id="container" style="width:800px;height:1280px;border:1px solid grey"></div>
-	<!--<div id="container" style="width:640px;height:1280px;border:1px solid grey"></div>-->
+	<div style="border:0; margin: 0;">
+	<!--<div style="border:0;">-->
+		<div id="navigation_container" style="width:800px; border:1px solid grey">
+			<div>
+				<button><</button>
+				<button>></button>
+			</div>
+		</div>
+		<div id="file_container" style="width:800px; border:1px solid grey">
+			<div>
+				<b>file:</b> <span id="file_uri"></span>
+			</div>
+		</div>
+		<div id="container" style="width:800px;height:1280px;border:1px solid grey"></div>
+		<!--<div id="container" style="width:640px;height:1280px;border:1px solid grey"></div>-->
+		<div id="status_container" style="width:800px; border:1px solid grey">
+			<div><b>Status:</b> stub: doing textDocument/hover</div>
+		</div>
+	</div>
+
 
 	<script src="/demo/require-paths.js"></script>
 	<script src="./node_modules/monaco-editor-core/dev/vs/loader.js"></script>

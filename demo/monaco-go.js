@@ -6,7 +6,7 @@ class MonacoGo {
 	// i've created a symlink to $GOPATH in the root of the webserver
 	static getExampleUrl() {
 		const dirPrefix = '/go/';
-		const packagePrefix = 'src/github.com/sourcegraph/go-langserver/langserver/';
+		const packagePrefix = 'src/github.com/sourcegraph/go-langserver/langserver';
 		const fileName = '/modes/websocket.go'
 		let exampleUrl = [
 			dirPrefix,
@@ -61,5 +61,9 @@ examplePromise.then(function (exampleGo) {
 		);
 
 		window.langserverEditor.setModel(model);
+
+		let elFileUri = document.getElementById('file_uri');
+		let fullFileUri = `${ROOT_PATH}/${fileName}`;
+		elFileUri.innerHTML = fullFileUri;
 	});
 });
