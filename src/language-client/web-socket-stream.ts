@@ -1,6 +1,3 @@
-import Emitter = monaco.Emitter;
-import IEvent = monaco.IEvent;
-
 import {
 	DataCallback,
 	MessageWriter, MessageReader,
