@@ -20,7 +20,7 @@ export interface ResponseRequest {
 /**
  * TestMessages
  */
-export class TestMessages extends Array<ResponseRequest> {
+export class TestMessagePairs extends Array<ResponseRequest> {
 	constructor() {
 		super();
 	}

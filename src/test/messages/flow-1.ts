@@ -1,8 +1,8 @@
-import { TestMessage, ResponseRequest, TestMessages } from './test-message';
+import { TestMessage, ResponseRequest, TestMessagePairs } from './test-message';
 
 // see:
 // flow-1.console.log();
-let msgs: TestMessages = new TestMessages();
+let msgs: TestMessagePairs = new TestMessagePairs();
 
 // Content-Length: 309
 //
