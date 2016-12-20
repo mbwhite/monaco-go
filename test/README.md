@@ -18,10 +18,10 @@ time. for now, though, see,
 
 **test flow, i.e., init, open, hover, definition:**
 
-* [/src/test/messages/flow-1.log](//src/test/messages/flow-1.log)
-* [/src/test/messages/flow-1.ts](//src/test/messages/flow-1.ts)
-* [/src/test/messages/messages.ts](//src/test/messages/messages.log)
-* [/src/test/messages/test-message.ts.ts](//src/test/messages/test-message.ts.log)
+* [/src/test/messages/flow-1.log](/src/test/messages/flow-1.log)
+* [/src/test/messages/flow-1.ts](/src/test/messages/flow-1.ts)
+* [/src/test/messages/messages.ts](/src/test/messages/messages.log)
+* [/src/test/messages/test-message.ts.ts](/src/test/messages/test-message.ts.log)
 
 ## run
 
