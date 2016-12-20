@@ -1,3 +1,5 @@
+// todo: remove this - no longer needed.
+
 export class WebSocketMock {
 	private _callbacks: any = [];
 

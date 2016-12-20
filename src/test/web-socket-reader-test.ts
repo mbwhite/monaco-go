@@ -1,12 +1,10 @@
-import 'mocha';
 import { assert } from 'chai';
-import './helpers/monaco-mock';
 import { WebSocketMock } from './helpers/web-socket-mock';
 import { TestMessages } from './messages/messages';
 import { WebSocketMessageReader } from '../language-client/web-socket-reader';
 import { DataCallback, Message } from 'vscode-languageclient';
 
-suite('WebSocketMessageReader', () => {
+let context = describe('WebSocketMessageReader', () => {
 	let ws: WebSocketMock;
 	let reader: WebSocketMessageReader;
 
@@ -15,7 +13,7 @@ suite('WebSocketMessageReader', () => {
 		reader = new WebSocketMessageReader(<any>ws);
 	});
 
-	test('init msg', () => {
+	it('init msg', (done) => {
 		// attach callbacks
 		let callback = (msg: Message) => {
 			assert.isOk(msg, JSON.stringify(msg));
@@ -23,14 +21,24 @@ suite('WebSocketMessageReader', () => {
 		reader.listen(callback);
 
 		ws.fireOnMessage([TestMessages.INIT]);
+
+		done();
 	});
 
-	test('many msg', () => {
+	it('many msg', (done) => {
 		let callback = (msg: Message) => {
 			assert.isOk(msg, JSON.stringify(msg));
 		};
 		reader.listen(callback);
 
 		ws.fireOnMessage([TestMessages.MANY]);
+
+		done();
 	});
 });
+
+let Test = {
+	describe: context
+};
+
+export { Test }

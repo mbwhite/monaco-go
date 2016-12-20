@@ -62,24 +62,7 @@ or, although not ideal:
 
 ### test
 
-Run as below. See [./src/test/web-socket-reader-test.ts](./src/test/web-socket-reader-test.ts).
-
-```sh
-$ npm run test
-src/fillers/vscode-nls.ts(6,63): error TS2307: Cannot find module 'vscode-nls'.
-
-
-  WebSocketMessageReader
-    ✓ init msg
-    ✓ many msg
-
-
-  2 passing (9ms)
-```
-
-The tests need more work. Some test messages are defined in
-[./src/test/messages/messages.ts](./src/test/messages/messages.ts). Once things
-become a bit more stable I will add tests for the non-trivial parts.
+[./test/README.md](./test/README.md).
 
 ### build output
 

@@ -1,0 +1,106 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Mocha Tests</title>
+	<link rel="stylesheet" data-name="vs/editor/editor.main" href="./node_modules/monaco-editor-core/dev/vs/editor/editor.main.css">
+
+	<link href="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+	<div id="mocha"></div>
+
+	<script src="/node_modules/mocha/mocha.js"></script>
+	<!--<script src="/node_modules/chai/chai.js"></script>-->
+
+	<script>
+		// Use "tdd" interface.  This is a shortcut to setting the interface;
+		// any other options must be passed via an object.
+		// mocha.setup('tdd');
+
+		// This is equivalent to the above.
+		mocha.setup({
+			ui: 'bdd'
+		});
+
+		// Use "tdd" interface, ignore leaks, and force all tests to be asynchronous
+		mocha.setup({
+			ui: 'bdd',
+			ignoreLeaks: true,
+			asyncOnly: true
+		});
+	</script>
+
+<script src="/node_modules/monaco-editor-core/dev/vs/loader.js"></script>
+<script>
+		require.config({
+			baseUrl: '/out/',
+			'paths': {
+				'vs/editor/editor.main.css': '/node_modules/monaco-editor-core/dev/vs/editor/editor.main.css',
+				'lodash': '/node_modules/lodash/lodash',
+				'chai': '/node_modules/chai/chai',
+				'vscode': '/out/fillers/vscode',
+
+				'vscode-languageserver-types': '/node_modules/vscode-languageserver-types/lib/main',
+				'vscode-jsonrpc': '/node_modules/vscode-languageclient/node_modules/vscode-jsonrpc/lib/main',
+				'vscode-languageclient': '/node_modules/vscode-languageclient/lib/main',
+
+				'vs/basic-languages': '/node_modules/monaco-languages/release',
+				'vs/language/go': '/release/dev',
+				// 'vs/language/go': './out',
+				'vs': '/node_modules/monaco-editor-core/dev/vs'
+			}
+		});
+</script>
+<script src="/node_modules/monaco-editor-core/dev/vs/loader.js"></script>
+<script src="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
+<script src="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
+<!--<script src="https://cdn.rawgit.com/jquery/jquery/2.1.4/dist/jquery.min.js"></script>-->
+<!--<script src="https://cdn.rawgit.com/Automattic/expect.js/0.3.1/index.js"></script>-->
+<!--<script src="https://cdn.rawgit.com/mochajs/mocha/2.2.5/mocha.js"></script>-->
+
+<script>
+		function onTestsSuiteLoaded(web_socket_stream_test) {
+			// life - i wonder ... anywho, run tests after all that...
+			console.log('got... web_socket_stream_test: ', web_socket_stream_test);
+
+			mocha.checkLeaks();
+			mocha.globals(['jQuery']);
+			mocha.run();
+		}
+
+		function onGoModeLoaded(basic_languages_monaco_contribution, go_monaco_contribution) {
+			console.log('got... monaco: ', monaco);
+			console.log('got... basic_languages_monaco_contribution: ', basic_languages_monaco_contribution);
+			console.log('got... go_monaco_contribution: ', go_monaco_contribution);
+
+			require([
+				'test/web-socket-reader-test',
+				'test/web-socket-stream-test',
+				// 'test/web-socket-stream-test.js',
+				// '/test/web-socket-stream-test',
+				// '/test/web-socket-stream-test.js',
+
+				// 'web-socket-stream-test',
+				// 'web-socket-stream-test.js',
+
+				// './web-socket-stream-test',
+				// './web-socket-stream-test.js',
+
+				// 'web-socket-stream-test',
+				// 'web-socket-stream-test.js',
+			], onTestsSuiteLoaded);
+		}
+
+		require([
+			'vs/basic-languages/src/monaco.contribution',
+			'vs/language/go/monaco.contribution'
+		], onGoModeLoaded);
+</script>
+<script>
+
+</script>
+</body>
+
+</html>
