@@ -28,7 +28,7 @@ See: [Language Server Protocol](https://github.com/Microsoft/language-server-pro
 
 ### `textDocument/definition`
 
-![textDocument/definition.m4v](./images/textDocument/definition.m4v)
+![textDocument/definition.gif](./images/textDocument/definition.gif)
 
 ## build
 
@@ -120,9 +120,7 @@ Errors are highlighted in the margins and inline, at error site, within model:
 
 ### `textDocument/definition`
 
-**todo** ![textDocument/definition.gif](./images/textDocument/definition.gif)
-
-![textDocument/definition.m4v](./images/textDocument/definition.m4v)
+![textDocument/definition.gif](./images/textDocument/definition.gif)
 
 ### `textDocument/hover`
 
