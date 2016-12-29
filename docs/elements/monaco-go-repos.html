@@ -1,0 +1,52 @@
+<dom-module id="monaco-go-repos">
+	<template>
+		<style is="custom-style" include="iron-flex">
+			:host {
+				@apply --layout-horizontal;
+				@apply --layout-flex;
+			}
+
+			.repo.name {
+        		@apply --paper-font-common-code;
+			}
+
+			.repo.url {
+				@apply --paper-font-caption;
+			}
+
+			paper-progress.repo-loader {
+				width: 100%;
+				--paper-progress-height: 8px;
+			}
+
+			.sections {
+				@apply --layout-vertical;
+				@apply --layout-flex;
+				overflow: scroll;
+			}
+		</style>
+		<div class="sections">
+			<paper-card heading="Repos" class="repos">
+				<div class="card-content">
+					<paper-listbox selected="{{selectionRepo}}" attr-for-selected="value">
+						<dom-repeat items="{{reposList}}" as="repo">
+							<template>
+								<paper-item value="{{repo}}">
+									<paper-item-body two-line>
+										<div class="repo name">{{repo.name}}</div>
+										<div secondary class="repo url">{{repo.url}}</div>
+									</paper-item-body>
+								</paper-item>
+							</template>
+						</dom-repeat>
+					</paper-listbox>
+				</div>
+			</paper-card>
+			<div class="loading">
+				<paper-progress indeterminate class="repo-loader" disabled="{{!projectLoading}}"></paper-progress>
+			</div>
+			<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
+		</div>
+	</template>
+	<script src="monaco-go-repos.js"></script>
+</dom-module>

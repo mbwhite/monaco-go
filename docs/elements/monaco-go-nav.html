@@ -1,0 +1,48 @@
+<dom-module id="monaco-go-nav">
+	<template>
+		<style is="custom-style" include="iron-flex">
+			:host {
+				@apply --layout-vertical;
+			}
+
+			.nav.section {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-center-justified;
+			}
+
+			.file {
+				@apply --layout-vertical;
+			}
+
+			.label:before {
+						@apply --paper-font-subhead;
+			}
+			.label.name:before {
+				content: "file: "
+			}
+			.label.url:before {
+				content: "url: "
+			}
+
+			.name {
+				@apply --paper-font-code1;
+				font-size: 10px;
+			}
+
+			.url {
+				@apply --paper-font-caption;
+				font-size: 10px;
+			}
+		</style>
+		<div class="nav section">
+			<paper-icon-button icon="icons:arrow-back" on-tap="_onBack"></paper-icon-button>
+			<paper-icon-button icon="icons:arrow-forward" on-tap="_onForward"></paper-icon-button>
+		</div>
+		<div class="file section">
+			<span class="label name">{{selectionFile.name}}</span>
+			<span class="label url">{{selectionFile.url}}</span>
+		</div>
+	</template>
+	<script src="monaco-go-nav.js"></script>
+</dom-module>

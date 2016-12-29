@@ -1,0 +1,23 @@
+<script src="monaco-go-models.js"></script>
+
+<link rel="import" href="monaco-go-common-styles.html">
+<link rel="import" href="monaco-go-nav.html">
+<link rel="import" href="monaco-go-repo-files.html">
+<link rel="import" href="monaco-go-repos.html">
+
+<dom-module id="monaco-go">
+	<template>
+		<style is="custom-style" include="iron-flex monaco-go-common-styles">
+			:host {
+				@apply --layout-vertical;
+			}
+
+			monaco-go-repos {
+				@apply --layout-flex;
+			}
+    	</style>
+		<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
+		<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
+	</template>
+	<script src="monaco-go.js"></script>
+</dom-module>

@@ -1,5 +1,3 @@
-#!/bin/bash -x
-
 FROM ubuntu:14.04
 
 SHELL ["/bin/bash", "-c"]

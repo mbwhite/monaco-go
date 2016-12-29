@@ -1,0 +1,322 @@
+[
+    {
+      "name": ".travis.yml",
+      "path": ".travis.yml",
+      "sha": "f222a8b1fa919ccbd0483b44dc47a24d94d0a03e",
+      "size": 692,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/.travis.yml?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/blob/master/.travis.yml",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/f222a8b1fa919ccbd0483b44dc47a24d94d0a03e",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/go-langserver/master/.travis.yml",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/.travis.yml?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/f222a8b1fa919ccbd0483b44dc47a24d94d0a03e",
+        "html": "https://github.com/sourcegraph/go-langserver/blob/master/.travis.yml"
+      }
+    },
+    {
+      "name": "LICENSE",
+      "path": "LICENSE",
+      "sha": "07fcc880e491645cc7fda3932383a1c1c07bcba4",
+      "size": 1055,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/LICENSE?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/blob/master/LICENSE",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/07fcc880e491645cc7fda3932383a1c1c07bcba4",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/go-langserver/master/LICENSE",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/LICENSE?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/07fcc880e491645cc7fda3932383a1c1c07bcba4",
+        "html": "https://github.com/sourcegraph/go-langserver/blob/master/LICENSE"
+      }
+    },
+    {
+      "name": "NOTICE",
+      "path": "NOTICE",
+      "sha": "233a25c761c33c761a87797de9f36c4dadefd7b3",
+      "size": 1595,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/NOTICE?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/blob/master/NOTICE",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/233a25c761c33c761a87797de9f36c4dadefd7b3",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/go-langserver/master/NOTICE",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/NOTICE?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/233a25c761c33c761a87797de9f36c4dadefd7b3",
+        "html": "https://github.com/sourcegraph/go-langserver/blob/master/NOTICE"
+      }
+    },
+    {
+      "name": "README.md",
+      "path": "README.md",
+      "sha": "a0be84fafe1ffeb5757e6823eb7f65e42a7e93a0",
+      "size": 729,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/README.md?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/blob/master/README.md",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/a0be84fafe1ffeb5757e6823eb7f65e42a7e93a0",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/go-langserver/master/README.md",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/README.md?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/blobs/a0be84fafe1ffeb5757e6823eb7f65e42a7e93a0",
+        "html": "https://github.com/sourcegraph/go-langserver/blob/master/README.md"
+      }
+    },
+    {
+      "name": "brew",
+      "path": "brew",
+      "sha": "9e5ed9f89485154e8abdf5ac5b62d3ceaf5d9c31",
+      "size": 0,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/brew?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/tree/master/brew",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/9e5ed9f89485154e8abdf5ac5b62d3ceaf5d9c31",
+      "download_url": null,
+      "type": "dir",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/brew?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/9e5ed9f89485154e8abdf5ac5b62d3ceaf5d9c31",
+        "html": "https://github.com/sourcegraph/go-langserver/tree/master/brew"
+      }
+    },
+    {
+      "name": "langserver",
+      "path": "langserver",
+      "sha": "8c896013543a6f5e3aa1648cb7ab81b95e2d1e73",
+      "size": 0,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/langserver?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/tree/master/langserver",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/8c896013543a6f5e3aa1648cb7ab81b95e2d1e73",
+      "download_url": null,
+      "type": "dir",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/langserver?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/8c896013543a6f5e3aa1648cb7ab81b95e2d1e73",
+        "html": "https://github.com/sourcegraph/go-langserver/tree/master/langserver"
+      }
+    },
+    {
+      "name": "pkg",
+      "path": "pkg",
+      "sha": "166e471a0004d16027e82f9a8fa58a3a07ca322f",
+      "size": 0,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/pkg?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/tree/master/pkg",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/166e471a0004d16027e82f9a8fa58a3a07ca322f",
+      "download_url": null,
+      "type": "dir",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/pkg?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/166e471a0004d16027e82f9a8fa58a3a07ca322f",
+        "html": "https://github.com/sourcegraph/go-langserver/tree/master/pkg"
+      }
+    },
+    {
+      "name": "vscode",
+      "path": "vscode",
+      "sha": "3bac0ce4216a9e611c1c59f43f09e03e8c5f4b0c",
+      "size": 0,
+      "url": "https://api.github.com/repos/sourcegraph/go-langserver/contents/vscode?ref=master",
+      "html_url": "https://github.com/sourcegraph/go-langserver/tree/master/vscode",
+      "git_url": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/3bac0ce4216a9e611c1c59f43f09e03e8c5f4b0c",
+      "download_url": null,
+      "type": "dir",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/go-langserver/contents/vscode?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/go-langserver/git/trees/3bac0ce4216a9e611c1c59f43f09e03e8c5f4b0c",
+        "html": "https://github.com/sourcegraph/go-langserver/tree/master/vscode"
+      }
+    },
+    {
+      "name": ".travis.yml",
+      "path": ".travis.yml",
+      "sha": "a96ab55fec09f29112dc1eabd2b15770733ea5a9",
+      "size": 69,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/.travis.yml?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/.travis.yml",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/a96ab55fec09f29112dc1eabd2b15770733ea5a9",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/.travis.yml",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/.travis.yml?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/a96ab55fec09f29112dc1eabd2b15770733ea5a9",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/.travis.yml"
+      }
+    },
+    {
+      "name": "LICENSE",
+      "path": "LICENSE",
+      "sha": "89d864bd8db4a4b7b76e826329e4f0f13df75206",
+      "size": 1072,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/LICENSE?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/LICENSE",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/89d864bd8db4a4b7b76e826329e4f0f13df75206",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/LICENSE",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/LICENSE?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/89d864bd8db4a4b7b76e826329e4f0f13df75206",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/LICENSE"
+      }
+    },
+    {
+      "name": "README.md",
+      "path": "README.md",
+      "sha": "5dc4f9afc8505cd3a61f8454707dc719c42d66c3",
+      "size": 504,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/README.md?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/README.md",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/5dc4f9afc8505cd3a61f8454707dc719c42d66c3",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/README.md",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/README.md?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/5dc4f9afc8505cd3a61f8454707dc719c42d66c3",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/README.md"
+      }
+    },
+    {
+      "name": "call_opt.go",
+      "path": "call_opt.go",
+      "sha": "f2585ec197c06ece5b51620b1acf448643728ab4",
+      "size": 584,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/call_opt.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/call_opt.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/f2585ec197c06ece5b51620b1acf448643728ab4",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/call_opt.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/call_opt.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/f2585ec197c06ece5b51620b1acf448643728ab4",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/call_opt.go"
+      }
+    },
+    {
+      "name": "codec_test.go",
+      "path": "codec_test.go",
+      "sha": "6415415deb506e32e36f082e94e529c00017b203",
+      "size": 743,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/codec_test.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/codec_test.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/6415415deb506e32e36f082e94e529c00017b203",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/codec_test.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/codec_test.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/6415415deb506e32e36f082e94e529c00017b203",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/codec_test.go"
+      }
+    },
+    {
+      "name": "conn_opt.go",
+      "path": "conn_opt.go",
+      "sha": "e2f8ab57b312f0514ab51380dd466a04f7fcd020",
+      "size": 2529,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/conn_opt.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/conn_opt.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/e2f8ab57b312f0514ab51380dd466a04f7fcd020",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/conn_opt.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/conn_opt.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/e2f8ab57b312f0514ab51380dd466a04f7fcd020",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/conn_opt.go"
+      }
+    },
+    {
+      "name": "handler_with_error.go",
+      "path": "handler_with_error.go",
+      "sha": "11cd945ffd1032386058f270e315dfe20d5ec973",
+      "size": 1449,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/handler_with_error.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/handler_with_error.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/11cd945ffd1032386058f270e315dfe20d5ec973",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/handler_with_error.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/handler_with_error.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/11cd945ffd1032386058f270e315dfe20d5ec973",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/handler_with_error.go"
+      }
+    },
+    {
+      "name": "jsonrpc2.go",
+      "path": "jsonrpc2.go",
+      "sha": "3c3fa76e5994ee32bed358f957bf545e8c6f8845",
+      "size": 15349,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/jsonrpc2.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/jsonrpc2.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/3c3fa76e5994ee32bed358f957bf545e8c6f8845",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/jsonrpc2.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/jsonrpc2.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/3c3fa76e5994ee32bed358f957bf545e8c6f8845",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/jsonrpc2.go"
+      }
+    },
+    {
+      "name": "jsonrpc2_test.go",
+      "path": "jsonrpc2_test.go",
+      "sha": "ab36d8d1631366e6165fc46001cb2eb5b3e0dccf",
+      "size": 7928,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/jsonrpc2_test.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/jsonrpc2_test.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/ab36d8d1631366e6165fc46001cb2eb5b3e0dccf",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/jsonrpc2_test.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/jsonrpc2_test.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/ab36d8d1631366e6165fc46001cb2eb5b3e0dccf",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/jsonrpc2_test.go"
+      }
+    },
+    {
+      "name": "object_test.go",
+      "path": "object_test.go",
+      "sha": "593ceb263f4bd5ac302cfd9a2ad8684b3d6eae76",
+      "size": 1355,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/object_test.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/object_test.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/593ceb263f4bd5ac302cfd9a2ad8684b3d6eae76",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/object_test.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/object_test.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/593ceb263f4bd5ac302cfd9a2ad8684b3d6eae76",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/object_test.go"
+      }
+    },
+    {
+      "name": "stream.go",
+      "path": "stream.go",
+      "sha": "3095592f0e0fa9d5177af448fc56102b9bde1c90",
+      "size": 4445,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/stream.go?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/blob/master/stream.go",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/3095592f0e0fa9d5177af448fc56102b9bde1c90",
+      "download_url": "https://raw.githubusercontent.com/sourcegraph/jsonrpc2/master/stream.go",
+      "type": "file",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/stream.go?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/blobs/3095592f0e0fa9d5177af448fc56102b9bde1c90",
+        "html": "https://github.com/sourcegraph/jsonrpc2/blob/master/stream.go"
+      }
+    },
+    {
+      "name": "websocket",
+      "path": "websocket",
+      "sha": "e6492b3370b1cfe720563e638f45629911e802cd",
+      "size": 0,
+      "url": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/websocket?ref=master",
+      "html_url": "https://github.com/sourcegraph/jsonrpc2/tree/master/websocket",
+      "git_url": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/trees/e6492b3370b1cfe720563e638f45629911e802cd",
+      "download_url": null,
+      "type": "dir",
+      "_links": {
+        "self": "https://api.github.com/repos/sourcegraph/jsonrpc2/contents/websocket?ref=master",
+        "git": "https://api.github.com/repos/sourcegraph/jsonrpc2/git/trees/e6492b3370b1cfe720563e638f45629911e802cd",
+        "html": "https://github.com/sourcegraph/jsonrpc2/tree/master/websocket"
+      }
+    }
+  ]
