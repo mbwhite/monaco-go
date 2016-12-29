@@ -29,7 +29,7 @@
 		"**/bower_components": true
 	},
 	"files.trimTrailingWhitespace": true,
-	"editor.tabSize": 2,
+	"editor.tabSize": 4,
 	"editor.insertSpaces": false,
 	"editor.wrappingColumn": 0,
 	"editor.rulers": [
@@ -44,6 +44,6 @@
 	"typescript.validate.enable": true,
 	"javascript.validate.enable": false,
 	"tslint.configFile": "./tslint.json",
-	"tslint.autoFixOnSave": true,
+	"tslint.autoFixOnSave": false,
 	"tslint.enable": true
 }

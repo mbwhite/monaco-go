@@ -22,6 +22,20 @@ See: [Language Server Protocol](https://github.com/Microsoft/language-server-pro
 
 # demo
 
+## app
+
+**WIP:** `monaco` hosted in [Polymer 2.0](https://www.polymer-project.org/2.0/docs/about_20).
+
+![./docs/images/monaco-go.png](./docs/images/monaco-go.png)
+
+### todo
+
+* will allow browsing back and forths between files.
+* spawn docker container with the project selected and `go-langserver`
+configured.
+
+## `monaco`
+
 ### `textDocument/hover`
 
 ![textDocument/hover.png](./images/textDocument/hover.png)
