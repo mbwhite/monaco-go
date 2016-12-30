@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "es5",
+		"module": "amd",
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"stripInternal": true,
+		"lib": [ "es2016" ],
+
+		"declaration": true,
+		"outDir": "../lib",
+		"outFile": "../lib/main.js",
+		"strictNullChecks": true,
+		"noImplicitAny": false,
+		"noImplicitReturns": true,
+		"noImplicitThis": true
+	},
+    "exclude": [
+        "node_modules"
+    ]
+}
