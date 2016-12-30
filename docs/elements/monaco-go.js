@@ -12,6 +12,13 @@ class MonacoGoElement extends Polymer.Element {
 				selectionProject: {
 					type: MonacoGoProjectRepo,
 				},
+				langserverConfig: {
+					type: MonacoGoLangserverConfig,
+					notify: true,
+					value: () => {
+						return new MonacoGoLangserverConfig();
+					}
+				}
 			}
 		};
 	}

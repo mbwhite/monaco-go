@@ -100,3 +100,11 @@ class MonacoGoProjectRepo {
 		});
 	}
 }
+
+class MonacoGoLangserverConfig {
+	constructor(host ='localhost', port =':4389', rootPath = '/go') {
+		this.host = host;
+		this.port = port;
+		this.rootPath = rootPath;
+	}
+}

@@ -4,6 +4,7 @@
 <link rel="import" href="./monaco-go-nav.html">
 <link rel="import" href="./monaco-go-repo-files.html">
 <link rel="import" href="./monaco-go-repos.html">
+<link rel="import" href="./monaco-go-langserver-config.html">
 
 <dom-module id="monaco-go">
 	<template>
@@ -18,6 +19,13 @@
     	</style>
 		<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
 		<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
+
+		<!--<div>
+			<span>{{langserverConfig.host}}</span>
+			<span>{{langserverConfig.port}}</span>
+		</div>-->
+
+		<monaco-go-langserver-config langserver-config="{{langserverConfig}}"></monaco-go-langserver-config>
 	</template>
 	<script src="monaco-go.js"></script>
 </dom-module>

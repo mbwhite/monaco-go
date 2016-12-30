@@ -1,0 +1,54 @@
+<dom-module id="monaco-go-langserver-config">
+	<template>
+		<style is="custom-style" include="iron-flex">
+			:host {
+				@apply --layout-vertical;
+			}
+
+			.actions {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-center-justified;
+			}
+
+			paper-progress {
+				width: 100%;
+			}
+		</style>
+
+<paper-card heading="Language Server Config" class="files">
+	<div class="card-content">
+		<paper-input always-float-label label="host" value="{{langserverConfig.host}}" disabled="{{isWorking}}"></paper-input>
+		<paper-input always-float-label label="port" value="{{langserverConfig.port}}" disabled="{{isWorking}}"></paper-input>
+	</div>
+	<div class="card-actions">
+		<div class="actions">
+			<paper-icon-button icon="icons:refresh" on-tap="_onRefresh" disabled="{{isWorking}}"></paper-icon-button>
+		</div>
+		<paper-progress indeterminate disabled="{{!isWorking}}"></paper-progress>
+	</div>
+</paper-card>
+
+<!--<div class="working">
+	<dom-if if="[[isWorking]]">
+		<template>
+			<div>
+				<span>Updating to: </span>
+				<span>{{langserverConfig.host}}</span>
+				<span>{{langserverConfig.port}}</span>
+			</div>
+		</template>
+	</dom-if>
+	<dom-if if="[[!isWorking]]">
+		<template>
+			<div>
+				<span>{{langserverConfig.host}}</span>
+				<span>{{langserverConfig.port}}</span>
+			</div>
+		</template>
+	</dom-if>
+</div>-->
+
+</template>
+<script src="./monaco-go-langserver-config.js"></script>
+</dom-module>
