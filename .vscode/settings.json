@@ -1,6 +1,8 @@
 // Place your settings in this file to overwrite default and user settings.
 {
 	"search.exclude": {
+		"**/_site": true,
+		"**/.dev-tmp": true,
 		"**/release": true,
 		"**/out": true,
 		"**/lib": true,
@@ -15,6 +17,8 @@
 		"**/bower_components": true
 	},
 	"files.exclude": {
+		"**/_site": true,
+		"**/.dev-tmp": true,
 		"**/release": true,
 		"**/out": true,
 		"**/lib": true,

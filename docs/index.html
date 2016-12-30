@@ -4,9 +4,16 @@ title: {{ site.name }}
 ---
 
 <div class="site-pages">
-	{% for post in site.posts %}
+	{% for page in site.pages %}
 	<div class="site-page">
-		<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title | markdownify | remove: '<p>' | remove: '</p>'  }}</a>
+		<a href="{{ site.baseurl }}{{ page.url }}">{{ page.title | markdownify | remove: '<p>' | remove: '</p>'  }}</a>
 	</div>
 	{% endfor %}
 </div>
+
+{% capture preview %}
+---
+
+![images/monaco-go.png](images/monaco-go.png)
+{% endcapture %}{{ preview | markdownify }}
+

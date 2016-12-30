@@ -1,3 +1,4 @@
+baseurl: /monaco-go
 name: monaco-go
 title: monaco-go
 description: Go lang support using Language Server Protocol over WebSocket for the Monaco editor
@@ -8,4 +9,22 @@ exclude:
 - README.md
 - scripts
 
-show_downloads: true
+permalink: none
+
+# Dependencies
+markdown: kramdown
+
+collections:
+  pages:
+    output: true
+    permalink: /:title
+defaults:
+  - scope:
+      type: ""
+      type: pages
+    values:
+      layout: default
+
+include: ['_pages']
+keep_files: [bower_components, node_modules]
+

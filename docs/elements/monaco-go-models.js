@@ -62,14 +62,14 @@ class MonacoGoProjectRepo {
 	static _fetch(repo) {
 		let getEndPoint = (owner, repo, path) => {
 			// let res = `/repos/:owner/:repo/contents/:path`;
-			// let endpoint = `/repos/${owner}/${repo}/contents/:path`;
-			let endpoint = `/repos/${owner}/${repo}/contents`;
+			// let endpoint = `repos/${owner}/${repo}/contents/:path`;
+			let endpoint = `repos/${owner}/${repo}/contents`;
 			return endpoint;
 		};
 
 		let endpoint = getEndPoint(repo.owner, repo.name);
-		let url = `https://api.github.com${endpoint}`;
-		let url_backup = `/docs/${endpoint}.json`;
+		let url = `https://api.github.com/${endpoint}`;
+		let url_backup = `${endpoint}.json`;
 
 		url = url_backup;
 
