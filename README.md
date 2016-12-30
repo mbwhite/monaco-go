@@ -2,9 +2,7 @@
 
 Go lang mode for [monaco-editor](https://github.com/Microsoft/monaco-editor). The implementation is mostly derived from
 [monaco-css](https://github.com/Microsoft/monaco-css) but uses WebSocket as the transport to talk to the
-[go-langserver](https://github.com/sourcegraph/go-langserver).
-
-WIP but these are partly supported:
+[go-langserver](https://github.com/sourcegraph/go-langserver). The below are partly if not partly supported, see [Language Server Protocol](https://github.com/Microsoft/language-server-protocol/blob/master/protocol.md#messages-overview):
 
 * `capabilities.textDocumentSync`
 * `textDocument/didChange`
@@ -15,26 +13,27 @@ WIP but these are partly supported:
 forths isn't.
 * `textDocument/references`: references are listed, navigating to them however isn't.
 * `textDocument/publishDiagnostics`
-* `textDocument/documentSymbol`: wip.
+* `textDocument/documentSymbol`
+* `textDocument/rename`: WIP.
 * <del>`workspace/symbol`</del>: fairly large feature-set, i think.
-
-See: [Language Server Protocol](https://github.com/Microsoft/language-server-protocol/blob/master/protocol.md).
 
 # demo
 
+See the [./docs/README.md](./docs/README.md) for a more detailed description.
+
 ## app
 
-**WIP:** `monaco` hosted in [Polymer 2.0](https://www.polymer-project.org/2.0/docs/about_20).
-
-![./docs/images/monaco-go.png](./docs/images/monaco-go.png)
-
-### todo
-
+**WIP:**
+* `monaco` hosted in [Polymer 2.0](https://www.polymer-project.org/2.0/docs/about_20).
 * will allow browsing back and forths between files.
 * spawn docker container with the project selected and `go-langserver`
 configured.
 
+![./docs/images/monaco-go.png](./docs/images/monaco-go.png)
+
 ## `monaco`
+
+more available in [./docs/README.md](./docs/README.md#screenshots) .
 
 ### `textDocument/hover`
 
@@ -48,7 +47,8 @@ configured.
 
 ### `Dockerfile`
 
-Execute below to download repo, build and run using Docker:
+execute below to download the repo, build and then run.
+you need [Docker](https://www.docker.com/):
 
 ```sh
 ( \
@@ -114,40 +114,12 @@ langserver: wsConn: 0xc420077440 - NextWriter - writer: 0xc420061a50
 <-- result #0: initialize: {"capabilities":{"textDocumentSync":1,"hoverProvider":true,"definitionProvider":true,"referencesProvider":true,"documentSymbolProvider":true,"workspaceSymbolProvider":true}}
 ```
 
-## screenshots
-
-### `textDocument/references`
-
-![textDocument/references.png](./images/textDocument/references.png)
-
-### `textDocument/documentSymbol`
-
-![textDocument/documentSymbol.png](./images/textDocument/documentSymbol.png)
-
-### `textDocument/publishDiagnostics`
-
-Errors are highlighted in the margins and inline, at error site, within model:
-
-![textDocument/publishDiagnostics.png](./images/textDocument/publishDiagnostics.png)
-
-![textDocument/publishDiagnostics-2.png](./images/textDocument/publishDiagnostics-2.png)
-
-### `textDocument/definition`
-
-![textDocument/definition.gif](./images/textDocument/definition.gif)
-
-### `textDocument/hover`
-
-![textDocument/hover.png](./images/textDocument/hover.png)
-
-
 ## References
 
 * [`monaco-editor`](https://github.com/Microsoft/monaco-editor).
 * [`vscode-css-languageservice`](https://github.com/Microsoft/vscode-css-languageservice).
 * [`monaco.d.ts`](https://github.com/Microsoft/monaco-css/blob/master/src/monaco.d.ts).
 * [Visual Studio Code](https://github.com/Microsoft/vscode).
-
 * `build`: [/build/README.md](/build/README.md).
 * `Dockerfile`: [/build/docker/README.md](/build/docker/README.md).
 
