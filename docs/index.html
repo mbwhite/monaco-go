@@ -1,0 +1,12 @@
+---
+layout: default
+title: {{ site.name }}
+---
+
+<div class="site-pages">
+	{% for post in site.posts %}
+	<div class="site-page">
+		<a href="{{ site.baseurl }}{{ post.url }}">{{ post.title | markdownify | remove: '<p>' | remove: '</p>'  }}</a>
+	</div>
+	{% endfor %}
+</div>

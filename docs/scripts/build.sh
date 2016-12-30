@@ -1,6 +1,5 @@
 #!/bin/sh -x
 
 echo "---------"
-echo "serving:"
+echo "building:"
 bundle install
-bundle exec jekyll serve

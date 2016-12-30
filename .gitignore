@@ -12,6 +12,13 @@
 # symlink to $GOPATH
 go
 
+# github pages
+Gemfile.lock
+_site
+.sass-cache
+Gemfile.lock
+*.gem
+
 ###############################
 
 ###############################

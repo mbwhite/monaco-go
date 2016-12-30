@@ -1,1 +1,11 @@
+name: monaco-go
+title: monaco-go
+description: Go lang support using Language Server Protocol over WebSocket for the Monaco editor
 theme: jekyll-theme-cayman
+exclude:
+- Gemfile
+- Gemfile.lock
+- README.md
+- scripts
+
+show_downloads: true
