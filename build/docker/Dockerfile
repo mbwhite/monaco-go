@@ -83,27 +83,30 @@ RUN go version
 RUN \
   go get -x github.com/sourcegraph/go-langserver/langserver/cmd/langserver-go && \
   cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
-  go get -x ./...
+  go get -x ./... && \
+  git log -1
 # use the branches of the fork
 RUN \
 	cd $GOPATH/src/github.com/sourcegraph/jsonrpc2 && \
   git remote add mbana https://github.com/mbana/jsonrpc2.git && \
   git fetch mbana && \
-  git checkout --track -b jsonrpc-websocket-gorilla mbana/jsonrpc-websocket-gorilla
+  git checkout --track -b jsonrpc-websocket-gorilla mbana/jsonrpc-websocket-gorilla && \
+  git log -1
 RUN \
 	cd $GOPATH/src/github.com/sourcegraph/go-langserver && \
   git remote add mbana https://github.com/mbana/go-langserver.git && \
   git fetch mbana && \
   git checkout --track -b websocket-gorilla mbana/websocket-gorilla && \
   ls -lah langserver/cmd/langserver-{antha,go} && \
-  go get -x ./...
+  go get -x ./... && \
+  git log -1
 # build langserver
 RUN \
   go build -race github.com/sourcegraph/jsonrpc2 && \
   go install -race github.com/sourcegraph/jsonrpc2 && \
   go build -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
   go install -race github.com/sourcegraph/go-langserver/langserver/cmd/langserver-antha && \
-  ls -lah `which langserver-antha`
+  ls -lah `which langserver-antha` && echo "done jsonrpc go-langserver"
 # check langserver binary is ok
 RUN \
   langserver-antha --help; \

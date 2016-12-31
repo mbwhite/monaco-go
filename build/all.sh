@@ -1,4 +1,3 @@
-#!/bin/sh
 
 # remove previous build
 ( \
@@ -27,6 +26,6 @@
   npm link "vscode-languageclient" && \
   npm install --silent && \
   npm run compile && \
-  npm run test && \
+  # npm run test && \
   npm run compile \
 )
