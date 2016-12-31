@@ -43,7 +43,7 @@
 				</div>
 			</paper-card>
 			<div class="loading">
-				<paper-progress indeterminate class="repo-loader" disabled="{{!projectLoading}}"></paper-progress>
+				<paper-progress indeterminate class="repo-loader" disabled="{{!isWorking}}"></paper-progress>
 			</div>
 			<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
 		</div>

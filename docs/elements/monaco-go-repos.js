@@ -26,7 +26,7 @@ class MonacoGoReposElement extends Polymer.Element {
 					type: MonacoGoProjectRepo,
 					notify: true,
 				},
-				projectLoading: {
+				isWorking: {
 					type: Boolean,
 					notify: true,
 					value: () => {
@@ -68,27 +68,27 @@ class MonacoGoReposElement extends Polymer.Element {
 	}
 
 	_selectionRepo(selectionNew, selectionOld) {
-		this.projectLoading = false;
+		this.isWorking = false;
 		this.selectionProject = null;
 
 		if (!selectionNew) {
 			return;
 		}
 
-		this.projectLoading = true;
+		this.isWorking = true;
 		let repo = selectionNew;
 		MonacoGoProjectRepo.create(repo).then((project) => {
 			Polymer.Async.run(() => {
-				this.projectLoading = false;
-				this.selectionProject = project;
+				this.isWorking = false;
+				this.set('selectionProject', project);
 			}, 500);
 		}).catch((excep) => {
-			this.projectLoading = false;
+			this.isWorking = false;
 		});
 	}
 
-	_computeCardContent(projectLoading) {
-		return projectLoading ? 'loading' : '';
+	_computeCardContent(isWorking) {
+		return isWorking ? 'loading' : '';
 	}
 }
 
