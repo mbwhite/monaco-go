@@ -26,6 +26,6 @@ defaults:
       layout: default
 
 include: ['_pages']
-exclude: [bower_components, node_modules]
-keep_files: [bower_components, node_modules]
+# exclude: ['bower_components', 'node_modules']
+keep_files: ['bower_components', 'node_modules']
 
