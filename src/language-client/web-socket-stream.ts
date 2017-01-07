@@ -4,7 +4,6 @@ import {
 	Message, PartialMessageInfo,
 	StreamInfo
 } from 'vscode-languageclient';
-
 import {
 	WebSocketMessageReader
 } from './web-socket-reader';
@@ -26,12 +25,39 @@ export class WebSocketStream implements StreamInfo {
 		this.reader = new WebSocketMessageReader(ws);
 	}
 
+	static computeScheme() {
+		let scheme = `ws`;
+		return scheme;
+	}
+
+	static computeHost() {
+		// use localhost in dev-mode.
+		// otherwise use the azure host address
+		let devMode = false;
+		if (!devMode) {
+			return '13.65.101.250';
+			// return `go-langserver.cloudapp.net`;
+		} else {
+			return 'localhost';
+		}
+	}
+
+	static createUrl() {
+		let scheme = WebSocketStream.computeScheme();
+		let host = WebSocketStream.computeHost();
+		let port = `4389`;
+
+		let url = `${scheme}://${host}:${port}`;
+		return url;
+	}
+
 	static create(): Promise<StreamInfo> {
 		return new Promise((resolve, reject) => {
 			let ws: WebSocket;
 
 			try {
-				ws = new WebSocket('ws://localhost:4389');
+				let url = WebSocketStream.createUrl();
+				ws = new WebSocket(url);
 
 				ws.onopen = (ev: Event): any => {
 					let streamInfo: StreamInfo = new WebSocketStream(ws);

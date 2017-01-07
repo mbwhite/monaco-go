@@ -17,17 +17,17 @@ forths isn't.
 * `textDocument/rename`: WIP.
 * <del>`workspace/symbol`</del>: fairly large feature-set, i think.
 
-# demo
+## azure live example
 
-See the [./docs/README.md](./docs/README.md) for a more detailed description.
+**WIP:** addresses will change...
 
-## app
+live running version of `monaco-go` talking to the `go-langserver` using a
+WebSocket at go-langserver.cloudapp.net:
 
-**WIP:**
-* `monaco` hosted in [Polymer 2.0](https://www.polymer-project.org/2.0/docs/about_20).
-* will allow browsing back and forths between files.
-* spawn docker container with the project selected and `go-langserver`
-configured.
+* `monaco-go`: http://13.65.101.250:8080/
+* `go-langserver`: ws://13.65.101.250:4389
+
+### screenshot
 
 ![./docs/images/monaco-go.png](./docs/images/monaco-go.png)
 

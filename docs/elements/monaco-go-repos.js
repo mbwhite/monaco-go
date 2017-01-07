@@ -45,7 +45,8 @@ class MonacoGoReposElement extends Polymer.Element {
 	_createRepos() {
 		let urls = [
 			'https://github.com/sourcegraph/go-langserver.git',
-			'https://github.com/sourcegraph/jsonrpc2.git'
+			'https://github.com/sourcegraph/jsonrpc2.git',
+			'https://github.com/sourcegraph/ctxvfs.git',
 		];
 
 		// parse the urls

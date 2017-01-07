@@ -1,3 +1,4 @@
+#!/bin/sh -x
 
 # remove previous build
 ( \

@@ -1,0 +1,258 @@
+[
+  {
+    "name": ".travis.yml",
+    "path": ".travis.yml",
+    "sha": "a96ab55fec09f29112dc1eabd2b15770733ea5a9",
+    "size": 69,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/.travis.yml?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/.travis.yml",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/a96ab55fec09f29112dc1eabd2b15770733ea5a9",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/.travis.yml",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/.travis.yml?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/a96ab55fec09f29112dc1eabd2b15770733ea5a9",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/.travis.yml"
+    }
+  },
+  {
+    "name": "LICENSE",
+    "path": "LICENSE",
+    "sha": "89d864bd8db4a4b7b76e826329e4f0f13df75206",
+    "size": 1072,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/LICENSE?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/LICENSE",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/89d864bd8db4a4b7b76e826329e4f0f13df75206",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/LICENSE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/LICENSE?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/89d864bd8db4a4b7b76e826329e4f0f13df75206",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/LICENSE"
+    }
+  },
+  {
+    "name": "NOTICE",
+    "path": "NOTICE",
+    "sha": "25112fa84f301fb9fbbce4564345871f926a5e59",
+    "size": 3083,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/NOTICE?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/NOTICE",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/25112fa84f301fb9fbbce4564345871f926a5e59",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/NOTICE",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/NOTICE?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/25112fa84f301fb9fbbce4564345871f926a5e59",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/NOTICE"
+    }
+  },
+  {
+    "name": "README.md",
+    "path": "README.md",
+    "sha": "03358eb7df99951d21bb1ac36da29d58b2a2843a",
+    "size": 412,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/README.md?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/README.md",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/03358eb7df99951d21bb1ac36da29d58b2a2843a",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/README.md",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/README.md?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/03358eb7df99951d21bb1ac36da29d58b2a2843a",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/README.md"
+    }
+  },
+  {
+    "name": "ctxvfs.go",
+    "path": "ctxvfs.go",
+    "sha": "4a20cc6402d880e918841cce63902a58e572c1c0",
+    "size": 1008,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/ctxvfs.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/ctxvfs.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/4a20cc6402d880e918841cce63902a58e572c1c0",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/ctxvfs.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/ctxvfs.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/4a20cc6402d880e918841cce63902a58e572c1c0",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/ctxvfs.go"
+    }
+  },
+  {
+    "name": "file_info.go",
+    "path": "file_info.go",
+    "sha": "e95eedd33d1a52233ad120400ae390c2996e130e",
+    "size": 803,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/file_info.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/file_info.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/e95eedd33d1a52233ad120400ae390c2996e130e",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/file_info.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/file_info.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/e95eedd33d1a52233ad120400ae390c2996e130e",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/file_info.go"
+    }
+  },
+  {
+    "name": "map.go",
+    "path": "map.go",
+    "sha": "013ffde030fab8d708878baae704f243f6fd308f",
+    "size": 3209,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/map.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/map.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/013ffde030fab8d708878baae704f243f6fd308f",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/map.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/map.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/013ffde030fab8d708878baae704f243f6fd308f",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/map.go"
+    }
+  },
+  {
+    "name": "map_test.go",
+    "path": "map_test.go",
+    "sha": "7924a48987f5766e4611505f7695c1b83dc675c6",
+    "size": 4375,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/map_test.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/map_test.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/7924a48987f5766e4611505f7695c1b83dc675c6",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/map_test.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/map_test.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/7924a48987f5766e4611505f7695c1b83dc675c6",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/map_test.go"
+    }
+  },
+  {
+    "name": "namespace.go",
+    "path": "namespace.go",
+    "sha": "6d5ce97fabe1882198cb6b0c93cc9dd41da3b8da",
+    "size": 6386,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/namespace.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/namespace.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/6d5ce97fabe1882198cb6b0c93cc9dd41da3b8da",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/namespace.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/namespace.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/6d5ce97fabe1882198cb6b0c93cc9dd41da3b8da",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/namespace.go"
+    }
+  },
+  {
+    "name": "namespace_test.go",
+    "path": "namespace_test.go",
+    "sha": "aca9e0082ebb9dadf84fe68bc6014f02c1ad6d96",
+    "size": 2846,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/namespace_test.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/namespace_test.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/aca9e0082ebb9dadf84fe68bc6014f02c1ad6d96",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/namespace_test.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/namespace_test.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/aca9e0082ebb9dadf84fe68bc6014f02c1ad6d96",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/namespace_test.go"
+    }
+  },
+  {
+    "name": "os.go",
+    "path": "os.go",
+    "sha": "84ecfc3b7b4cfce292e6580acd1e31852b073ee9",
+    "size": 1876,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/os.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/os.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/84ecfc3b7b4cfce292e6580acd1e31852b073ee9",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/os.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/os.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/84ecfc3b7b4cfce292e6580acd1e31852b073ee9",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/os.go"
+    }
+  },
+  {
+    "name": "single_file_overlay.go",
+    "path": "single_file_overlay.go",
+    "sha": "91b8ba1ec9061aa210a4b0f17314c83b8edfaf4a",
+    "size": 1328,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/single_file_overlay.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/single_file_overlay.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/91b8ba1ec9061aa210a4b0f17314c83b8edfaf4a",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/single_file_overlay.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/single_file_overlay.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/91b8ba1ec9061aa210a4b0f17314c83b8edfaf4a",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/single_file_overlay.go"
+    }
+  },
+  {
+    "name": "strip_context.go",
+    "path": "strip_context.go",
+    "sha": "02fd339506ad7fca60103033c347e28d88506b75",
+    "size": 1189,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/strip_context.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/strip_context.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/02fd339506ad7fca60103033c347e28d88506b75",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/strip_context.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/strip_context.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/02fd339506ad7fca60103033c347e28d88506b75",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/strip_context.go"
+    }
+  },
+  {
+    "name": "sync.go",
+    "path": "sync.go",
+    "sha": "1e90cedc75b646269b9eb2b241eab98e81a400ec",
+    "size": 1191,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/sync.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/sync.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/1e90cedc75b646269b9eb2b241eab98e81a400ec",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/sync.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/sync.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/1e90cedc75b646269b9eb2b241eab98e81a400ec",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/sync.go"
+    }
+  },
+  {
+    "name": "util.go",
+    "path": "util.go",
+    "sha": "987af016331d8f6f43f7b18c443a5858682ee0ad",
+    "size": 120,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/util.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/util.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/987af016331d8f6f43f7b18c443a5858682ee0ad",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/util.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/util.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/987af016331d8f6f43f7b18c443a5858682ee0ad",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/util.go"
+    }
+  },
+  {
+    "name": "walk.go",
+    "path": "walk.go",
+    "sha": "68d0ea3acd03696294001ca4fc6ac19d8c283b86",
+    "size": 3137,
+    "url": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/walk.go?ref=master",
+    "html_url": "https://github.com/sourcegraph/ctxvfs/blob/master/walk.go",
+    "git_url": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/68d0ea3acd03696294001ca4fc6ac19d8c283b86",
+    "download_url": "https://raw.githubusercontent.com/sourcegraph/ctxvfs/master/walk.go",
+    "type": "file",
+    "_links": {
+      "self": "https://api.github.com/repos/sourcegraph/ctxvfs/contents/walk.go?ref=master",
+      "git": "https://api.github.com/repos/sourcegraph/ctxvfs/git/blobs/68d0ea3acd03696294001ca4fc6ac19d8c283b86",
+      "html": "https://github.com/sourcegraph/ctxvfs/blob/master/walk.go"
+    }
+  }
+]

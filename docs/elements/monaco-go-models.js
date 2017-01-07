@@ -71,7 +71,7 @@ class MonacoGoProjectRepo {
 		let url = `https://api.github.com/${endpoint}`;
 		let url_backup = `${endpoint}.json`;
 
-		url = url_backup;
+		//url = url_backup;
 
 		return fetch(url).then((response) => {
 			// log error then try locally cached version of the repo's contents

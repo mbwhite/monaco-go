@@ -126,14 +126,20 @@ EXPOSE $WEBSOCKET_PORT
 # that it works...
 RUN \
   ln -s $GOPATH go; \
+  ln -s /Users Users; \
+  ln -s docs/repos repos; \
   ls -lah ./go/src; \
+  ls -lah ./Users; \
+  ls -lah ./repos; \
   exit 0
 
-ENTRYPOINT [ \
-  "/bin/bash", "-c", \
-  "source $NVM_DIR/nvm.sh; langserver-antha -mode ws -trace -addr $LANGSERVER_ADDR & npm run serve" \
+COPY ./build/docker-entrypoint.sh /
+RUN \
+  chmod +x /docker-entrypoint.sh; \
+  ls -lah /docker-entrypoint.sh
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD [ \
+  "-r", "https://github.com/mbana/go-langserver.git", \
+  "-p", "4389" \
 ]
-# ENTRYPOINT [ \
-#   "/bin/bash", "-c", \
-#   "source $NVM_DIR/nvm.sh; npm run serve" \
-# ]

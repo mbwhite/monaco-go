@@ -65,7 +65,7 @@ export class MonacoWorkspaceConfig {
 }
 
 export class MonacoWorkspace {
-	public static ROOT_PATH: string = 'src/github.com/sourcegraph/go-langserver/langserver';
+	public static ROOT_PATH: string = '/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver';
 
 	private _workspaceConfigs: MonacoWorkspaceConfig[];
 	private _textDocuments: TextDocument[] = [];
@@ -88,27 +88,28 @@ export class MonacoWorkspace {
 	}
 
 	static create(): MonacoWorkspace {
-		const STORAGE_KEY = 'monaco.workspace';
+		// const STORAGE_KEY = 'monaco.workspace';
 
-		let monacoWorkspace = new MonacoWorkspace();
+		// let monacoWorkspace = new MonacoWorkspace();
 
-		let workspaceStr = localStorage.getItem(STORAGE_KEY);
-		if (workspaceStr) {
-			try {
-				let workspace = JSON.parse(workspaceStr);
-				let rootPath = workspace.rootPath ? workspace.rootPath : MonacoWorkspace.ROOT_PATH;
+		// let workspaceStr = localStorage.getItem(STORAGE_KEY);
+		// if (workspaceStr) {
+		// 	try {
+		// 		let workspace = JSON.parse(workspaceStr);
+		// 		let rootPath = workspace.rootPath ? workspace.rootPath : MonacoWorkspace.ROOT_PATH;
 
-				monacoWorkspace = new MonacoWorkspace(rootPath);
-			} catch (err) {
-				console.error('MonacoWorkspace.create: ', err);
-			}
-		} else {
-			let workspace = JSON.stringify({
-				rootPath: monacoWorkspace.rootPath
-			});
-			localStorage.setItem(STORAGE_KEY, workspace);
-		}
+		// 		monacoWorkspace = new MonacoWorkspace(rootPath);
+		// 	} catch (err) {
+		// 		console.error('MonacoWorkspace.create: ', err);
+		// 	}
+		// } else {
+		// 	let workspace = JSON.stringify({
+		// 		rootPath: monacoWorkspace.rootPath
+		// 	});
+		// 	localStorage.setItem(STORAGE_KEY, workspace);
+		// }
 
+		let monacoWorkspace = new MonacoWorkspace(MonacoWorkspace.ROOT_PATH);
 		return monacoWorkspace;
 	}
 
