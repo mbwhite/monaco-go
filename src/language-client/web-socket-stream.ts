@@ -25,30 +25,50 @@ export class WebSocketStream implements StreamInfo {
 		this.reader = new WebSocketMessageReader(ws);
 	}
 
-	static computeScheme() {
-		let scheme = `ws`;
-		return scheme;
-	}
+	static getWorkspaceConfig() {
+		// run the below in the console then refresh when doing local dev.
+		//
+		// let langserverConfigJson = {
+		// 	hostname: '13.65.101.250',
+		// 	port: 4389,
+		// 	scheme: 'ws'
+		// };
+		// let langserverConfigStr = JSON.stringify(langserverConfigJson);
+		// localStorage.setItem('monaco.workspace.go.langserver', langserverConfigStr);
 
-	static computeHost() {
-		// use localhost in dev-mode.
-		// otherwise use the azure host address
-		let devMode = false;
-		if (!devMode) {
-			return '13.65.101.250';
-			// return `go-langserver.cloudapp.net`;
-		} else {
-			return 'localhost';
-		}
+
+		const CONFIG_KEY = 'monaco.workspace.go.langserver';
+
+		let configStr = localStorage.getItem(CONFIG_KEY);
+		return JSON.parse(configStr);
 	}
 
 	static createUrl() {
-		let scheme = WebSocketStream.computeScheme();
-		let host = WebSocketStream.computeHost();
-		let port = `4389`;
+		let workspaceConfig = WebSocketStream.getWorkspaceConfig();
 
-		let url = `${scheme}://${host}:${port}`;
-		return url;
+		let scheme = `ws`;
+		if (workspaceConfig && workspaceConfig.scheme) {
+			scheme = workspaceConfig.scheme;
+		}
+
+		// location.host
+		// "13.65.101.250:8080"
+		// location.hostname
+		// "13.65.101.250"
+		let host = {
+			hostname: location.hostname,
+			port: '4389',
+		};
+
+		if (workspaceConfig && workspaceConfig.hostname) {
+			host.hostname = workspaceConfig.hostname;
+		}
+
+		if (workspaceConfig && workspaceConfig.port) {
+			host.port = workspaceConfig.port;
+		}
+
+		return `${scheme}://${host.hostname}:${host.port}`;
 	}
 
 	static create(): Promise<StreamInfo> {
