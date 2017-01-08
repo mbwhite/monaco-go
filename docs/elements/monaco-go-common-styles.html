@@ -7,11 +7,32 @@
 <dom-module id="monaco-go-common-styles">
 	<template>
 		<style>
-			paper-item {
-				--paper-item: {
-					@apply --paper-font-body1;
+			.component.title {
+				@apply --paper-font-subhead;
+			}
+
+			.code,
+			code {
+				@apply --paper-font-common-code;
+			}
+
+			paper-card {
+				@apply --layout-flex;
+				--paper-card-header-text: {
+					@apply --paper-font-subhead;
 				};
 			}
+
+			paper-progress {
+				width: 100%;
+				--paper-progress-height: 8px;
+			}
+
+			.actions {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-center-justified;
+			}
 		</style>
-</template>
+	</template>
 </custom-style>

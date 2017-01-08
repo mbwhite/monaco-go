@@ -1,0 +1,27 @@
+<dom-module id="monaco-go-langserver-log">
+	<template>
+		<style is="custom-style" include="iron-flex monaco-go-common-styles">
+			:host {
+				@apply --layout-vertical;
+				@apply --layout-flex;
+				border: 1px solid;
+				border-color: yellow;
+			}
+		</style>
+		<div class="component title">
+			<code>go-langserver</code> logs
+		</div>
+		<div class="status section">
+			<div>
+				<div>Connection State:</div>
+				<div>
+					{{langserverConn.state}}
+				</div>
+			</div>
+		</div>
+		<div class="log section">
+			{{_sortLog(langserverConn.logs.length, sortConfig)}}
+		</div>
+	</template>
+	<script src="./monaco-go-langserver-log.js"></script>
+</dom-module>

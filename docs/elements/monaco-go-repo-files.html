@@ -1,9 +1,16 @@
 <dom-module id="monaco-go-repo-files">
 	<template>
-		<style is="custom-style" include="iron-flex">
+		<style is="custom-style" include="iron-flex iron-positioning monaco-go-common-styles">
+			:host {
+				@apply --layout-horizontal;
+				@apply --layout-flex;
+				border: 1px solid;
+				border-color: red;
+			}
+
 			.file.name {
-				@apply --paper-font-code1;
-				font-size: 10px;
+				@apply --paper-font-caption;
+				@apply --paper-font-common-code;
 			}
 			.file.url {
 				@apply --paper-font-caption;

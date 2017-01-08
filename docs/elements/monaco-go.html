@@ -5,27 +5,39 @@
 <link rel="import" href="./monaco-go-repo-files.html">
 <link rel="import" href="./monaco-go-repos.html">
 <link rel="import" href="./monaco-go-langserver-config.html">
+<link rel="import" href="./monaco-go-langserver-log.html">
 
 <dom-module id="monaco-go">
 	<template>
-		<style is="custom-style" include="iron-flex monaco-go-common-styles">
+		<style is="custom-style" include="iron-flex iron-flex-alignment monaco-go-common-styles">
 			:host {
 				@apply --layout-vertical;
+				@apply --layout-flex;
+				padding: 8px;
+				border: 1px solid;
+				border-color: purple;
 			}
 
-			monaco-go-repos {
+			.header.section {
+			}
+			.main.section {
+				@apply --layout-horizontal;
+				@apply --layout-wrap;
 				@apply --layout-flex;
+				border: 1px solid;
+				border-color: darkgrey;
 			}
     	</style>
-		<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
-		<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
-
-		<div>
-			<span>{{langserverConfig.host}}</span>
-			<span>{{langserverConfig.port}}</span>
+		<div class="header section">
+			<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
+			<monaco-go-langserver-log selection-project="{{selectionProject}}" langserver-config="{{langserverConfig}}"></monaco-go-langserver-log>
 		</div>
+		<div class="main section">
+			<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
+			<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
+			<!--<monaco-go-langserver-config selection-project="{{selectionProject}}" langserver-config="{{langserverConfig}}"></monaco-go-langserver-config>-->
 
-		<monaco-go-langserver-config selection-project="{{selectionProject}}" langserver-config="{{langserverConfig}}"></monaco-go-langserver-config>
+		</div>
 	</template>
 	<script src="monaco-go.js"></script>
 </dom-module>

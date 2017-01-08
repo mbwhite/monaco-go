@@ -28,31 +28,25 @@
 		<custom-style>
 			<style is="custom-style" include="iron-flex iron-positioning">
 				.monaco-container {
-					margin: 8px;
-					@apply --layout-horizontal;
+					@apply ----layout-wrap-reverse;
+					@apply --layout-vertical-reverse;
 					@apply --layout-flex;
 				}
 
-				monaco-go {
-					width: 40%;
-				}
-				.ide-wrapper {
-					@apply --layout-flex;
+				.monaco-editor-container {
+					height: 540px;
+					border: 1px solid;
+					border-color: var(--default-primary-color);
 				}
 			</style>
-</custom-style>
+		</custom-style>
 </head>
 
 <body unresolved class="fullbleed vertical layout">
 	<div class="monaco-container">
 		<monaco-go></monaco-go>
-		<div class="ide-wrapper">
-			<div id="file_container">
-				<b>file:</b> <span id="file_uri"></span>
-			</div>
-			<div id="container" style="height:640px;border:1px solid grey"></div>
-</div>
-</div>
+		<div id="container" class="monaco-editor-container"></div>
+	</div>
 
 <script src="demo/require-paths.js"></script>
 <script src="node_modules/monaco-editor-core/dev/vs/loader.js"></script>

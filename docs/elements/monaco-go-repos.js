@@ -88,8 +88,8 @@ class MonacoGoReposElement extends Polymer.Element {
 		});
 	}
 
-	_computeCardContent(isWorking) {
-		return isWorking ? 'loading' : '';
+	_computeCardContent(isWaiting) {
+		return isWaiting ? 'loading' : '';
 	}
 }
 

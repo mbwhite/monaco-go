@@ -3,67 +3,33 @@
 
 <dom-module id="monaco-go-langserver-config">
 	<template>
-		<style is="custom-style" include="iron-flex">
+		<style is="custom-style" include="iron-flex monaco-go-common-styles">
 			:host {
+				border: 1px solid;
+				border-color: green;
 				@apply --layout-vertical;
 			}
-
-			.actions {
-				@apply --layout-horizontal;
-				@apply --layout-center;
-				@apply --layout-center-justified;
-			}
-
-			paper-progress {
-				width: 100%;
-			}
-
-			.code.url {
-				@apply --paper-font-common-code;
-			}
 		</style>
+		<paper-card heading="Language Server Config" class="files">
+			<div class="card-content">
+				<div>
+					<a class="code url" href="https://github.com/sourcegraph/go-langserver/blob/master/pkg/lsp/service.go#L5">InitializeParams</a>
+				<div>
+				<div class="langserver status">
+					{{langserverStatus.ok}} - {{langserverStatus.err}}
+				</div>
 
-<paper-card heading="Language Server Config" class="files">
-	<div class="card-content">
-		<div>
-			<a class="code url" href="https://github.com/sourcegraph/go-langserver/blob/master/pkg/lsp/service.go#L5">InitializeParams</a>
-		<div>
-		<div class="langserver status">
-			{{langserverStatus.ok}} - {{langserverStatus.err}}
-		</div>
-
-		<paper-input always-float-label label="host" value="{{langserverConfig.host}}" disabled="{{isWorking}}"></paper-input>
-		<paper-input always-float-label label="port" value="{{langserverConfig.port}}" disabled="{{isWorking}}"></paper-input>
-		<paper-input always-float-label label="rootPath" value="{{langserverConfig.rootPath}}" disabled="{{isWorking}}"></paper-input>
-	</div>
-	<div class="card-actions">
-		<div class="actions">
-			<paper-icon-button icon="icons:refresh" on-tap="_onRefresh" disabled="{{isWorking}}"></paper-icon-button>
-		</div>
-		<paper-progress indeterminate disabled="{{!isWorking}}"></paper-progress>
-	</div>
-</paper-card>
-
-<!--<div class="working">
-	<dom-if if="[[isWorking]]">
-		<template>
-			<div>
-				<span>Updating to: </span>
-				<span>{{langserverConfig.host}}</span>
-				<span>{{langserverConfig.port}}</span>
+				<paper-input always-float-label label="host" value="{{langserverConfig.host}}" disabled="{{isWorking}}"></paper-input>
+				<paper-input always-float-label label="port" value="{{langserverConfig.port}}" disabled="{{isWorking}}"></paper-input>
+				<paper-input always-float-label label="rootPath" value="{{langserverConfig.rootPath}}" disabled="{{isWorking}}"></paper-input>
 			</div>
-		</template>
-	</dom-if>
-	<dom-if if="[[!isWorking]]">
-		<template>
-			<div>
-				<span>{{langserverConfig.host}}</span>
-				<span>{{langserverConfig.port}}</span>
+			<div class="card-actions">
+				<div class="actions">
+					<paper-icon-button icon="icons:refresh" on-tap="_onRefresh" disabled="{{isWorking}}"></paper-icon-button>
+				</div>
+				<paper-progress indeterminate disabled="{{!isWorking}}"></paper-progress>
 			</div>
-		</template>
-	</dom-if>
-</div>-->
-
-</template>
-<script src="./monaco-go-langserver-config.js"></script>
+		</paper-card>
+	</template>
+	<script src="./monaco-go-langserver-config.js"></script>
 </dom-module>
