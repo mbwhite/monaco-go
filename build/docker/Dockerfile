@@ -127,7 +127,6 @@ EXPOSE $WEBSOCKET_PORT
 RUN \
   ln -s $GOPATH go; \
   ln -s /Users Users; \
-  ln -s docs/repos repos; \
   ls -lah ./go/src; \
   ls -lah ./Users; \
   ls -lah ./repos; \

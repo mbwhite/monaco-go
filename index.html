@@ -4,29 +4,40 @@
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<link rel="stylesheet" data-name="vs/editor/editor.main" href="node_modules/monaco-editor-core/dev/vs/editor/editor.main.css">
+
+		<!--<base href="//bana.io/monaco-editor-polymer/">-->
+		<base href="http://localhost:4000/monaco-go/">
+
+		<!--<link rel="stylesheet" data-name="vs/editor/editor.main" href="node_modules/monaco-editor-core/dev/vs/editor/editor.main.css">-->
 
 		<!--polymer base framework-->
-		<script src="docs/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-		<link rel="import" href="docs/bower_components/polymer/polymer-element.html">
+		<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+		<link rel="import" href="bower_components/polymer/polymer-element.html">
 		<!--polymer 2.0 components-->
-		<link rel="import" href="docs/bower_components/iron-flex-layout/iron-flex-layout.html">
-		<link rel="import" href="docs/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-		<link rel="import" href="docs/bower_components/iron-icons/iron-icons.html">
-		<link rel="import" href="docs/bower_components/paper-icon-button/paper-icon-button.html">
-		<link rel="import" href="docs/bower_components/paper-item/paper-item.html">
-		<link rel="import" href="docs/bower_components/paper-listbox/paper-listbox.html">
-		<link rel="import" href="docs/bower_components/paper-progress/paper-progress.html">
-		<link rel="import" href="docs/bower_components/paper-spinner/paper-spinner.html">
-		<link rel="import" href="docs/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
-		<link rel="import" href="docs/bower_components/paper-card/paper-card.html">
-		<link rel="import" href="docs/bower_components/paper-input/paper-input.html">
+		<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+		<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
 		<!--monaco-go polymer element-->
-		<link rel="import" href="docs/elements/monaco-go.html">
+		<link rel="import" href="elements/monaco-go-common-styles.html">
+		<link rel="import" href="elements/monaco-go-langserver-log.html">
+		<link rel="import" href="elements/monaco-go.html">
+
+
+		<!-- app-drawer stuff -->
+		<link rel="import" href="bower_components/font-roboto/roboto.html">
+		<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+		<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+
+		<link rel="import" href="bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+		<link rel="import" href="bower_components/app-layout/app-drawer/app-drawer.html">
+		<link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+		<link rel="import" href="bower_components/app-layout/app-header/app-header.html">
+		<link rel="import" href="bower_components/app-layout/app-header-layout/app-header-layout.html">
+		<link rel="import" href="bower_components/app-layout/app-toolbar/app-toolbar.html">
+		<link rel="import" href="bower_components/app-layout/demo/sample-content.html">
 
 		<custom-style>
-			<style is="custom-style" include="iron-flex iron-positioning">
+			<style is="custom-style" include="iron-flex iron-positioning monaco-go-common-styles">
 				.monaco-container {
 					@apply ----layout-wrap-reverse;
 					@apply --layout-vertical-reverse;
@@ -38,15 +49,66 @@
 					border: 1px solid;
 					border-color: var(--default-primary-color);
 				}
+
+    /*app-drawer-layout {
+      --app-drawer-layout-content-transition: margin 0.2s;
+    }*/
+
+
+      /*app-drawer {
+        --app-drawer-width: 500px;
+	  }*/
+
+    .drawer-content {
+      margin-top: 80px;
+      height: calc(100% - 80px);
+      overflow: auto;
+	  @apply --layout-vertical;
+    }
+
+				/*monaco-go-langserver-log,
+				app-toolbar {
+					@apply --layout-flex;
+				}*/
 			</style>
-		</custom-style>
+</custom-style>
 </head>
 
 <body unresolved class="fullbleed vertical layout">
-	<div class="monaco-container">
-		<monaco-go></monaco-go>
-		<div id="container" class="monaco-editor-container"></div>
-	</div>
+	<app-drawer-layout fullbleed force-narrow  id="drawerLayout" drawer-width="800px" >
+		<app-header-layout fullbleed>
+			<app-header fixed effects="waterfall" slot="header">
+				<app-toolbar>
+					<div spacer main-title>
+						<code>monaco-go</code>
+					</div>
+					<paper-icon-button id="toggle" icon="menu" drawer-toggle onclick="drawer.toggle()"></paper-icon-button>
+				</app-toolbar>
+			</app-header>
+			<div class="monaco-container">
+				<monaco-go></monaco-go>
+				<div id="container" class="monaco-editor-container"></div>
+			</div>
+		</app-header-layout>
+		<app-drawer align="end" slot="drawer" id="drawer" swipe-open>
+			<app-toolbar class="main title">Langserver Logs</app-toolbar>
+			<div class="drawer-content">
+				<monaco-go-langserver-log></monaco-go-langserver-log>
+			</div>
+		</app-drawer>
+	</app-drawer-layout>
+
+  <script>
+    var drawerLayout = document.getElementById('drawerLayout');
+    toggle.addEventListener('click', function() {
+      if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
+        drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
+      } else {
+        drawerLayout.drawer.toggle();
+      }
+    });
+  </script>
+
 
 <script src="demo/require-paths.js"></script>
 <script src="node_modules/monaco-editor-core/dev/vs/loader.js"></script>

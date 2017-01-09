@@ -1,5 +1,15 @@
 const GOPATH = '/Users/mbana/go';
 
+class MonacoGoRepoUtils {
+	static toGitHubUrl(filePath) {
+		// https://raw.githubusercontent.com/sourcegraph/go-langserver/master/langserver/handler.go
+		// return filePath;
+
+		let fileUrl = `https://raw.githubusercontent.com/mbana/go-langserver/websocket-gorilla/langserver/modes/websocket.go`
+		return fileUrl;
+	}
+}
+
 class MonacoGo {
 	static getExampleUrl() {
 		let packagePrefix = 'src/github.com/sourcegraph/go-langserver/langserver';
@@ -22,11 +32,10 @@ class MonacoGo {
 }
 
 let filePath = MonacoGo.getExampleUrl();
-
-let examplePromise = fetch(filePath).then((exampleGo) => {
+let fileUrl = MonacoGoRepoUtils.toGitHubUrl(filePath);
+let examplePromise = fetch(fileUrl).then((exampleGo) => {
 	return exampleGo.text();
-});
-examplePromise.then((exampleGo) => {
+}).then((exampleGo) => {
 	require([
 		'vs/basic-languages/src/monaco.contribution',
 		'vs/language/go/monaco.contribution'
@@ -39,7 +48,7 @@ examplePromise.then((exampleGo) => {
 
 		window.langserverEditor.setModel(model);
 
-		let elFileUri = document.getElementById('file_uri');
-		elFileUri.innerHTML = filePath;
+		// let elFileUri = document.getElementById('file_uri');
+		// elFileUri.innerHTML = filePath;
 	});
 });

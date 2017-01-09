@@ -29,11 +29,11 @@ WebSocket at go-langserver.cloudapp.net:
 
 ### screenshot
 
-![./docs/images/monaco-go.png](./docs/images/monaco-go.png)
+![./images/monaco-go.png](./images/monaco-go.png)
 
 ## `monaco`
 
-more available in [./docs/README.md](./docs/README.md#screenshots) .
+more available in [./README.md](./README.md#screenshots) .
 
 ### `textDocument/hover`
 

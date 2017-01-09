@@ -22,7 +22,7 @@ source $NVM_DIR/nvm.sh
 echo "--------------"
 echo "  docker debug: " $LANGSERVER_DOCKER_DEBUG
 $LANGSERVER_DOCKER_DEBUG
-ls -lah /Users/mbana/monaco-go/docs/
+ls -lah /Users/mbana/monaco-go/
 echo "--------------"
 
 langserver-antha -mode ws -trace -addr $LANGSERVER_ADDR &

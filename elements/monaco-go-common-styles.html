@@ -1,0 +1,64 @@
+<base href="../">
+
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="bower_components/paper-styles/color.html">
+<link rel="import" href="bower_components/paper-styles/typography.html">
+<link rel="import" href="bower_components/paper-styles/default-theme.html">
+<link rel="import" href="bower_components/paper-styles/shadow.html">
+<link rel="import" href="bower_components/paper-styles/typography.html">
+
+<!--https://github.com/PolymerElements/paper-styles/blob/master/typography.html-->
+
+<dom-module id="monaco-go-common-styles">
+	<template>
+		<style is="custom-style" include="iron-flex iron-positioning">
+			app-header {
+				background-color: var(--primary-color);
+			}
+
+			app-toolbar {
+				background-color: var(--primary-color);
+				color: var(--dark-theme-text-color);
+			}
+
+			.main.title {
+				@apply --paper-font-title;
+				/*color: var(--dark-theme-text-color);*/
+			}
+			/*app-toolbar > paper-icon-button {
+				color: var(--dark-theme-text-color);
+			}*/
+
+			.component.title {
+				@apply --paper-font-title;
+			}
+			.section.title {
+				@apply --paper-font-subhead;
+			}
+
+			.code,
+			code {
+				@apply --paper-font-common-code;
+			}
+
+			paper-card {
+				@apply --layout-flex;
+				--paper-card-header-text: {
+					@apply --paper-font-subhead;
+				};
+			}
+
+			paper-progress {
+				width: 100%;
+				--paper-progress-height: 8px;
+			}
+
+			.actions {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-center-justified;
+			}
+		</style>
+	</template>
+</custom-style>

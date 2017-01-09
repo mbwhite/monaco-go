@@ -1,0 +1,66 @@
+<base href="../">
+
+<dom-module id="monaco-go-langserver-log">
+	<template>
+		<style is="custom-style" include="iron-flex monaco-go-common-styles">
+			:host {
+				@apply --layout-vertical;
+				@apply --layout-flex;
+				border: 1px solid;
+				border-color: yellow;
+			}
+
+			.section {
+				border: 1px solid;
+				border-color: var(--default-primary-color);
+			}
+
+			.section.connection {
+				@apply --layout-horizontal;
+			}
+			.section.log {
+				@apply --layout-flex;
+			}
+
+			.field {
+				@apply --layout-horizontal;
+				@apply --layout-flex;
+			}
+
+			.field > .value {
+				@apply --layout-flex;
+			}
+		</style>
+<!--<div class="component title">
+	Langserver logs
+</div>-->
+<div class="section connection">
+	<div class="field">
+		<div class="label">Connection State:</div>
+		<div class="value">
+			{{langserverConn.state}}
+		</div>
+	</div>
+</div>
+<div class="section log">
+	<div class="section title">
+		Langserver logs
+	</div>
+	<div>
+		<dom-repeat items="{{_sortLog(langserverConn.logs.length, sortConfig)}}" as="log">
+			<template>
+				<div class="field">
+					<div class="label">
+						{{log.date}}
+					</div>
+					<div class="value">
+						{{log.msg}}
+					</div>
+				</div>
+			</template>
+		</dom-repeat>
+	</div>
+</div>
+</template>
+<script src="elements/monaco-go-langserver-log.js"></script>
+</dom-module>
