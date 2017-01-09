@@ -17,8 +17,8 @@ echo ">         kill:" $MONACO_GO_CONTAINER_ID
 echo "<         kill:" $MONACO_GO_CONTAINER_ID
 echo "--------------"
 
-echo "--------------"
-echo ">     starting:" $MONACO_GO_IMAGE_ID
-docker run -p 8080:8080 -p 4389:4389 -it $MONACO_GO_IMAGE_ID
-echo "<     starting:" $MONACO_GO_IMAGE_ID
-echo "--------------"
+# echo "--------------"
+# echo ">     starting:" $MONACO_GO_IMAGE_ID
+# docker run -p 8080:8080 -p 4389:4389 -it $MONACO_GO_IMAGE_ID
+# echo "<     starting:" $MONACO_GO_IMAGE_ID
+# echo "--------------"

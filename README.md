@@ -58,9 +58,10 @@ the script to start <http://azure.bana.io/monaco-go/> is available at:
 
 ```sh
 ( \
-  START_LS="https://raw.githubusercontent.com/mbana/monaco-go/master/scripts/azure-container-start.sh"; \
-  wget -qO- $START_LS | /bin/sh \
-)
+  CONT_START="https://raw.githubusercontent.com/mbana/monaco-go/master/scripts/azure-container-start.sh"; \
+  wget --no-cache -qO- $CONT_START | /bin/sh \
+) && \
+docker run -p 8080:8080 -p 4389:4389 -it mohamedbana/monaco-go:latest
 ```
 
 if you're running on, say, azure it will fetch/update what's required to start
