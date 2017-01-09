@@ -34,33 +34,30 @@ WebSocket at go-langserver.cloudapp.net:
 * <del><ws://go-langserver.cloudapp.net:4389></del>
 * <del><ws://13.65.101.250:4389></del>
 
-**todo:** will setup a domain for the `go-langserver`.
-
 ### screenshot
 
 ![./images/monaco-go.png](./images/monaco-go.png)
 
 ![./images/monaco-go-langserver-logs.png](./images/monaco-go-langserver-logs.png).
 
-## `monaco`
+more available in [./docs/EXAMPLES.md](./docs/EXAMPLES.md#screenshots).
 
-more available in [./README.md](./README.md#screenshots) .
+## todo/issues:
 
-### `textDocument/hover`
+* setup HTTP/2 so that the editor can be hosted on it; should improve
+performance dramatically.
+* split `go-langserver` into a different container; one for the serving the
+custom-built `monaco-editor` and another container providing the WebSocket
+support.
+* possibly allow spawning the `go-langserver` container from `monaco-go`.
 
-![textDocument/hover.png](./images/textDocument/hover.png)
-
-### `textDocument/definition`
-
-![textDocument/definition.gif](./images/textDocument/definition.gif)
+TODO: move to [./docs/TODO.md](./docs/TODO.md).
 
 ## build
 
 more info: [./build/README.md](./build/README.md).
 
-### Docker
-
-#### `Dockerfile`
+### `Dockerfile`
 
 execute below to download the repo, build and then run.
 you need [Docker](https://www.docker.com/):
@@ -74,7 +71,7 @@ docker run -p 8080:8080 -it monaco-go:latest
 
 See [build output](./build/README.md#build-output) for what logs you should expect to see.
 
-#### Docker Hub
+### Docker Hub
 
 An image containing the fork of
 [go-langserver](https://github.com/sourcegraph/go-langserver), [mbana/go-langserver](https://github.com/mbana/go-langserver), that has the WebSocket mode is at
