@@ -22,8 +22,17 @@ forths isn't.
 live running version of `monaco-go` talking to the `go-langserver` using a
 WebSocket at go-langserver.cloudapp.net:
 
-* `monaco-go`: <http://go-langserver.cloudapp.net/monaco-go/> or <http://13.65.101.250:8080/monaco-go/>
-* `go-langserver`: <ws://go-langserver.cloudapp.net:4389> or <ws://13.65.101.250:4389>
+`monaco-go`:
+
+* <http://azure.bana.io/monaco-go/>
+* <del><http://go-langserver.cloudapp.net/monaco-go/></del>
+* <del><http://13.65.101.250:8080/monaco-go/></del>
+
+`go-langserver`:
+
+* <ws://azure.bana.io:4389>
+* <del><ws://go-langserver.cloudapp.net:4389></del>
+* <del><ws://13.65.101.250:4389></del>
 
 **todo:** will setup a domain for the `go-langserver`.
 
