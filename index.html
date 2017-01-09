@@ -50,65 +50,50 @@
 					border-color: var(--default-primary-color);
 				}
 
-    /*app-drawer-layout {
-      --app-drawer-layout-content-transition: margin 0.2s;
-    }*/
+				app-drawer {
+					--app-drawer-width: 350px;
+					/*--app-drawer-content-container: {
+						background-color: #B0BEC5;
+					}*/
+				}
 
-
-      /*app-drawer {
-        --app-drawer-width: 500px;
-	  }*/
-
-    .drawer-content {
-      margin-top: 80px;
-      height: calc(100% - 80px);
-      overflow: auto;
-	  @apply --layout-vertical;
-    }
-
-				/*monaco-go-langserver-log,
-				app-toolbar {
-					@apply --layout-flex;
-				}*/
+				.drawer-content {
+					margin-top: 80px;
+					height: calc(100% - 80px);
+					overflow: auto;
+					@apply --layout-vertical;
+				}
 			</style>
 </custom-style>
 </head>
 
 <body unresolved class="fullbleed vertical layout">
-	<app-drawer-layout fullbleed force-narrow  id="drawerLayout" drawer-width="800px" >
+	<app-drawer-layout fullbleed>
 		<app-header-layout fullbleed>
-			<app-header fixed effects="waterfall" slot="header">
+			<app-header reveals>
 				<app-toolbar>
-					<div spacer main-title>
-						<code>monaco-go</code>
-					</div>
-					<paper-icon-button id="toggle" icon="menu" drawer-toggle onclick="drawer.toggle()"></paper-icon-button>
-				</app-toolbar>
+					<paper-icon-button icon="menu" onclick="drawer.toggle()"></paper-icon-button>
+			<div main-title>
+				<code>monaco-go</code>
+			</div>
+			<paper-icon-button icon="delete"></paper-icon-button>
+			<paper-icon-button icon="search"></paper-icon-button>
+			<paper-icon-button icon="close"></paper-icon-button>
+			<!--<paper-progress value="10" indeterminate bottom-item></paper-progress>-->
+			</app-toolbar>
 			</app-header>
 			<div class="monaco-container">
 				<monaco-go></monaco-go>
 				<div id="container" class="monaco-editor-container"></div>
 			</div>
 		</app-header-layout>
-		<app-drawer align="end" slot="drawer" id="drawer" swipe-open>
+		<app-drawer id="drawer" swipe-open>
 			<app-toolbar class="main title">Langserver Logs</app-toolbar>
 			<div class="drawer-content">
 				<monaco-go-langserver-log></monaco-go-langserver-log>
 			</div>
 		</app-drawer>
 	</app-drawer-layout>
-
-  <script>
-    var drawerLayout = document.getElementById('drawerLayout');
-    toggle.addEventListener('click', function() {
-      if (drawerLayout.forceNarrow || !drawerLayout.narrow) {
-        drawerLayout.forceNarrow = !drawerLayout.forceNarrow;
-      } else {
-        drawerLayout.drawer.toggle();
-      }
-    });
-  </script>
-
 
 <script src="demo/require-paths.js"></script>
 <script src="node_modules/monaco-editor-core/dev/vs/loader.js"></script>
