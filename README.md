@@ -37,10 +37,9 @@ WebSocket at go-langserver.cloudapp.net:
 ### screenshot
 
 ![./images/monaco-go.png](./images/monaco-go.png)
+![./images/monaco-go-langserver-logs.png](./images/monaco-go-langserver-logs.png)
 
-![./images/monaco-go-langserver-logs.png](./images/monaco-go-langserver-logs.png).
-
-more available in [./docs/EXAMPLES.md](./docs/EXAMPLES.md#screenshots).
+more available in [./docs/EXAMPLES.md](./docs/EXAMPLES.md#screenshots)
 
 ## todo/issues:
 
@@ -71,7 +70,18 @@ docker run -p 8080:8080 -it monaco-go:latest
 
 See [build output](./build/README.md#build-output) for what logs you should expect to see.
 
-### Docker Hub
+#### Docker Hub
+
+##### images
+
+the following images are available in the hub - see [./scripts/publish-docker.sh](./scripts/publish-docker.sh).
+
+* mohamedbana/base-langserver:latest
+* mohamedbana/base-go-langserver:latest
+* mohamedbana/go-langserver:latest
+* mohamedbana/monaco-go:latest
+
+##### run all
 
 An image containing the fork of
 [go-langserver](https://github.com/sourcegraph/go-langserver), [mbana/go-langserver](https://github.com/mbana/go-langserver), that has the WebSocket mode is at
