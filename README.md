@@ -54,7 +54,19 @@ TODO: move to [./docs/TODO.md](./docs/TODO.md).
 
 ## build
 
-more info: [./build/README.md](./build/README.md).
+the script to start <http://azure.bana.io/monaco-go/> is available at:
+
+```sh
+( \
+  START_LS="https://raw.githubusercontent.com/mbana/monaco-go/master/scripts/azure-container-start.sh"; \
+  wget -qO- $START_LS | /bin/sh \
+)
+```
+
+if you're running on, say, azure it will fetch/update what's required to start
+the site.
+
+<del>more info: [./build/README.md](./build/README.md).</del>
 
 ### `Dockerfile`
 
