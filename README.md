@@ -31,6 +31,8 @@ WebSocket at go-langserver.cloudapp.net:
 
 ![./images/monaco-go.png](./images/monaco-go.png)
 
+![./images/monaco-go-langserver-logs.png](./images/monaco-go-langserver-logs.png).
+
 ## `monaco`
 
 more available in [./README.md](./README.md#screenshots) .

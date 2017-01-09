@@ -5,8 +5,9 @@
 		<style is="custom-style" include="iron-flex iron-positioning monaco-go-common-styles">
 			:host {
 				@apply --layout-horizontal;
+				margin: 4px;
 				border: 1px solid;
-				border-color: green;
+				border-color: var(--divider-color);
 			}
 
 			.file-details.section {
@@ -43,7 +44,7 @@
 		</style>
 		<div class="file-details section">
 			<div class="file-detail">
-				<span class="file-details value name">{{selectionFile.name}}</span>
+				<span class="file-details value name" id="file-selected-name">{{selectionFile.name}}</span>
 			</div>
 			<!--<div>
 				<span class="file-details value url">{{selectionFile.url}}</span>

@@ -8,10 +8,15 @@ export class MonacoOutputChannel {
 	}
 
 	appendLine(value) {
+		let message = `LanguageClient:${this._name} - `;
 		if (!this._hide) {
-			let message = `LanguageClient:${this._name} - `;
 			console.info(message, value);
 		}
+
+		return {
+			message,
+			value,
+		};
 	}
 
 	show(preserveFocus) {

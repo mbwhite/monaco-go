@@ -1,13 +1,18 @@
 <base href="../">
 
+<link rel="import" href="bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+
 <dom-module id="monaco-go-repo-files">
 	<template>
 		<style is="custom-style" include="iron-flex iron-positioning monaco-go-common-styles">
 			:host {
 				@apply --layout-horizontal;
 				@apply --layout-flex;
+				margin: 4px;
 				border: 1px solid;
-				border-color: red;
+				border-color: var(--divider-color);
 			}
 
 			.file.name {

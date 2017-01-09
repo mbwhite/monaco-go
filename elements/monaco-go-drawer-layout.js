@@ -23,6 +23,7 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 		};
 	}
 
+	// event handlers
 
 	_onToggleDrawer(e) {
 		// document.getElementById('drawer').toggle()
@@ -30,6 +31,10 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 		if (this.$.drawer) {
 			drawer.toggle();
 		}
+	}
+
+	_onSearch(e) {
+
 	}
 }
 

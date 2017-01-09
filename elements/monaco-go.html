@@ -28,9 +28,9 @@
 			:host {
 				@apply --layout-vertical;
 				@apply --layout-flex;
-				padding: 8px;
+				/*margin: 4px;
 				border: 1px solid;
-				border-color: purple;
+				border-color: var(--divider-color);*/
 			}
 
 			.header.section {
@@ -39,8 +39,9 @@
 				@apply --layout-horizontal;
 				@apply --layout-wrap;
 				@apply --layout-flex;
+				/*margin: 4px;
 				border: 1px solid;
-				border-color: darkgrey;
+				border-color: var(--divider-color);*/
 			}
     	</style>
 		<div class="header section">
@@ -51,7 +52,6 @@
 			<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
 			<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
 			<!--<monaco-go-langserver-config selection-project="{{selectionProject}}" langserver-config="{{langserverConfig}}"></monaco-go-langserver-config>-->
-
 		</div>
 	</template>
 	<script src="elements/monaco-go.js"></script>

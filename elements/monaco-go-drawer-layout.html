@@ -26,31 +26,32 @@
 				@apply --layout-flex;
 			}
 
-				app-drawer {
-					--app-drawer-width: 800px;
-					/*--app-drawer-content-container: {
-						background-color: #B0BEC5;
-					}*/
-				}
+			app-drawer {
+				--app-drawer-width: 800px;
+				/*--app-drawer-content-container: {
+					background-color: #B0BEC5;
+				}*/
+			}
 
-				.drawer-content {
-					margin-top: 80px;
-					height: calc(100% - 80px);
-					overflow: auto;
-					@apply --layout-vertical;
-				}
+			.drawer-content {
+				/*margin-top: 80px;*/
+				height: calc(100% - 80px);
+				overflow: auto;
+				@apply --layout-vertical;
+			}
 
-				.editor-container {
-					@apply ----layout-wrap-reverse;
-					@apply --layout-vertical-reverse;
-					@apply --layout-flex;
-				}
+			.editor-container {
+				@apply ----layout-wrap-reverse;
+				@apply --layout-vertical-reverse;
+				@apply --layout-flex;
+			}
 
-				::slotted(#container) {
-					height: 540px;
-					border: 1px solid;
-					border-color: var(--default-primary-color);
-				}
+			::slotted(#container) {
+				height: 540px;
+				margin: 4px;
+				border: 1px solid;
+				border-color: var(--divider-color);
+			}
     	</style>
 		<app-drawer-layout fullbleed>
 			<app-header-layout fullbleed>
@@ -79,7 +80,11 @@
 		</app-drawer-layout>
 	</template>
 
+	<script>
+		GlobalMonacoOutputChannelStore = [];
+	</script>
 	<script src="demo/require-paths.js"></script>
+
 	<script src="node_modules/monaco-editor-core/dev/vs/loader.js"></script>
 	<script src="node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
 	<script src="node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>

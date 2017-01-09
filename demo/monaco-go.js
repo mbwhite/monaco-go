@@ -38,17 +38,29 @@ let examplePromise = fetch(fileUrl).then((exampleGo) => {
 }).then((exampleGo) => {
 	require([
 		'vs/basic-languages/src/monaco.contribution',
-		'vs/language/go/monaco.contribution'
-	], function () {
-		let model = MonacoGo.createModel(exampleGo, filePath);
+		'vs/language/go/monaco.contribution',
+		'vscode'
+	], function (basic, go, vscodeFiller) {
+		let appendLineBase = vscodeFiller.MonacoOutputChannel.prototype.appendLine;
+		vscodeFiller.MonacoOutputChannel.prototype.appendLine = function(value) {
+			// make sure it tries to log something...
+			if (this._hide) {
+				this._hide = false;
+			}
 
+			let res = appendLineBase.call(this, value);
+			// console.log('res: ', res);
+			GlobalMonacoOutputChannelStore.push(res);
+		};
+
+		let model = MonacoGo.createModel(exampleGo, filePath);
 		window.langserverEditor = monaco.editor.create(
 			document.getElementById('container')
 		);
-
 		window.langserverEditor.setModel(model);
 
-		// let elFileUri = document.getElementById('file_uri');
+		let fileSelectedEl = document.getElementById('file-selected-name');
+		console.log('fileSelectedEl: ', fileSelectedEl);
 		// elFileUri.innerHTML = filePath;
 	});
 });

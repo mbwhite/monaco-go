@@ -1,18 +1,23 @@
 <base href="../">
 
+<link rel="import" href="bower_components/paper-item/paper-icon-item.html">
+<link rel="import" href="bower_components/paper-item/paper-item-body.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
+
 <dom-module id="monaco-go-langserver-log">
 	<template>
 		<style is="custom-style" include="iron-flex monaco-go-common-styles">
 			:host {
 				@apply --layout-vertical;
 				@apply --layout-flex;
+				margin: 4px;
 				border: 1px solid;
-				border-color: yellow;
+				border-color: var(--divider-color);
 			}
 
 			.section {
-				border: 1px solid;
-				border-color: var(--default-primary-color);
+				/*border: 1px solid;*/
+				/*border-color: var(--divider-color);*/
 			}
 
 			.section.connection {
@@ -52,14 +57,20 @@
 	<div>
 		<dom-repeat items="{{_sortLog(langserverConn.logs.length, sortConfig)}}" as="log">
 			<template>
-				<div class="field">
+				<paper-item>
+					<paper-item-body two-line>
+						<div class="file name">{{log.date}}</div>
+						<div secondary class="file url">{{log.msg}}</div>
+					</paper-item-body>
+				</paper-item>
+				<!--<div class="field">
 					<div class="label">
 						{{log.date}}
 					</div>
-					<div class="value">
+					<div class="value code">
 						{{log.msg}}
 					</div>
-				</div>
+				</div>-->
 			</template>
 		</dom-repeat>
 	</div>

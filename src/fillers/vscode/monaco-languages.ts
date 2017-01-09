@@ -342,8 +342,11 @@ export class MonacoLanguages {
 		let prefix = 'http:';
 		let fullFileUri = filePath.includes(prefix) ? filePath.replace(prefix, '') : filePath;
 
-		let elFileUri = document.getElementById('file_uri');
-		elFileUri.innerHTML = fullFileUri;
+		let fileSelectedEl = document.getElementById('file-selected-name');
+		console.log('fileSelectedEl: ', fileSelectedEl);
+
+		// let elFileUri = document.getElementById('file_uri');
+		// elFileUri.innerHTML = fullFileUri;
 	}
 }
 
