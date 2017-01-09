@@ -1,16 +1,4 @@
-FROM ubuntu:14.04
-
-SHELL ["/bin/bash", "-c"]
-
-EXPOSE 8080
-
-ENV DEBIAN_FRONTEND noninteractive
-
-ENV CLICOLOR=1
-ENV LSCOLORS=GxFxCxDxBxegedabagaced
-ENV GREP_OPTIONS='--color=auto'
-
-ENV HOME /Users/mbana
+FROM mohamedbana/base-langserver:latest
 
 ENV NVM_DIR $HOME/.nvm
 ENV NODE_VERSION v7.0.0
@@ -23,42 +11,6 @@ ENV GOROOT /usr/local/go
 
 ENV PATH /usr/local/go/bin:$GOPATH/bin:/usr/local/bin:$PATH
 
-RUN \
-  echo America/Los_Angeles | sudo tee /etc/timezone && \
-  sudo dpkg-reconfigure --frontend noninteractive tzdata
-
-RUN \
-  apt-get update -qq -y && \
-  apt-get upgrade -qq -y
-
-RUN apt-get install -qq -y  \
-  software-properties-common \
-  vim \
-  curl \
-  wget \
-  gawk \
-  sed \
-  findutils \
-  bc \
-  less \
-  htop \
-  man \
-  unzip \
-  git \
-  lsb-release \
-  build-essential \
-  make \
-  python-all \
-  libssl-dev \
-  openssh-server \
-  ca-certificates \
-  g++ \
-  gcc \
-  libc6-dev \
-  curl \
-  mercurial \
-  bzr \
-  git-core
 
 RUN wget -qO- https://raw.githubusercontent.com/creationix/nvm/v0.31.1/install.sh | /bin/bash
 RUN source $NVM_DIR/nvm.sh; \
@@ -132,7 +84,7 @@ RUN \
   ls -lah ./repos; \
   exit 0
 
-COPY ./build/docker-entrypoint.sh /
+COPY ./build/docker/docker-entrypoint.sh /
 RUN \
   chmod +x /docker-entrypoint.sh; \
   ls -lah /docker-entrypoint.sh
