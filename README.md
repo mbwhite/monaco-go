@@ -19,13 +19,13 @@ forths isn't.
 
 ## azure live example
 
-**WIP:** addresses will change...
-
 live running version of `monaco-go` talking to the `go-langserver` using a
 WebSocket at go-langserver.cloudapp.net:
 
-* `monaco-go`: http://13.65.101.250:8080/
-* `go-langserver`: ws://13.65.101.250:4389
+* `monaco-go`: <http://13.65.101.250:8080/monaco-go/>
+* `go-langserver`: <ws://13.65.101.250:4389>
+
+**todo:** will setup a domain for the `go-langserver`.
 
 ### screenshot
 

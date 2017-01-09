@@ -1,14 +1,17 @@
-#!/bin/sh -x
+#!/bin/sh
 
 BASEDIR=$(dirname "$0")
 
-echo "---------"
-echo "start server:"
+echo "---------------"
+HTTP_SERVER_PORT="8080"
+HTTP_SERVER_BIN="`pwd`/node_modules/.bin/http-server"
+echo "start http server:"
+echo "HTTP_SERVER_BIN: " $HTTP_SERVER_BIN
+echo "           port: " $HTTP_SERVER_PORT
+
 ( \
-  HTTP_SERVER_BIN=$(find `pwd` -name http-server -and -not -path "*_site*" | head -n1) ; \
-  echo $HTTP_SERVER_BIN ; \
-  cd .. ; \
-  pwd ; \
-  $HTTP_SERVER_BIN -p 4000 -c-1 --utc \
+	cd .. ; \
+	pwd ; \
+	$HTTP_SERVER_BIN -p $HTTP_SERVER_PORT -c-1 --utc; \
 )
-echo "---------"
+echo "---------------"
