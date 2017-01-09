@@ -1,0 +1,91 @@
+<base href="../">
+
+<!-- app-drawer stuff -->
+<link rel="import" href="bower_components/font-roboto/roboto.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="bower_components/app-layout/demo/sample-content.html">
+
+<!--monaco-go polymer element-->
+<link rel="import" href="elements/monaco-go-common-styles.html">
+<link rel="import" href="elements/monaco-go-langserver-log.html">
+<link rel="import" href="elements/monaco-go.html">
+
+<dom-module id="monaco-go-drawer-layout">
+	<template>
+		<style is="custom-style" include="monaco-go-common-styles">
+			:host {
+				@apply --layout-vertical;
+				@apply --layout-flex;
+			}
+
+				app-drawer {
+					--app-drawer-width: 800px;
+					/*--app-drawer-content-container: {
+						background-color: #B0BEC5;
+					}*/
+				}
+
+				.drawer-content {
+					margin-top: 80px;
+					height: calc(100% - 80px);
+					overflow: auto;
+					@apply --layout-vertical;
+				}
+
+				.editor-container {
+					@apply ----layout-wrap-reverse;
+					@apply --layout-vertical-reverse;
+					@apply --layout-flex;
+				}
+
+				::slotted(#container) {
+					height: 540px;
+					border: 1px solid;
+					border-color: var(--default-primary-color);
+				}
+    	</style>
+		<app-drawer-layout fullbleed>
+			<app-header-layout fullbleed>
+				<app-header>
+					<app-toolbar>
+						<paper-icon-button icon="menu" on-tap="_onToggleDrawer"></paper-icon-button>
+						<div main-title>
+							<code>monaco-go</code>
+						</div>
+						<paper-icon-button icon="search" on-tap="_onSearch"></paper-icon-button>
+					</app-toolbar>
+				</app-header>
+				<div class="editor-container">
+					<monaco-go></monaco-go>
+					<!--<div id="container" class="monaco-editor-container"></div>-->
+					<slot id="monaco-editor-container" name="editor-slot">
+					</slot>
+				</div>
+			</app-header-layout>
+			<app-drawer id="drawer" swipe-open>
+				<app-toolbar class="main title">Langserver Logs</app-toolbar>
+				<div class="drawer-content">
+					<monaco-go-langserver-log></monaco-go-langserver-log>
+				</div>
+			</app-drawer>
+		</app-drawer-layout>
+	</template>
+
+	<script src="demo/require-paths.js"></script>
+	<script src="node_modules/monaco-editor-core/dev/vs/loader.js"></script>
+	<script src="node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
+	<script src="node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
+
+	<script src="demo/fillers.js"></script>
+	<script src="demo/monaco-go.js"></script>
+
+	<script src="elements/monaco-go-drawer-layout.js"></script>
+</dom-module>
