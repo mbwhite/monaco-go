@@ -3,60 +3,64 @@
 <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/iron-list/iron-list.html">
+<link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="bower_components/paper-progress/paper-progress.html">
 
 <dom-module id="monaco-go-langserver-log">
 	<template>
 		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
+				/*display: block;*/
 				@apply --layout-vertical;
 				@apply --layout-flex;
-				margin: 4px;
+				/*margin: 4px;*/
+				border: 1px solid;
+				border-color: var(--divider-color);
+				@apply --paper-font-common-base;
 			}
 
-			.section.connection {
+			.connection {
 				@apply --layout-horizontal;
-			}
-			.section.log {
-				@apply --layout-flex;
+				@apply --paper-font-body2;
 			}
 
-			.field {
-				@apply --layout-horizontal;
+			.list.container {
+				@apply --layout-vertical;
 				@apply --layout-flex;
+				margin: 8px;
+				border: 1px solid;
+				border-color: var(--divider-color);
 			}
-
-			.field > .value {
-				@apply --layout-flex;
+			iron-list {
+				/*@apply --layout-flex;*/
 			}
 		</style>
-
-		<div class="section connection">
-			<div class="field">
-				<div class="label">Connection State:</div>
-				<div class="value">
-					{{langserverConn.state}}
-				</div>
+			<app-header fixed condenses effects="waterfall">
+				<app-toolbar>
+				<div main-title>Langserver Log</div>
+				</app-toolbar>
+			</app-header>
+			<div class="section connection">
+				<span class="label">Connection State:</span>
+				<span class="value">{{langserverConn.state}}</span>
 			</div>
-		</div>
-
-		<div class="section log">
-			<div class="section title">
-				Langserver logs
+			<div class="list container">
+					<iron-list
+						items="{{_sortLog(langserverConn.logs.length, sortConfig)}}"
+						as="log"
+						multi-selection="false"
+						attr-for-selected="value">
+						<template>
+							<paper-item>
+								<paper-item-body two-line value="{{log}}">
+									<div class="file name">{{log.date}}</div>
+									<div secondary class="file url">{{log.msg}}</div>
+								</paper-item-body>
+							</paper-item>
+						</template>
+					</iron-list>
 			</div>
-			<div>
-				<dom-repeat items="{{_sortLog(langserverConn.logs.length, sortConfig)}}" as="log">
-					<template>
-						<paper-item>
-							<paper-item-body two-line>
-								<div class="file name">{{log.date}}</div>
-								<div secondary class="file url">{{log.msg}}</div>
-							</paper-item-body>
-						</paper-item>
-					</template>
-				</dom-repeat>
-			</div>
-		</div>
-
 	</template>
 <script src="elements/monaco-go-langserver-log.js"></script>
 </dom-module>

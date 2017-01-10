@@ -39,8 +39,7 @@
 			}
 
 			.drawer-content {
-				margin-top: 20px;
-				height: calc(100% - 20px);
+				height: 100%;
 				overflow: auto;
 				@apply --layout-vertical;
 			}
@@ -79,14 +78,13 @@
 
 			<!--for the langserver logs-->
 			<app-drawer id="drawer" swipe-open>
-				<app-toolbar class="section title">Langserver Logs</app-toolbar>
 				<div class="drawer-content">
 					<monaco-go-langserver-log></monaco-go-langserver-log>
 				</div>
 			</app-drawer>
 
 			<!--for selecting repos-->
-			<app-drawer id="drawerEnd" align="end" swipe-open>
+			<app-drawer id="drawerEnd" align="end" swipe-open open opened>
 				<div class="drawer-content">
 					<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
 					<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
