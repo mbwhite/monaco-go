@@ -31,6 +31,14 @@ class MonacoGoRepoFilesElement extends Polymer.Element {
 		}
 		return canSelect;
 	}
+
+	_hideList(selectionProject) {
+		let hide = false;
+		if (!selectionProject || !selectionProject.files || selectionProject.files.length <= 0) {
+			hide = true;
+		}
+		return hide;
+	}
 }
 
 customElements.define(MonacoGoRepoFilesElement.is, MonacoGoRepoFilesElement);

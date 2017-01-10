@@ -13,14 +13,22 @@
 <link rel="import" href="bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="bower_components/app-layout/demo/sample-content.html">
 
+<link rel="import" href="bower_components/paper-spinner/paper-spinner.html">
+<link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+
+<link rel="import" href="bower_components/iron-list/iron-list.html">
+
 <!--monaco-go polymer element-->
+<script src="elements/monaco-go-models.js"></script>
 <link rel="import" href="elements/monaco-go-common-styles.html">
 <link rel="import" href="elements/monaco-go-langserver-log.html">
-<link rel="import" href="elements/monaco-go.html">
+<link rel="import" href="elements/monaco-go-repo-files.html">
+<link rel="import" href="elements/monaco-go-repos.html">
+<link rel="import" href="elements/monaco-go-nav.html">
 
 <dom-module id="monaco-go-drawer-layout">
 	<template>
-		<style is="custom-style" include="monaco-go-common-styles">
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
 				@apply --layout-vertical;
 				@apply --layout-flex;
@@ -28,32 +36,34 @@
 
 			app-drawer {
 				--app-drawer-width: 800px;
-				/*--app-drawer-content-container: {
-					background-color: #B0BEC5;
-				}*/
 			}
 
 			.drawer-content {
-				/*margin-top: 80px;*/
-				height: calc(100% - 80px);
+				margin-top: 20px;
+				height: calc(100% - 20px);
 				overflow: auto;
 				@apply --layout-vertical;
 			}
 
 			.editor-container {
-				@apply ----layout-wrap-reverse;
-				@apply --layout-vertical-reverse;
+				@apply --layout-vertical;
 				@apply --layout-flex;
+				margin: 4px;
+				/*margin-right: 20px;*/
+				/*margin-left: 20px;*/
 			}
 
 			::slotted(#container) {
-				height: 540px;
+				@apply --layout-flex;
+				/*height: 540px;*/
 				margin: 4px;
+				/*margin-right: 14px;*/
 				border: 1px solid;
 				border-color: var(--divider-color);
 			}
     	</style>
 		<app-drawer-layout fullbleed>
+
 			<app-header-layout fullbleed>
 				<app-header>
 					<app-toolbar>
@@ -61,22 +71,32 @@
 						<div main-title>
 							<code>monaco-go</code>
 						</div>
-						<paper-icon-button icon="search" on-tap="_onSearch"></paper-icon-button>
+						<paper-icon-button icon="icons:chevron-left" on-tap="_onToggleDrawerEnd"></paper-icon-button>
 					</app-toolbar>
 				</app-header>
+
 				<div class="editor-container">
-					<monaco-go></monaco-go>
-					<!--<div id="container" class="monaco-editor-container"></div>-->
-					<slot id="monaco-editor-container" name="editor-slot">
-					</slot>
+					<slot id="monaco-editor-container" name="editor-slot"></slot>
+					<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
 				</div>
 			</app-header-layout>
+
+			<!--for the langserver logs-->
 			<app-drawer id="drawer" swipe-open>
-				<app-toolbar class="main title">Langserver Logs</app-toolbar>
+				<app-toolbar class="section title">Langserver Logs</app-toolbar>
 				<div class="drawer-content">
 					<monaco-go-langserver-log></monaco-go-langserver-log>
 				</div>
 			</app-drawer>
+
+			<!--for selecting repos-->
+			<app-drawer id="drawerEnd" align="end" swipe-open>
+				<div class="drawer-content">
+					<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
+					<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
+				</div>
+			</app-drawer>
+
 		</app-drawer-layout>
 	</template>
 

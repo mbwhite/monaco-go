@@ -26,9 +26,15 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 	// event handlers
 
 	_onToggleDrawer(e) {
-		// document.getElementById('drawer').toggle()
 		let drawer = this.$.drawer;
-		if (this.$.drawer) {
+		if (drawer) {
+			drawer.toggle();
+		}
+	}
+
+	_onToggleDrawerEnd(e) {
+		let drawer = this.$.drawerEnd;
+		if (drawer) {
 			drawer.toggle();
 		}
 	}

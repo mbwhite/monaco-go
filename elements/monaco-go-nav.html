@@ -1,8 +1,13 @@
 <base href="../">
 
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="elements/monaco-go-common-styles.html">
+
 <dom-module id="monaco-go-nav">
 	<template>
-		<style is="custom-style" include="iron-flex iron-positioning monaco-go-common-styles">
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
 				@apply --layout-horizontal;
 				margin: 4px;
@@ -42,6 +47,7 @@
 				font-size: 10px;
 			}
 		</style>
+
 		<div class="file-details section">
 			<div class="file-detail">
 				<span class="file-details value name" id="file-selected-name">{{selectionFile.name}}</span>
@@ -54,6 +60,7 @@
 			<paper-icon-button icon="icons:arrow-back" on-tap="_onBack"></paper-icon-button>
 			<paper-icon-button icon="icons:arrow-forward" on-tap="_onForward"></paper-icon-button>
 		</div>
+
 	</template>
 	<script src="elements/monaco-go-nav.js"></script>
 </dom-module>

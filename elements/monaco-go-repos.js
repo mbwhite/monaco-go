@@ -7,10 +7,10 @@ class MonacoGoReposElement extends Polymer.Element {
 		return {
 			properties: {
 				reposList: {
-					type: Array,
+					type: MonacoGoRepoList,
 					notify: true,
 					value: () => {
-						return []
+						return MonacoGoRepoList.create();
 					},
 				},
 				selectionRepo: {
@@ -18,14 +18,13 @@ class MonacoGoReposElement extends Polymer.Element {
 					notify: true,
 					observer: '_selectionRepo'
 				},
-				selectionFile: {
-					type: MonacoGoProjectFile,
-					notify: true,
-				},
+
 				selectionProject: {
 					type: MonacoGoProjectRepo,
 					notify: true,
 				},
+
+				// indicates if we're done fetching the contents of the repo
 				isWorking: {
 					type: Boolean,
 					notify: true,
@@ -35,37 +34,6 @@ class MonacoGoReposElement extends Polymer.Element {
 				}
 			}
 		};
-	}
-
-	connectedCallback() {
-		super.connectedCallback();
-		this._createRepos();
-	}
-
-	_createRepos() {
-		let urls = [
-			'https://github.com/sourcegraph/go-langserver.git',
-			'https://github.com/sourcegraph/jsonrpc2.git',
-			'https://github.com/sourcegraph/ctxvfs.git',
-		];
-
-		// parse the urls
-		let reposList = urls.map(repoUrl => {
-			// 'https://github.com/sourcegraph/go-langserver.git'
-			let repoNameIndex = repoUrl.lastIndexOf('/');
-			let orgName = repoUrl.substr(0, repoNameIndex);
-			let orgNameIndex = orgName.lastIndexOf('/');
-
-			let repoNameFull = repoUrl.substr(repoNameIndex + 1);
-			let repoNameExtension = repoNameFull.lastIndexOf('.');
-
-			let name = repoNameFull.substr(0, repoNameExtension);
-			let org = orgName.substr(orgNameIndex + 1);
-			return new MonacoGoRepoListItem(name, repoUrl, org);
-		});
-
-		// push all
-		this.push('reposList', ...reposList);
 	}
 
 	_selectionRepo(selectionNew, selectionOld) {

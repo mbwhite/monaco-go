@@ -6,18 +6,11 @@
 
 <dom-module id="monaco-go-langserver-log">
 	<template>
-		<style is="custom-style" include="iron-flex monaco-go-common-styles">
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
 				@apply --layout-vertical;
 				@apply --layout-flex;
 				margin: 4px;
-				border: 1px solid;
-				border-color: var(--divider-color);
-			}
-
-			.section {
-				/*border: 1px solid;*/
-				/*border-color: var(--divider-color);*/
 			}
 
 			.section.connection {
@@ -37,45 +30,33 @@
 			}
 		</style>
 
-<!--<div class="component title">
-	Langserver logs
-</div>-->
-
-<div class="section connection">
-	<div class="field">
-		<div class="label">Connection State:</div>
-		<div class="value">
-			{{langserverConn.state}}
+		<div class="section connection">
+			<div class="field">
+				<div class="label">Connection State:</div>
+				<div class="value">
+					{{langserverConn.state}}
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
 
-<div class="section log">
-	<div class="section title">
-		Langserver logs
-	</div>
-	<div>
-		<dom-repeat items="{{_sortLog(langserverConn.logs.length, sortConfig)}}" as="log">
-			<template>
-				<paper-item>
-					<paper-item-body two-line>
-						<div class="file name">{{log.date}}</div>
-						<div secondary class="file url">{{log.msg}}</div>
-					</paper-item-body>
-				</paper-item>
-				<!--<div class="field">
-					<div class="label">
-						{{log.date}}
-					</div>
-					<div class="value code">
-						{{log.msg}}
-					</div>
-				</div>-->
-			</template>
-		</dom-repeat>
-	</div>
-</div>
+		<div class="section log">
+			<div class="section title">
+				Langserver logs
+			</div>
+			<div>
+				<dom-repeat items="{{_sortLog(langserverConn.logs.length, sortConfig)}}" as="log">
+					<template>
+						<paper-item>
+							<paper-item-body two-line>
+								<div class="file name">{{log.date}}</div>
+								<div secondary class="file url">{{log.msg}}</div>
+							</paper-item-body>
+						</paper-item>
+					</template>
+				</dom-repeat>
+			</div>
+		</div>
 
-</template>
+	</template>
 <script src="elements/monaco-go-langserver-log.js"></script>
 </dom-module>

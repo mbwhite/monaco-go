@@ -2,7 +2,7 @@
 
 <dom-module id="monaco-go-langserver-config">
 	<template>
-		<style is="custom-style" include="monaco-go-common-styles">
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
 				@apply --layout-vertical;
 				margin: 4px;
@@ -10,6 +10,7 @@
 				border-color: var(--divider-color);
 			}
 		</style>
+
 		<paper-card heading="Language Server Config" class="files">
 			<div class="card-content">
 				<div>
@@ -23,6 +24,7 @@
 				<paper-input always-float-label label="port" value="{{langserverConfig.port}}" disabled="{{isWorking}}"></paper-input>
 				<paper-input always-float-label label="rootPath" value="{{langserverConfig.rootPath}}" disabled="{{isWorking}}"></paper-input>
 			</div>
+
 			<div class="card-actions">
 				<div class="actions">
 					<paper-icon-button icon="icons:refresh" on-tap="_onRefresh" disabled="{{isWorking}}"></paper-icon-button>
@@ -30,6 +32,8 @@
 				<paper-progress indeterminate disabled="{{!isWorking}}"></paper-progress>
 			</div>
 		</paper-card>
+
 	</template>
+
 	<script src="elements/monaco-go-langserver-config.js"></script>
 </dom-module>

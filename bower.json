@@ -16,6 +16,7 @@
     "paper-scroll-header-panel": "2.0-preview",
     "app-layout": "2.0-preview",
     "paper-card": "PolymerElements/paper-card#2.0-preview",
-    "font-roboto": "PolymerElements/font-roboto#^1.0.1"
+    "font-roboto": "PolymerElements/font-roboto#^1.0.1",
+    "iron-list": "https://github.com/WoodyWoodsta/iron-list.git#9d6dd0234923c943614447f07713a45587eaa337"
   }
 }

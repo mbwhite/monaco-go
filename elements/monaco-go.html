@@ -12,15 +12,13 @@
 <link rel="import" href="bower_components/paper-card/paper-card.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
 
-<script src="elements/monaco-go-models.js"></script>
+<!--<script src="elements/monaco-go-models.js"></script>-->
 
 <link rel="import" href="elements/monaco-go-common-styles.html">
 <link rel="import" href="elements/monaco-go-nav.html">
 <link rel="import" href="elements/monaco-go-repo-files.html">
 <link rel="import" href="elements/monaco-go-repos.html">
-<link rel="import" href="elements/monaco-go-langserver-config.html">
-<link rel="import" href="elements/monaco-go-langserver-log.html">
-
+<!--<link rel="import" href="elements/monaco-go-langserver-config.html">-->
 
 <dom-module id="monaco-go">
 	<template>
@@ -28,31 +26,9 @@
 			:host {
 				@apply --layout-vertical;
 				@apply --layout-flex;
-				/*margin: 4px;
-				border: 1px solid;
-				border-color: var(--divider-color);*/
-			}
-
-			.header.section {
-			}
-			.main.section {
-				@apply --layout-horizontal;
-				@apply --layout-wrap;
-				@apply --layout-flex;
-				/*margin: 4px;
-				border: 1px solid;
-				border-color: var(--divider-color);*/
 			}
     	</style>
-		<div class="header section">
-			<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
-			<!--<monaco-go-langserver-log selection-project="{{selectionProject}}" langserver-config="{{langserverConfig}}"></monaco-go-langserver-log>-->
-		</div>
-		<div class="main section">
-			<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
-			<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
-			<!--<monaco-go-langserver-config selection-project="{{selectionProject}}" langserver-config="{{langserverConfig}}"></monaco-go-langserver-config>-->
-		</div>
+		<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
 	</template>
 	<script src="elements/monaco-go.js"></script>
 </dom-module>

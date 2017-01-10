@@ -3,12 +3,16 @@
 <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
+<link rel="import" href="bower_components/iron-list/iron-list.html">
+<link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+
+<link rel="import" href="elements/monaco-go-common-styles.html">
 
 <dom-module id="monaco-go-repo-files">
 	<template>
-		<style is="custom-style" include="iron-flex iron-positioning monaco-go-common-styles">
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
-				@apply --layout-horizontal;
+				@apply --layout-vertical;
 				@apply --layout-flex;
 				margin: 4px;
 				border: 1px solid;
@@ -22,23 +26,63 @@
 			.file.url {
 				@apply --paper-font-caption;
 			}
+
+			.list.container {
+				@apply --layout-vertical;
+				@apply --layout-flex;
+				margin: 8px;
+				border: 1px solid;
+				border-color: var(--divider-color);
+			}
+			iron-list {
+				@apply --layout-flex;
+			}
+
+			paper-item {
+				--paper-item-selected: {
+					border: 5px solid;
+					border-color: var(--primary-color);
+				};
+				--paper-item-focused: {
+					background: var(--paper-amber-500);
+					font-weight: bold;
+				};
+				--paper-item-focused-before: {
+					opacity: 0;
+				};
+			}
 		</style>
-		<paper-card heading="Files" class="files">
-			<div class="card-content">
-				<paper-listbox selected="{{selectionFile}}" attr-for-selected="value">
-					<dom-repeat items="{{selectionProject.files}}" as="file">
-						<template>
-							<paper-item value="{{file}}" disabled="{{!_canSelect(file)}}">
-								<paper-item-body two-line>
-									<div class="file name">{{file.name}}</div>
-									<div secondary class="file url">{{file.url}}</div>
-								</paper-item-body>
-							</paper-item>
-						</template>
-					</dom-repeat>
-				</paper-listbox>
-			</div>
-		</paper-card>
+
+		<app-header condenses reveals>
+			<app-toolbar class="section title">Files</app-toolbar>
+		</app-header>
+
+		<div class="list container">
+			<template is="dom-if" if="[[!_hideList(selectionProject)]]" restamp>
+				<iron-list
+					hidden$="[[_hideList(selectionProject)]]"
+					items="{{selectionProject.files}}"
+					as="file"
+					multi-selection="false"
+					selection-enabled
+					selected-item="{{selectedFile}}"
+					attr-for-selected="value">
+					<template>
+						<paper-item
+							value="{{file}}"
+							active="{{selected}}"
+							toggles
+							disabled="{{!_canSelect(file)}}"
+							class="list item">
+							<paper-item-body two-line>
+								<div class="file name">{{file.name}}</div>
+								<div secondary class="file url">{{file.url}}</div>
+							</paper-item-body>
+						</paper-item>
+					</template>
+				</iron-list>
+			</template>
+		</div>
 	</template>
-	<script src="elements/monaco-go-repo-files.js"></script>
+<script src="elements/monaco-go-repo-files.js"></script>
 </dom-module>
