@@ -11,10 +11,9 @@
 	<template>
 		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
-				/*display: block;*/
 				@apply --layout-vertical;
 				@apply --layout-flex;
-				/*margin: 4px;*/
+				/*padding: 4px;*/
 				border: 1px solid;
 				border-color: var(--divider-color);
 				@apply --paper-font-common-base;
@@ -23,6 +22,7 @@
 			.connection {
 				@apply --layout-horizontal;
 				@apply --paper-font-body2;
+				margin: 8px;
 			}
 
 			.list.container {
@@ -35,6 +35,9 @@
 			iron-list {
 				/*@apply --layout-flex;*/
 			}
+			.list.item.selected {
+				margin: 8px;
+			}
 		</style>
 			<app-header fixed condenses effects="waterfall">
 				<app-toolbar>
@@ -46,20 +49,33 @@
 				<span class="value">{{langserverConn.state}}</span>
 			</div>
 			<div class="list container">
-					<iron-list
-						items="{{_sortLog(langserverConn.logs.length, sortConfig)}}"
-						as="log"
-						multi-selection="false"
-						attr-for-selected="value">
-						<template>
-							<paper-item>
-								<paper-item-body two-line value="{{log}}">
-									<div class="file name">{{log.date}}</div>
-									<div secondary class="file url">{{log.msg}}</div>
-								</paper-item-body>
-							</paper-item>
-						</template>
-					</iron-list>
+				<iron-list
+					items="{{_sortLog(langserverConn.logs.length, sortConfig)}}"
+					as="log"
+					selected-item="{{selectionLog}}"
+					multi-selection="false"
+					selection-enabled
+					attr-for-selected="value">
+					<template>
+						<paper-item
+							active="{{selected}}"
+							value="{{log}}"
+							toggles>
+							<paper-item-body two-line >
+								<div class="file name">{{log.date}}</div>
+								<div secondary class="file url">{{log.msg}}</div>
+							</paper-item-body>
+						</paper-item>
+					</template>
+				</iron-list>
+			</div>
+			<div class="list item selected">
+				<paper-item>
+					<paper-item-body two-line>
+						<div class="file name">{{selectionLog.date}}</div>
+						<div secondary class="file url">{{selectionLog.msg}}</div>
+					</paper-item-body>
+				</paper-item>
 			</div>
 	</template>
 <script src="elements/monaco-go-langserver-log.js"></script>

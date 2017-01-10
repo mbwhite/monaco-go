@@ -34,6 +34,10 @@ class MonacoGoLangserverLogElement extends Polymer.Element {
 	static get config() {
 		return {
 			properties: {
+				selectionLog: {
+					type: MonacoGoLangserverLogEntry,
+					notify: true,
+				},
 				langserverConn: {
 					type: MonacoGoLangserverConnection,
 					notify: true,
