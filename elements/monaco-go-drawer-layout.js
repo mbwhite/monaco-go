@@ -38,10 +38,6 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 			drawer.toggle();
 		}
 	}
-
-	_onSearch(e) {
-
-	}
 }
 
 customElements.define(MonacoGoDrawerLayoutElement.is, MonacoGoDrawerLayoutElement);
