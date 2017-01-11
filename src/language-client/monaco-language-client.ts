@@ -75,8 +75,19 @@ export class MonacoLanguageClient extends LanguageClient {
 	}
 
 	static createUriConverters() {
+		let makeHTTPPrefix = () => {
+			let loc = location.href;
+
+			let prefix = loc;
+			let lastSlash = loc.lastIndexOf('/');
+			if (lastSlash === (loc.length - 1)) {
+				prefix = loc.substr(0, lastSlash);
+			}
+			return prefix;
+		};
+		// location.href = http://localhost:8080/monaco-go/
 		let SCHEME_PREFIX_FILE = 'file://';
-		let SCHEME_PREFIX_HTTP = 'http:';
+		let SCHEME_PREFIX_HTTP = makeHTTPPrefix();
 
 		// todo: cleanup - inverse ops...
 		return {

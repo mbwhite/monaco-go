@@ -326,10 +326,10 @@ export class MonacoLanguages {
 	}
 
 	static fetchFile(uri: Uri): Promise<string> {
-		// "http:/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go"
+		// http://localhost:8080/monaco-go/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver/handler.go"
 		let filePath = uri.toString();
 
-		let prefix = '/Users/mbana';
+		let prefix = 'Users/mbana';
 		let fileUrl = filePath.includes(prefix) ? filePath.replace(prefix, '') : filePath;
 
 		return window.fetch(fileUrl).then((fetchedFile) => {

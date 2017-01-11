@@ -5,18 +5,15 @@ class MonacoGoLangserverLogEntry {
 	}
 }
 
-class MonacoGoLangserverLogsCollection {
+class MonacoGoLangserverLogsCollection extends Array {
 	constructor() {
+		super();
 	}
 }
 
 class MonacoGoLangserverConnection {
 	constructor(state = 'waiting...') {
 		this.state = state;
-		// this.logs = new MonacoGoLangserverLogsCollection();
-		this.logs = [
-			// new MonacoGoLangserverLogEntry('Booting monaco-go')
-		];
 	}
 }
 
@@ -45,6 +42,13 @@ class MonacoGoLangserverLogElement extends Polymer.Element {
 						return new MonacoGoLangserverConnection();
 					}
 				},
+				langserverLogCollection: {
+					type: MonacoGoLangserverLogsCollection,
+					notify: true,
+					value: () => {
+						return new MonacoGoLangserverLogsCollection();
+					},
+				},
 				sortConfig: {
 					type: MonacoGoLangserverConnectionLogSortConfig,
 					notify: true,
@@ -52,6 +56,7 @@ class MonacoGoLangserverLogElement extends Polymer.Element {
 						return new MonacoGoLangserverConnectionLogSortConfig();
 					}
 				},
+				// setInterval id
 				idStoreCheck: {
 					type: Number
 				},
@@ -68,33 +73,29 @@ class MonacoGoLangserverLogElement extends Polymer.Element {
 				return;
 			}
 
-			let logCountOld = this.langserverConn.logs.length;
+			let logCountOld = this.langserverLogCollection.length;
 			let logCountNew = GlobalMonacoOutputChannelStore.length;
+			let newItemsCount = logCountNew - logCountOld;
+			let list = this.$.list;
 
-			if (logCountNew !== logCountOld) {
-				if (logCountOld) {
-					this.splice('langserverConn.logs', 0, logCountOld);
-				}
-
+			if (newItemsCount) {
 				setTimeout(() => {
-					let logEntries = GlobalMonacoOutputChannelStore.map((log) => {
+					// possibly include newItemsCount in here as well
+					let currentSize = logCountOld ? logCountOld-1 : logCountOld;
+					let newItems = GlobalMonacoOutputChannelStore.slice(currentSize);
+
+					let logEntries = newItems.forEach((log) => {
 						let msg = `${log.value} - ${log.message}`;
-						return new MonacoGoLangserverLogEntry(msg);
+						let entry = new MonacoGoLangserverLogEntry(msg);
+
+						this.langserverLogCollection.push(entry);
 					});
 
-					this.push('langserverConn.logs', ...logEntries);
+					this.notifyPath('langserverLogCollection');
+					// list.fire('iron-resize');
 				}, 250);
 			}
 		}, 1000);
-	}
-
-
-	_sortLog(logs, sortConfig) {
-		// todo:
-		// apply sortConfig to the logs collection
-		// console.log('_sortLog - logs: %O, sortConfig: %O', logs, sortConfig);
-
-		return this.langserverConn.logs;
 	}
 }
 

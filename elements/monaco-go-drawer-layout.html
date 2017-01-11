@@ -12,11 +12,9 @@
 <link rel="import" href="bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="bower_components/app-layout/demo/sample-content.html">
-
+<link rel="import" href="bower_components/iron-list/iron-list.html">
 <link rel="import" href="bower_components/paper-spinner/paper-spinner.html">
 <link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
-
-<link rel="import" href="bower_components/iron-list/iron-list.html">
 
 <!--monaco-go polymer element-->
 <script src="elements/monaco-go-models.js"></script>
@@ -72,7 +70,7 @@
 
 				<div class="editor-container">
 					<slot id="monaco-editor-container" name="editor-slot"></slot>
-					<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-nav>
+					<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}" standalone-code-editor="{{standaloneCodeEditor}}"></monaco-go-nav>
 				</div>
 			</app-header-layout>
 
@@ -84,7 +82,7 @@
 			</app-drawer>
 
 			<!--for selecting repos-->
-			<app-drawer id="drawerEnd" align="end" swipe-open open opened>
+			<app-drawer id="drawerEnd" align="end" swipe-open>
 				<div class="drawer-content">
 					<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
 					<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
@@ -97,14 +95,12 @@
 	<script>
 		GlobalMonacoOutputChannelStore = [];
 	</script>
-	<script src="demo/require-paths.js"></script>
+	<script src="elements/monaco-editor-require-config.js"></script>
 
 	<script src="node_modules/monaco-editor-core/dev/vs/loader.js"></script>
 	<script src="node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
 	<script src="node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
 
-	<script src="demo/fillers.js"></script>
-	<script src="demo/monaco-go.js"></script>
-
+	<script src="elements/monaco-editor-fillers.js"></script>
 	<script src="elements/monaco-go-drawer-layout.js"></script>
 </dom-module>

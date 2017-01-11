@@ -25,35 +25,69 @@ class MonacoGoReposElement extends Polymer.Element {
 				},
 
 				// indicates if we're done fetching the contents of the repo
-				isWorking: {
+				isWaiting: {
 					type: Boolean,
 					notify: true,
 					value: () => {
 						return false;
 					},
 				}
-			}
+			},
+			observers: [
+				'_reposList(reposList)',
+				'_isWaiting(selectionRepo, selectionProject)',
+			]
 		};
 	}
 
-	_selectionRepo(selectionNew, selectionOld) {
-		this.isWorking = false;
-		this.selectionProject = null;
+	_reposList(reposList) {
+		Polymer.dom.flush();
+		Polymer.RenderStatus.afterNextRender(this, () => {
+			if (reposList && reposList.length >= 1) {
+				let initialSelection = reposList[0];
 
+				// this.selectionRepo = initialSelection;
+				// this.notifyPath('selectionRepo');
+				this.set('selectionRepo', initialSelection);
+
+				let list = this.$.reposListEl;
+				if (list) {
+					list.selectItem(initialSelection);
+				}
+			}
+		});
+	}
+
+	_selectionRepo(selectionNew, selectionOld) {
+		if (selectionNew === selectionOld) {
+			// do nothing
+			return;
+		}
+
+		this.selectionProject = null;
 		if (!selectionNew) {
 			return;
 		}
 
-		this.isWorking = true;
 		let repo = selectionNew;
 		MonacoGoProjectRepo.create(repo).then((project) => {
-			Polymer.Async.run(() => {
-				this.isWorking = false;
-				this.set('selectionProject', project);
-			}, 500);
+			this.set('selectionProject', project);
 		}).catch((excep) => {
-			this.isWorking = false;
+			throw excep;
 		});
+	}
+
+	_isWaiting(selectionRepo, selectionProject) {
+		let isWaiting = false;
+
+		if ((selectionRepo && !selectionProject) ||
+			(selectionRepo && selectionProject && !selectionProject.files) ||
+			(selectionRepo && selectionProject && !selectionProject.files.length)) {
+				isWaiting = true;
+		}
+
+		this.isWaiting = isWaiting;
+		// this.notifyPath('isWaiting');
 	}
 
 	_computeCardContent(isWaiting) {

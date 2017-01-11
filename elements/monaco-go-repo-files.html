@@ -3,7 +3,6 @@
 <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
-<link rel="import" href="bower_components/iron-list/iron-list.html">
 <link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 
 <link rel="import" href="elements/monaco-go-common-styles.html">
@@ -14,17 +13,8 @@
 			:host {
 				@apply --layout-vertical;
 				@apply --layout-flex;
-				/*margin: 4px;*/
 				border: 1px solid;
 				border-color: var(--divider-color);
-			}
-
-			.file.name {
-				@apply --paper-font-caption;
-				@apply --paper-font-common-code;
-			}
-			.file.url {
-				@apply --paper-font-caption;
 			}
 
 			.list.container {
@@ -51,6 +41,23 @@
 					opacity: 0;
 				};
 			}
+
+			.list.item {
+				@apply --paper-font-caption;
+			}
+			.file.name {
+				@apply --paper-font-common-code;
+			}
+			.file.url {
+				@apply --paper-font-caption;
+			}
+
+			.list.item.file {
+			}
+			.list.item.dir {
+				color: var(--dark-theme-text-color);
+				background-color: var(--paper-brown-500);
+			}
 		</style>
 
 		<app-header condenses reveals>
@@ -60,22 +67,23 @@
 		<div class="list container">
 			<template is="dom-if" if="[[!_hideList(selectionProject)]]" restamp>
 				<iron-list
+					id="repoFileListEl"
 					hidden$="[[_hideList(selectionProject)]]"
 					items="{{selectionProject.files}}"
 					as="file"
 					multi-selection="false"
-					selection-enabled
 					selected-item="{{selectedFile}}"
-					attr-for-selected="value">
+					attr-for-selected="value"
+					selection-enabled>
 					<template>
 						<paper-item
 							value="{{file}}"
 							active="{{selected}}"
 							toggles
 							disabled="{{!_canSelect(file)}}"
-							class="list item">
+							class$="list item {{file.type}}">
 							<paper-item-body two-line>
-								<div class="file name">{{file.name}}</div>
+								<div class="file name">{{file.name}} - {{file.type}}</div>
 								<div secondary class="file url">{{file.url}}</div>
 							</paper-item-body>
 						</paper-item>

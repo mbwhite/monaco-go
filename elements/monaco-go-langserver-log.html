@@ -3,7 +3,6 @@
 <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
-<link rel="import" href="bower_components/iron-list/iron-list.html">
 <link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="bower_components/paper-progress/paper-progress.html">
 
@@ -20,7 +19,7 @@
 			}
 
 			.connection {
-				@apply --layout-horizontal;
+				@apply --layout-vertical;
 				@apply --paper-font-body2;
 				margin: 8px;
 			}
@@ -35,8 +34,29 @@
 			iron-list {
 				/*@apply --layout-flex;*/
 			}
-			.list.item.selected {
-				margin: 8px;
+
+			paper-item {
+				--paper-item-selected: {
+					border: 5px solid;
+					border-color: var(--primary-color);
+				};
+				--paper-item-focused: {
+					background: var(--paper-amber-500);
+					font-weight: bold;
+				};
+				--paper-item-focused-before: {
+					opacity: 0;
+				};
+			}
+
+			.list.item {
+				@apply --paper-font-caption;
+			}
+			.log.date {
+				@apply --paper-font-caption;
+			}
+			.log.msg {
+				@apply --paper-font-common-code;
 			}
 		</style>
 			<app-header fixed condenses effects="waterfall">
@@ -45,12 +65,19 @@
 				</app-toolbar>
 			</app-header>
 			<div class="section connection">
-				<span class="label">Connection State:</span>
-				<span class="value">{{langserverConn.state}}</span>
+				<div>
+					<span class="label">Connection State:</span>
+					<span class="value">{{langserverConn.state}}</span>
+				</div>
+				<div>
+					<span class="label">Events:</span>
+					<span class="value">{{langserverLogCollection.length}}</span>
+				</div>
 			</div>
 			<div class="list container">
 				<iron-list
-					items="{{_sortLog(langserverConn.logs.length, sortConfig)}}"
+					id="list"
+					items="{{langserverLogCollection}}"
 					as="log"
 					selected-item="{{selectionLog}}"
 					multi-selection="false"
@@ -60,10 +87,11 @@
 						<paper-item
 							active="{{selected}}"
 							value="{{log}}"
+							class="list item log entry"
 							toggles>
 							<paper-item-body two-line >
-								<div class="file name">{{log.date}}</div>
-								<div secondary class="file url">{{log.msg}}</div>
+								<div class="log date">{{log.date}}</div>
+								<div secondary class="log msg">{{log.msg}}</div>
 							</paper-item-body>
 						</paper-item>
 					</template>
@@ -72,8 +100,8 @@
 			<div class="list item selected">
 				<paper-item>
 					<paper-item-body two-line>
-						<div class="file name">{{selectionLog.date}}</div>
-						<div secondary class="file url">{{selectionLog.msg}}</div>
+						<div class="log date">{{selectionLog.date}}</div>
+						<div secondary class="log msg">{{selectionLog.msg}}</div>
 					</paper-item-body>
 				</paper-item>
 			</div>

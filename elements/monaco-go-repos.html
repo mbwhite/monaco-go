@@ -3,7 +3,6 @@
 <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
-<link rel="import" href="bower_components/iron-list/iron-list.html">
 <link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="bower_components/paper-progress/paper-progress.html">
 
@@ -14,16 +13,8 @@
 		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
 				@apply --layout-vertical;
-				/*padding: 4px;*/
 				border: 1px solid;
 				border-color: var(--divider-color);
-			}
-			.repo.name {
-				@apply --paper-font-caption;
-        		@apply --paper-font-common-code;
-			}
-			.repo.url {
-				@apply --paper-font-caption;
 			}
 
 			.list.container {
@@ -47,6 +38,17 @@
 				};
 			}
 
+			.list.item {
+				@apply --paper-font-caption;
+			}
+			.repo.name {
+				@apply --paper-font-caption;
+        		@apply --paper-font-common-code;
+			}
+			.repo.url {
+				@apply --paper-font-caption;
+			}
+
 			paper-progress {
 				border: 1px solid;
 				border-color: var(--divider-color);
@@ -59,12 +61,11 @@
 
 		<div class="list container">
 			<iron-list
-				items="[[reposList]]"
+				id="reposListEl"
+				items="{{reposList}}"
 				as="repo"
-				multi-selection="false"
-				selection-enabled
 				selected-item="{{selectionRepo}}"
-				attr-for-selected="value">
+				selection-enabled>
 				<template>
 					<paper-item
 						active="{{selected}}"
@@ -80,7 +81,7 @@
 			</iron-list>
 		</div>
 
-		<paper-progress indeterminate class="repo-loader" disabled="{{!isWorking}}"></paper-progress>
+		<paper-progress indeterminate class="repo-loader" disabled="{{!isWaiting}}"></paper-progress>
 	</template>
-<script src="elements/monaco-go-repos.js"></script>
+	<script src="elements/monaco-go-repos.js"></script>
 </dom-module>
