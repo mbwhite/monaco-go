@@ -25,21 +25,42 @@ WebSocket at go-langserver.cloudapp.net:
 `monaco-go`:
 
 * <http://azure.bana.io/monaco-go/>
-* <del><http://go-langserver.cloudapp.net/monaco-go/></del>
-* <del><http://13.65.101.250:8080/monaco-go/></del>
 
 `go-langserver`:
 
 * <ws://azure.bana.io:4389>
-* <del><ws://go-langserver.cloudapp.net:4389></del>
-* <del><ws://13.65.101.250:4389></del>
 
 ### screenshot
 
 ![./images/monaco-go.png](./images/monaco-go.png)
+
+## `textDocument/hover`
+
+![./images/textDocument/hover.png](./images/textDocument/hover.png)
+
+## `textDocument/documentSymbol`
+
+![./images/textDocument/documentSymbol.png](./images/textDocument/documentSymbol.png)
+
+## `textDocument/definition`
+
+![./images/textDocument/definition.png](./images/textDocument/definition.gif)
+
+**todo:** make animated gif of new interface.
+
+<!--![./images/textDocument/definition.gif](./images/textDocument/definition.png)-->
+
+## `textDocument/references`
+
+![./images/textDocument/references.png](./images/textDocument/references.png)
+
+## misc
+
+![./images/monaco-go-repos.png](./images/monaco-go-repos.png)
+
 ![./images/monaco-go-langserver-logs.png](./images/monaco-go-langserver-logs.png)
 
-more available in [./docs/EXAMPLES.md](./docs/EXAMPLES.md#screenshots)
+<!--more available in [./docs/EXAMPLES.md](./docs/EXAMPLES.md#screenshots)-->
 
 ## todo/issues:
 
