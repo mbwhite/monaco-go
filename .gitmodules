@@ -1,6 +1,3 @@
-[submodule "golang/example"]
-	path = golang/example
-	url = https://github.com/golang/example.git
 [submodule "submodules/vscode-languageserver-node"]
 	path = submodules/vscode-languageserver-node
 	url = https://github.com/mbana/vscode-languageserver-node.git
