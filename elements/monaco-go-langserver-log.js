@@ -56,9 +56,17 @@ class MonacoGoLangserverLogElement extends Polymer.Element {
 						return new MonacoGoLangserverConnectionLogSortConfig();
 					}
 				},
+
 				// setInterval id
-				idStoreCheck: {
+				// how long to wait before checking the log again
+				intervalCheckId: {
 					type: Number
+				},
+				intervalCheckPeriod: {
+					type: Number,
+					value: () => {
+						return 1000;
+					}
 				},
 			},
 			observers: [
@@ -68,34 +76,47 @@ class MonacoGoLangserverLogElement extends Polymer.Element {
 
 	ready() {
 		super.ready();
-		this.idStoreCheck = setInterval(() => {
-			if (!GlobalMonacoOutputChannelStore) {
-				return;
-			}
 
-			let logCountOld = this.langserverLogCollection.length;
-			let logCountNew = GlobalMonacoOutputChannelStore.length;
-			let newItemsCount = logCountNew - logCountOld;
-			let list = this.$.list;
+		let timeout = this.intervalCheckPeriod;
+		this.intervalCheckId = setInterval(this._logCheckCallback.bind(this), timeout);
+	}
 
-			if (newItemsCount) {
-				setTimeout(() => {
-					// possibly include newItemsCount in here as well
-					let currentSize = logCountOld ? logCountOld-1 : logCountOld;
-					let newItems = GlobalMonacoOutputChannelStore.slice(currentSize);
+	_logCheckCallback() {
+		if (!GlobalMonacoOutputChannelStore) {
+			return;
+		}
 
-					let logEntries = newItems.forEach((log) => {
-						let msg = `${log.value} - ${log.message}`;
-						let entry = new MonacoGoLangserverLogEntry(msg);
+		let logCountOld = this.langserverLogCollection.length;
+		let logCountNew = GlobalMonacoOutputChannelStore.length;
+		let newItemsCount = logCountNew - logCountOld;
 
-						this.langserverLogCollection.push(entry);
-					});
+		if (newItemsCount) {
+			setTimeout(() => {
+				// possibly include newItemsCount in here as well
+				let currentSize = logCountOld ? logCountOld - 1 : logCountOld;
+				let newItems = GlobalMonacoOutputChannelStore.slice(currentSize);
 
-					this.notifyPath('langserverLogCollection');
-					// list.fire('iron-resize');
-				}, 250);
-			}
-		}, 1000);
+				let logEntries = newItems.forEach((log) => {
+					let msg = `${log.value} - ${log.message}`;
+					let entry = new MonacoGoLangserverLogEntry(msg);
+
+					this.langserverLogCollection.unshift(entry);
+					// this.langserverLogCollection.push(entry);
+				});
+
+				this.notifyPath('langserverLogCollection');
+			}, 250);
+		}
+	}
+
+	_formatDate(date) {
+		let formatted = 'empty';
+		if (date) {
+			let timeStr = date.toLocaleTimeString();
+			let dateStr = date.toLocaleDateString();
+			formatted = `${timeStr} ${dateStr}`;
+		}
+		return formatted;
 	}
 }
 

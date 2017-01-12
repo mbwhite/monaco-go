@@ -1,8 +1,9 @@
 <base href="../">
 
+<link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="bower_components/paper-item/paper-item.html">
 <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
-<link rel="import" href="bower_components/paper-item/paper-item.html">
 <link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="bower_components/paper-progress/paper-progress.html">
 
@@ -26,18 +27,25 @@
 
 			.list.container {
 				@apply --layout-vertical;
-				@apply --layout-flex;
+				@apply --layout-flex-5;
 				margin: 8px;
 				border: 1px solid;
-				border-color: var(--divider-color);
+				border-color: var(--primary-color);
 			}
-			iron-list {
-				/*@apply --layout-flex;*/
+			.list.item.selected.section {
+				margin: 8px;
+				border: 1px solid;
+				border-color: var(--primary-color);
+				@apply --layout-flex;
+			}
+
+			paper-listbox {
+				@apply --layout-flex;
+				overflow: auto;
 			}
 
 			paper-item {
 				--paper-item-selected: {
-					border: 5px solid;
 					border-color: var(--primary-color);
 				};
 				--paper-item-focused: {
@@ -75,29 +83,22 @@
 				</div>
 			</div>
 			<div class="list container">
-				<iron-list
-					id="list"
-					items="{{langserverLogCollection}}"
-					as="log"
-					selected-item="{{selectionLog}}"
-					multi-selection="false"
-					selection-enabled
-					attr-for-selected="value">
-					<template>
-						<paper-item
-							active="{{selected}}"
-							value="{{log}}"
-							class="list item log entry"
-							toggles>
-							<paper-item-body two-line >
-								<div class="log date">{{log.date}}</div>
-								<div secondary class="log msg">{{log.msg}}</div>
-							</paper-item-body>
-						</paper-item>
-					</template>
-				</iron-list>
+				<paper-listbox
+					attr-for-selected="value"
+					selected="{{selectionLog}}">
+					<dom-repeat items="{{langserverLogCollection}}" as="log">
+						<template>
+							<paper-item value="{{log}}">
+								<paper-item-body two-line>
+									<div class="log date">{{_formatDate(log.date)}}</div>
+									<div secondary class="log msg">{{log.msg}}</div>
+								</paper-item-body>
+							</paper-item>
+						</template>
+					</dom-repeat>
+				</paper-listbox>
 			</div>
-			<div class="list item selected">
+			<div class="list item selected section">
 				<paper-item>
 					<paper-item-body two-line>
 						<div class="log date">{{selectionLog.date}}</div>
