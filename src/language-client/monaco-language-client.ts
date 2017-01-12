@@ -14,16 +14,17 @@ import {
 	WebSocketStream
 } from './web-socket-stream';
 import * as languageFeatures from '../languageFeatures';
+import { UIHooks } from '../monaco.contribution';
 
 export class MonacoLanguageClient extends LanguageClient {
 	constructor(id: string, serverOptions: ServerOptions, clientOptions: LanguageClientOptions, forceDebug: boolean = false) {
 		super(id, serverOptions, clientOptions, forceDebug);
 	}
 
-	static create(): LanguageClient {
+	static create(uiHooks: UIHooks): LanguageClient {
 		let id = 'langserver-antha';
 		let serverOptions: () => Thenable<StreamInfo> = () => {
-			return WebSocketStream.create();
+			return WebSocketStream.create(uiHooks);
 		};
 
 		// let initializationOptions = {

@@ -70,6 +70,7 @@
 			}
 			.in-progress.container > .progress.msg {
 				@apply --paper-font-caption;
+				@apply --paper-font-common-code;
 				padding-bottom: 8px;
 			}
 			paper-progress {
@@ -95,8 +96,13 @@
 					<slot id="monaco-editor-container" name="editor-slot"></slot>
 					<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}" standalone-code-editor="{{standaloneCodeEditor}}"></monaco-go-nav>
 					<div class="in-progress container">
-						<div class="progress msg">{{inOperationMsg}}</div>
-						<paper-progress indeterminate class="repo-loader" disabled="{{!inOperation}}"></paper-progress>
+						<div class="progress msg">
+							<b>id:</b> {{operation.id}}
+						</div>
+						<div class="progress msg">
+							<b>params:</b> {{operation.params}}
+						</div>
+						<paper-progress indeterminate class="repo-loader" disabled="{{!operation.inProgress}}"></paper-progress>
 					</div>
 				</div>
 			</app-header-layout>

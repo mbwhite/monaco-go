@@ -6,7 +6,7 @@
 
 import { WorkerManager } from './workerManager';
 import { GoWorker } from './goWorker';
-import { LanguageServiceDefaultsImpl } from './monaco.contribution';
+import { LanguageServiceDefaultsImpl, UIHooks } from './monaco.contribution';
 import * as languageFeatures from './languageFeatures';
 import { LanguageClient } from 'vscode-languageclient';
 import {
@@ -26,10 +26,12 @@ import IDisposable = monaco.IDisposable;
 // 	//"workspaceSymbolProvider": true;
 // }
 
-export function setupMode(defaults: LanguageServiceDefaultsImpl): void {
+
+
+export function setupMode(defaults: LanguageServiceDefaultsImpl, uiHooks: UIHooks): IDisposable[] {
 	let disposables: IDisposable[] = [];
 
-	let languageClient: LanguageClient = MonacoLanguageClient.create();
+	let languageClient: LanguageClient = MonacoLanguageClient.create(uiHooks);
 	disposables.push(languageClient.start());
 
 	const client = new WorkerManager(defaults);
@@ -49,4 +51,6 @@ export function setupMode(defaults: LanguageServiceDefaultsImpl): void {
 	// disposables.push(monaco.languages.registerDocumentSymbolProvider(languageId, new languageFeatures.DocumentSymbolAdapter(worker)));
 	// disposables.push(monaco.languages.registerRenameProvider(languageId, new languageFeatures.RenameAdapter(worker)));
 	// disposables.push(new languageFeatures.DiagnostcsAdapter(languageId, worker));
+
+	return disposables;
 }

@@ -67,7 +67,7 @@ const diagnosticDefault: monaco.languages.go.DiagnosticsOptions = {
 	}
 };
 
-const goDefaults = new LanguageServiceDefaultsImpl('go', diagnosticDefault);
+export const goDefaults = new LanguageServiceDefaultsImpl('go', diagnosticDefault);
 
 
 // Export API
@@ -80,10 +80,24 @@ monaco.languages.go = createAPI();
 
 // --- Registration to monaco editor ---
 
-function withMode(callback: (module: typeof mode) => void): void {
-	require<typeof mode>(['vs/language/go/goMode'], callback);
+export interface UIHooks {
+	onRequestStart: (details: any) => void;
+	onRequestEnd: (details: any) => void;
+	extra: any;
 }
 
-monaco.languages.onLanguage('go', () => {
-	withMode(mode => mode.setupMode(goDefaults));
-});
+const uIHooksDefaults: UIHooks = {
+	onRequestStart: (details: any) => {
+	},
+	onRequestEnd: (details: any) => {
+	},
+	extra: {},
+};
+
+// function withMode(callback: (module: typeof mode) => void): void {
+// 	require<typeof mode>(['vs/language/go/goMode'], callback);
+// }
+
+// monaco.languages.onLanguage('go', () => {
+// 	withMode(mode => mode.setupMode(goDefaults, uIHooksDefaults));
+// });

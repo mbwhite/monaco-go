@@ -6,6 +6,7 @@ import {
 	Message, PartialMessageInfo,
 	StreamInfo
 } from 'vscode-languageclient';
+import { UIHooks } from '../monaco.contribution';
 
 export class WebSocketMessageReader implements MessageReader {
 	private _logMsgs: boolean = false;
@@ -18,7 +19,7 @@ export class WebSocketMessageReader implements MessageReader {
 	private _encoder = new TextEncoder();
 	private _decoder = new TextDecoder();
 
-	constructor(private ws: WebSocket) {
+	constructor(private ws: WebSocket, private uiHooks: UIHooks) {
 		this._errorEmitter = new Emitter<Error>();
 		this._closeEmitter = new Emitter<void>();
 		this.attachHandlers();
@@ -73,7 +74,7 @@ export class WebSocketMessageReader implements MessageReader {
 		let msgs = [];
 
 		let from = data.indexOf(searchString, 0);
-		for (let end = 0; end !== -1;) {
+		for (let end = 0; end !== -1; ) {
 			end = data.indexOf(searchString, from + 1);
 			let msg: string;
 			if (end === -1) {
@@ -104,6 +105,16 @@ export class WebSocketMessageReader implements MessageReader {
 		let msg: Message = JSON.parse(json);
 		// let msg = JSON.parse(json);
 		this._callback(msg);
+
+		if (this.uiHooks) {
+			let recv: any = msg;
+			let id = recv && recv.id ? recv.id : '';
+			let details = {
+				id,
+				msg,
+			};
+			this.uiHooks.onRequestEnd(details);
+		}
 	}
 
 	get onError(): IEvent<Error> {

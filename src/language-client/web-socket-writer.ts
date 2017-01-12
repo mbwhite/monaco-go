@@ -11,6 +11,7 @@ import {
 import {
 	Utils
 } from './utils';
+import { UIHooks } from '../monaco.contribution';
 
 export class WebSocketMessageWriter implements MessageWriter {
 	private _logMsgs: boolean = false;
@@ -21,7 +22,7 @@ export class WebSocketMessageWriter implements MessageWriter {
 	private _encoder = new TextEncoder();
 	private _decoder = new TextDecoder();
 
-	constructor(private ws: WebSocket) {
+	constructor(private ws: WebSocket, private uiHooks: UIHooks) {
 		this._errorEmitter = new Emitter<[Error, Message, number]>();
 		this._closeEmitter = new Emitter<void>();
 	}
@@ -31,6 +32,16 @@ export class WebSocketMessageWriter implements MessageWriter {
 		let data = this.toRpc(json);
 
 		this.logMsg(data);
+
+		if (this.uiHooks) {
+			let send: any = msg;
+			let id = send && send.id ? send.id : '';
+			let details = {
+				id,
+				msg,
+			};
+			this.uiHooks.onRequestStart(details);
+		}
 
 		this.ws.send(data);
 	}

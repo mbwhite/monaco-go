@@ -10,7 +10,7 @@ import {
 import {
 	WebSocketMessageWriter
 } from './web-socket-writer';
-
+import { UIHooks } from '../monaco.contribution';
 
 export {
 	WebSocketMessageReader, WebSocketMessageWriter
@@ -20,9 +20,9 @@ export class WebSocketStream implements StreamInfo {
 	writer: any;
 	reader: any;
 
-	constructor(private ws: WebSocket) {
-		this.writer = new WebSocketMessageWriter(ws);
-		this.reader = new WebSocketMessageReader(ws);
+	constructor(private ws: WebSocket, private uiHooks: UIHooks) {
+		this.writer = new WebSocketMessageWriter(ws, uiHooks);
+		this.reader = new WebSocketMessageReader(ws, uiHooks);
 	}
 
 	static getWorkspaceConfig() {
@@ -71,7 +71,7 @@ export class WebSocketStream implements StreamInfo {
 		return `${scheme}://${host.hostname}:${host.port}`;
 	}
 
-	static create(): Promise<StreamInfo> {
+	static create(uiHooks: UIHooks): Promise<StreamInfo> {
 		return new Promise((resolve, reject) => {
 			let ws: WebSocket;
 
@@ -80,7 +80,7 @@ export class WebSocketStream implements StreamInfo {
 				ws = new WebSocket(url);
 
 				ws.onopen = (ev: Event): any => {
-					let streamInfo: StreamInfo = new WebSocketStream(ws);
+					let streamInfo: StreamInfo = new WebSocketStream(ws, uiHooks);
 					resolve(streamInfo);
 				};
 			} catch (err) {

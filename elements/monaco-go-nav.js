@@ -43,7 +43,8 @@ class MonacoGoNavElement extends Polymer.Element {
 
 	_onDidChangeModel(modelChangeEvent) {
 		let change = modelChangeEvent;
-		console.log('_onDidChangeModel', modelChangeEvent);
+		// console.log('_onDidChangeModel', modelChangeEvent);
+
 		// newModelUrl:
 		// "{"scheme":"http","authority":"localhost:8080","path":"/monaco-go/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver/modes/websocket.go","fsPath":"/monaco-go/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver/modes/websocket.go","query":"","fragment":"","external":"http://localhost:8080/monaco-go/Users/mbana/go/src/github.com/sourcegraph/go-langserver/langserver/modes/websocket.go","$mid":1}"
 		//
@@ -74,11 +75,11 @@ class MonacoGoNavElement extends Polymer.Element {
 	}
 
 	_onBack(e) {
-		console.log('_onBack', e);
+		console.log('_onBack - todo', e);
 	}
 
 	_onForward(e) {
-		console.log('_onForward', e);
+		console.log('_onForward - todo', e);
 	}
 }
 

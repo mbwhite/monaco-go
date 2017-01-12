@@ -64,18 +64,19 @@ echo "--------"
 echo "--------"
 IMAGE_MONACO_GO_FOLDER="monaco-go"
 IMAGE_MONACO_GO_NAME="$IMAGE_NAME_PREFIX/$IMAGE_MONACO_GO_FOLDER"
-IMAGE_MONACO_GO_LATEST="$IMAGE_MONACO_GO_NAME:latest"
-echo "> image:" "$IMAGE_MONACO_GO_NAME @ $IMAGE_MONACO_GO_LATEST"
+# IMAGE_MONACO_GO_LATEST="$IMAGE_MONACO_GO_NAME:latest"
+IMAGE_MONACO_GO_GIT_REV="$IMAGE_MONACO_GO_NAME:${GIT_REV}"
+echo "> image:" "$IMAGE_MONACO_GO_NAME @ $IMAGE_MONACO_GO_GIT_REV"
 
 docker build \
-  -t $IMAGE_MONACO_GO_LATEST \
+  -t $IMAGE_MONACO_GO_GIT_REV \
   -f ./build/docker/${IMAGE_MONACO_GO_FOLDER}/Dockerfile \
   .
-echo "< image:" "$IMAGE_MONACO_GO_NAME @ $IMAGE_MONACO_GO_LATEST"
+echo "< image:" "$IMAGE_MONACO_GO_NAME @ $IMAGE_MONACO_GO_GIT_REV"
 echo "--------"
 
 
 echo "--------"
 echo "run cmds:"
-echo "docker run -p 8080:8080 -p 4389:4389 -it $IMAGE_MONACO_GO_LATEST"
+echo "docker run -p 8080:8080 -p 4389:4389 -it $IMAGE_MONACO_GO_GIT_REV"
 echo "--------"

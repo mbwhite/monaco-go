@@ -1,3 +1,11 @@
+class MonacoGoOperationInProgress {
+	constructor(id = '', params = '', inProgress = false) {
+		this.id = id;
+		this.params = params;
+		this.inProgress = inProgress;
+	}
+}
+
 class MonacoGoDrawerLayoutElement extends Polymer.Element {
 	static get is() {
 		return 'monaco-go-drawer-layout';
@@ -26,20 +34,21 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 					type: Object,
 					notify: true,
 				},
+				// IDiposable[] that monaco-editor returns
+				disposables: {
+					type: Array,
+					notify: true,
+					value: () => {
+						return [];
+					},
+				},
 
 				// indicate if an operation is in progress, say, an editor one
-				inOperation: {
-					type: Boolean,
+				operation: {
+					type: MonacoGoOperationInProgress,
 					notify: true,
 					value: () => {
-						return false;
-					}
-				},
-				inOperationMsg: {
-					type: String,
-					notify: true,
-					value: () => {
-						return 'placeholder: loading';
+						return new MonacoGoOperationInProgress();
 					},
 				},
 			}
@@ -105,6 +114,8 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 	_initMonaco() {
 		let self = this;
 
+		let uiHooks = this._createUIHooks();
+
 		let fileDetails = MonacoGoDrawerLayoutElement._initialFileDetails();
 		let containerEl = this._findContainerEl();
 		fetch(fileDetails.url).then((fileContents) => {
@@ -112,10 +123,17 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 		}).then((fileTxt) => {
 			require([
 				'vs/basic-languages/src/monaco.contribution',
+				'vscode',
 				'vs/language/go/monaco.contribution',
-				'vscode'
-			], function (basic, go, vscodeFiller) {
+				'vs/language/go/goMode'
+			], function (basic, vscodeFiller, goContribution, goMode) {
 				MonacoGoDrawerLayoutElement._overrideOutputChannel(vscodeFiller);
+
+				let goDefaults = goContribution.goDefaults;
+				monaco.languages.onLanguage('go', () => {
+					let disposables = goMode.setupMode(goDefaults, uiHooks);
+					self.disposables = disposables;
+				});
 
 				self.standaloneCodeEditor = monaco.editor.create(containerEl);
 				window.langserverEditor = self.standaloneCodeEditor;
@@ -125,6 +143,63 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 				window.langserverEditor.setModel(model);
 			});
 		});
+	}
+	_createUIHooks()  {
+		return {
+			onRequestStart: (details) => {
+				this.operation.id = '';
+				this.operation.details = '';
+
+				if (details && details.msg) {
+					let msg = details.msg;
+
+					if (Number.isInteger(msg.id)) {
+						this.operation.id = msg.id;
+					}
+
+					if (msg.result) {
+						this.operation.params = JSON.stringify(msg.result);
+					} else if (msg.method) {
+						this.operation.params = JSON.stringify(msg.method);
+					} else {
+						this.operation.params = JSON.stringify(msg);
+					}
+				}
+
+				if (details && details.msg && Number.isInteger(details.msg.id)) {
+					this.operation.inProgress = true;
+				}
+
+				this.notifyPath('operation');
+			},
+			onRequestEnd: (details) => {
+				this.operation.id = '';
+				this.operation.details = '';
+
+				if (details && details.msg) {
+					let msg = details.msg;
+
+					if (Number.isInteger(msg.id)) {
+						this.operation.id = msg.id;
+					}
+
+					if (msg.result) {
+						this.operation.params = JSON.stringify(msg.result);
+					} else if (msg.method) {
+						this.operation.params = JSON.stringify(msg.method);
+					} else {
+						this.operation.params = JSON.stringify(msg);
+					}
+				}
+
+				if (details && details.msg && Number.isInteger(details.msg.id)) {
+					this.operation.inProgress = false;
+				}
+
+				this.notifyPath('operation');
+			},
+			extra: {},
+		};
 	}
 
 	_findListElement(drawer) {
