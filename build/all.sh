@@ -19,6 +19,13 @@
 
 # build:
 # monaco
+
+# # run bower install for polymer
+# ( \
+#   echo `pwd` && \
+#   bower install \
+# )
+
 # `npm run test` is a bad hack to get around commonjs module required
 # for testing
 ( \

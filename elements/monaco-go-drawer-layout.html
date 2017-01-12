@@ -42,6 +42,13 @@
 				@apply --layout-vertical;
 			}
 
+			monaco-go-repos {
+				@apply --layout-flex;
+			}
+			monaco-go-repo-files {
+				@apply --layout-flex-4;
+			}
+
 			.editor-container {
 				@apply --layout-vertical;
 				@apply --layout-flex;
@@ -51,6 +58,21 @@
 			::slotted(#container) {
 				@apply --layout-flex;
 				margin: 4px;
+				border: 1px solid;
+				border-color: var(--divider-color);
+			}
+
+			.in-progress.container {
+				@apply --layout-vertical;
+				margin: 4px;
+				border: 1px solid;
+				border-color: var(--divider-color);
+			}
+			.in-progress.container > .progress.msg {
+				@apply --paper-font-caption;
+				padding-bottom: 8px;
+			}
+			paper-progress {
 				border: 1px solid;
 				border-color: var(--divider-color);
 			}
@@ -64,6 +86,7 @@
 						<div main-title>
 							<code>monaco-go</code>
 						</div>
+                        <paper-icon-button icon="search" on-tap="_onSearch"></paper-icon-button>
 						<paper-icon-button icon="icons:chevron-left" on-tap="_onToggleDrawerEnd"></paper-icon-button>
 					</app-toolbar>
 				</app-header>
@@ -71,6 +94,10 @@
 				<div class="editor-container">
 					<slot id="monaco-editor-container" name="editor-slot"></slot>
 					<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}" standalone-code-editor="{{standaloneCodeEditor}}"></monaco-go-nav>
+					<div class="in-progress container">
+						<div class="progress msg">{{inOperationMsg}}</div>
+						<paper-progress indeterminate class="repo-loader" disabled="{{!inOperation}}"></paper-progress>
+					</div>
 				</div>
 			</app-header-layout>
 

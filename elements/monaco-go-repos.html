@@ -1,5 +1,6 @@
 <base href="../">
 
+<link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
@@ -19,14 +20,18 @@
 
 			.list.container {
 				@apply --layout-vertical;
+				@apply --layout-flex;
 				margin: 8px;
 				border: 1px solid;
-				border-color: var(--divider-color);
+				border-color: var(--primary-color);
+			}
+			paper-listbox {
+				@apply --layout-flex;
+				overflow: auto
 			}
 
 			paper-item {
 				--paper-item-selected: {
-					border: 5px solid;
 					border-color: var(--primary-color);
 				};
 				--paper-item-focused: {
@@ -60,25 +65,21 @@
 		</app-header>
 
 		<div class="list container">
-			<iron-list
-				id="reposListEl"
-				items="{{reposList}}"
-				as="repo"
-				selected-item="{{selectionRepo}}"
-				selection-enabled>
-				<template>
-					<paper-item
-						active="{{selected}}"
-						toggles
-						value="{{repo}}"
-						class="list item">
-						<paper-item-body two-line>
-							<div class="repo name">{{repo.name}}</div>
-							<div secondary class="repo url">{{repo.url}}</div>
-						</paper-item-body>
-					</paper-item>
-				</template>
-			</iron-list>
+			<paper-listbox
+				attr-for-selected="value"
+				selected="{{selectionRepo}}">
+				<dom-repeat items="{{reposList}}" as="repo">
+					<template>
+						<paper-item
+							value="{{repo}}">
+							<paper-item-body two-line>
+								<div class="repo name">{{repo.name}}</div>
+								<div secondary class="repo url">{{repo.url}}</div>
+							</paper-item-body>
+						</paper-item>
+					</template>
+				</dom-repeat>
+			</paper-listbox>
 		</div>
 
 		<paper-progress indeterminate class="repo-loader" disabled="{{!isWaiting}}"></paper-progress>

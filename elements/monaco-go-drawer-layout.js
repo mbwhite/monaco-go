@@ -26,6 +26,22 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 					type: Object,
 					notify: true,
 				},
+
+				// indicate if an operation is in progress, say, an editor one
+				inOperation: {
+					type: Boolean,
+					notify: true,
+					value: () => {
+						return false;
+					}
+				},
+				inOperationMsg: {
+					type: String,
+					notify: true,
+					value: () => {
+						return 'placeholder: loading';
+					},
+				},
 			}
 		};
 	}
@@ -111,26 +127,6 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 		});
 	}
 
-	// event handlers
-	_onToggleDrawer(e) {
-		let drawer = this.$.drawer;
-		if (drawer) {
-			drawer.toggle();
-		}
-
-		if (!drawer.opened) {
-			return;
-		}
-
-		let list = this._findListElement(drawer);
-		if (!list) {
-			console.info('_onToggleDrawer - could not find an iron-list in: ', drawer);
-			return;
-		}
-
-		list.fire('iron-resize');
-	}
-
 	_findListElement(drawer) {
 		let list;
 
@@ -145,12 +141,36 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 		return list;
 	}
 
+	// event handlers
+	_onToggleDrawer(e) {
+		let drawer = this.$.drawer;
+		if (drawer) {
+			drawer.toggle();
+		}
+
+		// if (!drawer.opened) {
+		// 	return;
+		// }
+
+		// let list = this._findListElement(drawer);
+		// if (!list) {
+		// 	console.info('_onToggleDrawer - could not find an iron-list in: ', drawer);
+		// 	return;
+		// }
+
+		// list.fire('iron-resize');
+	}
+
 	_onToggleDrawerEnd(e) {
 		let drawer = this.$.drawerEnd;
 		if (drawer) {
 			drawer.toggle();
 
 		}
+	}
+
+	_onSearch(e) {
+
 	}
 }
 

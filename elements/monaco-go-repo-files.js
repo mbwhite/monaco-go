@@ -25,16 +25,25 @@ class MonacoGoRepoFilesElement extends Polymer.Element {
 
 		let canSelect = false;
 		if (file.type === 'file' && file.name) {
-			canSelect = this._isGoFile(file);
+			canSelect = this._isGoFile(file.name);
 		}
 		return canSelect;
 	}
 
-	_isGoFile(file) {
-		let name = file.name;
-		let indexExtension = name.lastIndexOf('.');
+	_isDir(fileType) {
+		if (!fileType) {
+			return false;
+		}
 
-		let ext = name.substr(indexExtension);
+		if (fileType === 'dir') {
+			return true;
+		}
+	}
+
+	_isGoFile(fileName) {
+		let indexExtension = fileName.lastIndexOf('.');
+
+		let ext = fileName.substr(indexExtension);
 
 		let isGoFile = ext === '.go';
 		return isGoFile;

@@ -4,6 +4,7 @@
 <link rel="import" href="bower_components/paper-item/paper-item-body.html">
 <link rel="import" href="bower_components/paper-item/paper-item.html">
 <link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="bower_components/iron-icons/iron-icons.html">
 
 <link rel="import" href="elements/monaco-go-common-styles.html">
 
@@ -12,7 +13,6 @@
 		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
 			:host {
 				@apply --layout-vertical;
-				@apply --layout-flex;
 				border: 1px solid;
 				border-color: var(--divider-color);
 			}
@@ -22,15 +22,18 @@
 				@apply --layout-flex;
 				margin: 8px;
 				border: 1px solid;
-				border-color: var(--divider-color);
+				border-color: var(--primary-color);
 			}
-			iron-list {
+			/*iron-list {
 				@apply --layout-flex;
+			}*/
+			paper-listbox {
+				@apply --layout-flex;
+				overflow: auto
 			}
 
 			paper-item {
 				--paper-item-selected: {
-					border: 5px solid;
 					border-color: var(--primary-color);
 				};
 				--paper-item-focused: {
@@ -58,6 +61,16 @@
 				color: var(--dark-theme-text-color);
 				background-color: var(--paper-brown-500);
 			}
+
+			iron-icon[hidden] {
+				display: none;
+			}
+
+			iron-icon {
+				--iron-icon: {
+					padding-left: 8px;
+				};
+			}
 		</style>
 
 		<app-header condenses reveals>
@@ -65,31 +78,28 @@
 		</app-header>
 
 		<div class="list container">
-			<template is="dom-if" if="[[!_hideList(selectionProject)]]" restamp>
-				<iron-list
-					id="repoFileListEl"
-					hidden$="[[_hideList(selectionProject)]]"
+			<paper-listbox
+				attr-for-selected="value"
+				selected="{{selectedFile}}">
+				<dom-repeat
 					items="{{selectionProject.files}}"
-					as="file"
-					multi-selection="false"
-					selected-item="{{selectedFile}}"
-					attr-for-selected="value"
-					selection-enabled>
+					as="file">
 					<template>
-						<paper-item
+						<paper-icon-item
 							value="{{file}}"
-							active="{{selected}}"
-							toggles
 							disabled="{{!_canSelect(file)}}"
 							class$="list item {{file.type}}">
 							<paper-item-body two-line>
-								<div class="file name">{{file.name}} - {{file.type}}</div>
+								<div class="file name">{{file.name}}</div>
 								<div secondary class="file url">{{file.url}}</div>
 							</paper-item-body>
-						</paper-item>
+
+							<iron-icon src="elements/golang.ico" item-icon hidden$="[[!_isGoFile(file.name)]]"></iron-icon>
+							<iron-icon icon="icons:folder" item-icon hidden$="[[!_isDir(file.type)]]"></iron-icon>
+						</paper-icon-item>
 					</template>
-				</iron-list>
-			</template>
+				</dom-repeat>
+			</paper-listbox>
 		</div>
 	</template>
 <script src="elements/monaco-go-repo-files.js"></script>
