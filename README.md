@@ -54,6 +54,10 @@ WebSocket at go-langserver.cloudapp.net:
 
 ![./images/textDocument/references.png](./images/textDocument/references.png)
 
+## `textDocument/publishDiagnostics`
+
+![./images/textDocument/publishDiagnostics.png](./images/textDocument/publishDiagnostics.png)
+
 ## misc
 
 ![./images/monaco-go-repos.png](./images/monaco-go-repos.png)
