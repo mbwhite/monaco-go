@@ -2,8 +2,8 @@
 
 IMAGE_NAME_PREFIX="mohamedbana"
 IMAGE_TAG="latest"
-IMAGE_NAMES="base-langserver base-go-langserver go-langserver monaco-go"
-
+GIT_REV=$(git rev-parse --short HEAD)
+IMAGE_NAMES="base-langserver base-go-langserver go-langserver"
 
 echo "---------"
 echo "> pushing:" $IMAGE_NAMES "@" $IMAGE_NAME_PREFIX ":" $IMAGE_TAG
@@ -15,6 +15,12 @@ for IMAGE_NAME in $IMAGE_NAMES
   docker push $IMAGE_REPO
   echo "<   image:" $IMAGE_REPO
 done
+
+IMAGE_MONACO_GO_NAME="monaco-go"
+IMAGE_MONACO_GO="${IMAGE_NAME_PREFIX}/${IMAGE_MONACO_GO_NAME}:${GIT_REV}"
+echo ">   image:" $IMAGE_MONACO_GO
+docker push $IMAGE_MONACO_GO
+echo "<   image:" $IMAGE_MONACO_GO
 
 echo "---------"
 echo "< pushing:"
