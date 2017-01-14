@@ -23,6 +23,8 @@
 <link rel="import" href="elements/monaco-go-repo-files.html">
 <link rel="import" href="elements/monaco-go-repos.html">
 <link rel="import" href="elements/monaco-go-nav.html">
+<link rel="import" href="elements/monaco-go-operation.html">
+<link rel="import" href="elements/monaco-go-search.html">
 
 <dom-module id="monaco-go-drawer-layout">
 	<template>
@@ -46,7 +48,7 @@
 				@apply --layout-flex;
 			}
 			monaco-go-repo-files {
-				@apply --layout-flex-4;
+				@apply --layout-flex-2;
 			}
 
 			.editor-container {
@@ -62,21 +64,9 @@
 				border-color: var(--divider-color);
 			}
 
-			.in-progress.container {
+			/*.powered-by.toolbar {
 				@apply --layout-vertical;
-				margin: 4px;
-				border: 1px solid;
-				border-color: var(--divider-color);
-			}
-			.in-progress.container > .progress.msg {
-				@apply --paper-font-caption;
-				@apply --paper-font-common-code;
-				padding-bottom: 8px;
-			}
-			paper-progress {
-				border: 1px solid;
-				border-color: var(--divider-color);
-			}
+			}*/
     	</style>
 		<app-drawer-layout fullbleed>
 
@@ -84,26 +74,16 @@
 				<app-header>
 					<app-toolbar>
 						<paper-icon-button icon="menu" on-tap="_onToggleDrawer"></paper-icon-button>
-						<div main-title>
-							<code>monaco-go</code>
-						</div>
-                        <paper-icon-button icon="search" on-tap="_onSearch"></paper-icon-button>
+						<div main-title class="code">monaco-go</div>
 						<paper-icon-button icon="icons:chevron-left" on-tap="_onToggleDrawerEnd"></paper-icon-button>
 					</app-toolbar>
 				</app-header>
 
 				<div class="editor-container">
+					<!--<monaco-go-search></monaco-go-search>-->
 					<slot id="monaco-editor-container" name="editor-slot"></slot>
 					<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}" standalone-code-editor="{{standaloneCodeEditor}}"></monaco-go-nav>
-					<div class="in-progress container">
-						<div class="progress msg">
-							<b>id:</b> {{operation.id}}
-						</div>
-						<div class="progress msg">
-							<b>params:</b> {{operation.params}}
-						</div>
-						<paper-progress indeterminate class="repo-loader" disabled="{{!operation.inProgress}}"></paper-progress>
-					</div>
+					<monaco-go-operation operation-ui-hooks="{{operationUiHooks}}"></monaco-go-operation>
 				</div>
 			</app-header-layout>
 

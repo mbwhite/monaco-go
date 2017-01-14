@@ -67,7 +67,6 @@ class MonacoGoProjectRepo {
 
 			return files;
 		}).catch((excep) => {
-			// console.error(excep);
 			throw new Error(excep);
 			return excep;
 		});

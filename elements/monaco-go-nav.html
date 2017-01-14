@@ -54,8 +54,15 @@
 			</div>
 		</div>
 		<div class="nav section">
-			<paper-icon-button icon="icons:arrow-back" on-tap="_onBack"></paper-icon-button>
-			<paper-icon-button icon="icons:arrow-forward" on-tap="_onForward"></paper-icon-button>
+			<paper-icon-button
+				disabled="{{!isBackEnabled}}"
+				icon="icons:arrow-back"
+				on-tap="_onBack"
+				></paper-icon-button>
+			<paper-icon-button
+				disabled="{{!isForwardEnabled}}"
+				icon="icons:arrow-forward"
+				on-tap="_onForward"></paper-icon-button>
 		</div>
 
 	</template>

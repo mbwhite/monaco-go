@@ -30,33 +30,8 @@
 				overflow: auto
 			}
 
-			paper-item {
-				--paper-item-selected: {
-					border-color: var(--primary-color);
-				};
-				--paper-item-focused: {
-					background: var(--paper-amber-500);
-					font-weight: bold;
-				};
-				--paper-item-focused-before: {
-					opacity: 0;
-				};
-			}
-
-			.list.item {
-				@apply --paper-font-caption;
-			}
 			.repo.name {
-				@apply --paper-font-caption;
         		@apply --paper-font-common-code;
-			}
-			.repo.url {
-				@apply --paper-font-caption;
-			}
-
-			paper-progress {
-				border: 1px solid;
-				border-color: var(--divider-color);
 			}
 		</style>
 
@@ -71,7 +46,8 @@
 				<dom-repeat items="{{reposList}}" as="repo">
 					<template>
 						<paper-item
-							value="{{repo}}">
+							value="{{repo}}"
+							class="list item">
 							<paper-item-body two-line>
 								<div class="repo name">{{repo.name}}</div>
 								<div secondary class="repo url">{{repo.url}}</div>
@@ -82,7 +58,10 @@
 			</paper-listbox>
 		</div>
 
-		<paper-progress indeterminate class="repo-loader" disabled="{{!isWaiting}}"></paper-progress>
+		<paper-progress
+			invisible$="{{!isWaiting}}"
+			disabled="{{!isWaiting}}"
+			indeterminate></paper-progress>
 	</template>
 	<script src="elements/monaco-go-repos.js"></script>
 </dom-module>

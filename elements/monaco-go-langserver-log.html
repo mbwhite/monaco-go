@@ -31,7 +31,7 @@
 				border: 1px solid;
 				border-color: var(--primary-color);
 			}
-			.list.item.selected.section {
+			.selected.section {
 				margin: 8px;
 				border: 1px solid;
 				border-color: var(--primary-color);
@@ -43,27 +43,8 @@
 				overflow: auto;
 			}
 
-			paper-item {
-				--paper-item-selected: {
-					border-color: var(--primary-color);
-				};
-				--paper-item-focused: {
-					background: var(--paper-amber-500);
-					font-weight: bold;
-				};
-				--paper-item-focused-before: {
-					opacity: 0;
-				};
-			}
-
-			.list.item {
-				@apply --paper-font-caption;
-			}
 			.log.date {
 				@apply --paper-font-caption;
-			}
-			.log.msg {
-				@apply --paper-font-common-code;
 			}
 		</style>
 			<app-header fixed condenses effects="waterfall">
@@ -87,17 +68,19 @@
 					selected="{{selectionLog}}">
 					<dom-repeat items="{{langserverLogCollection}}" as="log">
 						<template>
-							<paper-item value="{{log}}">
+							<paper-item
+								class="list item"
+								value="{{log}}">
 								<paper-item-body two-line>
 									<div class="log date">{{_formatDate(log.date)}}</div>
-									<div secondary class="log msg">{{log.msg}}</div>
+									<div secondary class="log msg code">{{log.msg}}</div>
 								</paper-item-body>
 							</paper-item>
 						</template>
 					</dom-repeat>
 				</paper-listbox>
 			</div>
-			<div class="list item selected section">
+			<div class="selected section">
 				<paper-item>
 					<paper-item-body two-line>
 						<div class="log date">{{selectionLog.date}}</div>
@@ -106,5 +89,5 @@
 				</paper-item>
 			</div>
 	</template>
-<script src="elements/monaco-go-langserver-log.js"></script>
+	<script src="elements/monaco-go-langserver-log.js"></script>
 </dom-module>

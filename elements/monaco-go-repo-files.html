@@ -24,52 +24,24 @@
 				border: 1px solid;
 				border-color: var(--primary-color);
 			}
-			/*iron-list {
-				@apply --layout-flex;
-			}*/
 			paper-listbox {
 				@apply --layout-flex;
 				overflow: auto
 			}
 
-			paper-item {
-				--paper-item-selected: {
-					border-color: var(--primary-color);
-				};
-				--paper-item-focused: {
-					background: var(--paper-amber-500);
-					font-weight: bold;
-				};
-				--paper-item-focused-before: {
-					opacity: 0;
-				};
-			}
-
-			.list.item {
-				@apply --paper-font-caption;
-			}
-			.file.name {
-				@apply --paper-font-common-code;
-			}
-			.file.url {
-				@apply --paper-font-caption;
-			}
-
-			.list.item.file {
-			}
 			.list.item.dir {
 				color: var(--dark-theme-text-color);
 				background-color: var(--paper-brown-500);
-			}
-
-			iron-icon[hidden] {
-				display: none;
 			}
 
 			iron-icon {
 				--iron-icon: {
 					padding-left: 8px;
 				};
+			}
+			/* if file type not dir or file type go, then hide icon */
+			iron-icon[hidden] {
+				display: none;
 			}
 		</style>
 
@@ -90,7 +62,7 @@
 							disabled="{{!_canSelect(file)}}"
 							class$="list item {{file.type}}">
 							<paper-item-body two-line>
-								<div class="file name">{{file.name}}</div>
+								<div class="file name code">{{file.name}}</div>
 								<div secondary class="file url">{{file.url}}</div>
 							</paper-item-body>
 

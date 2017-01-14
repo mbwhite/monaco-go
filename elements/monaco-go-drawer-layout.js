@@ -1,11 +1,3 @@
-class MonacoGoOperationInProgress {
-	constructor(id = '', params = '', inProgress = false) {
-		this.id = id;
-		this.params = params;
-		this.inProgress = inProgress;
-	}
-}
-
 class MonacoGoDrawerLayoutElement extends Polymer.Element {
 	static get is() {
 		return 'monaco-go-drawer-layout';
@@ -44,20 +36,27 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 				},
 
 				// indicate if an operation is in progress, say, an editor one
-				operation: {
-					type: MonacoGoOperationInProgress,
+				operationUiHooks: {
+					type: MonacoGoOperationUiHooks,
 					notify: true,
-					value: () => {
-						return new MonacoGoOperationInProgress();
-					},
 				},
-			}
+			},
+			observers: [
+				'_operationUiHooks(operationUiHooks)'
+			]
 		};
 	}
 
 	ready() {
 		super.ready();
-		this._initMonaco();
+	}
+
+	_operationUiHooks(operationUiHooks) {
+		if (!operationUiHooks) {
+			return;
+		}
+
+		this._initMonaco(operationUiHooks);
 	}
 
 	static _initialFileDetails() {
@@ -111,10 +110,8 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 		return container;
 	}
 
-	_initMonaco() {
+	_initMonaco(uiHooks) {
 		let self = this;
-
-		let uiHooks = this._createUIHooks();
 
 		let fileDetails = MonacoGoDrawerLayoutElement._initialFileDetails();
 		let containerEl = this._findContainerEl();
@@ -144,63 +141,6 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 			});
 		});
 	}
-	_createUIHooks()  {
-		return {
-			onRequestStart: (details) => {
-				this.operation.id = '';
-				this.operation.details = '';
-
-				if (details && details.msg) {
-					let msg = details.msg;
-
-					if (Number.isInteger(msg.id)) {
-						this.operation.id = msg.id;
-					}
-
-					if (msg.result) {
-						this.operation.params = JSON.stringify(msg.result);
-					} else if (msg.method) {
-						this.operation.params = JSON.stringify(msg.method);
-					} else {
-						this.operation.params = JSON.stringify(msg);
-					}
-				}
-
-				if (details && details.msg && Number.isInteger(details.msg.id)) {
-					this.operation.inProgress = true;
-				}
-
-				this.notifyPath('operation');
-			},
-			onRequestEnd: (details) => {
-				this.operation.id = '';
-				this.operation.details = '';
-
-				if (details && details.msg) {
-					let msg = details.msg;
-
-					if (Number.isInteger(msg.id)) {
-						this.operation.id = msg.id;
-					}
-
-					if (msg.result) {
-						this.operation.params = JSON.stringify(msg.result);
-					} else if (msg.method) {
-						this.operation.params = JSON.stringify(msg.method);
-					} else {
-						this.operation.params = JSON.stringify(msg);
-					}
-				}
-
-				if (details && details.msg && Number.isInteger(details.msg.id)) {
-					this.operation.inProgress = false;
-				}
-
-				this.notifyPath('operation');
-			},
-			extra: {},
-		};
-	}
 
 	_findListElement(drawer) {
 		let list;
@@ -222,18 +162,6 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 		if (drawer) {
 			drawer.toggle();
 		}
-
-		// if (!drawer.opened) {
-		// 	return;
-		// }
-
-		// let list = this._findListElement(drawer);
-		// if (!list) {
-		// 	console.info('_onToggleDrawer - could not find an iron-list in: ', drawer);
-		// 	return;
-		// }
-
-		// list.fire('iron-resize');
 	}
 
 	_onToggleDrawerEnd(e) {
@@ -242,10 +170,6 @@ class MonacoGoDrawerLayoutElement extends Polymer.Element {
 			drawer.toggle();
 
 		}
-	}
-
-	_onSearch(e) {
-
 	}
 }
 

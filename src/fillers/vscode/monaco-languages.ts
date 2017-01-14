@@ -179,7 +179,6 @@ export class MonacoLanguages {
 		let languageId = this._getLanguageId(selector);
 		return monaco.languages.registerHoverProvider(languageId, {
 			provideHover: (model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<Hover> => {
-				console.log('this: ', this);
 				// let textDocument = new TextDocument(model);
 				let vscodePosition = MonacoLanguages.toVSCodePosition(position);
 
@@ -343,8 +342,7 @@ export class MonacoLanguages {
 		let fullFileUri = filePath.includes(prefix) ? filePath.replace(prefix, '') : filePath;
 
 		let fileSelectedEl = document.getElementById('file-selected-name');
-		console.log('fileSelectedEl: ', fileSelectedEl);
-
+		
 		// let elFileUri = document.getElementById('file_uri');
 		// elFileUri.innerHTML = fullFileUri;
 	}
