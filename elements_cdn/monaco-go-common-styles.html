@@ -1,0 +1,75 @@
+
+
+<dom-module id="monaco-go-common-styles">
+	<template>
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning">
+			app-header {
+				background-color: var(--primary-color);
+			}
+
+			app-toolbar {
+				background-color: var(--primary-color);
+				color: var(--dark-theme-text-color);
+			}
+
+			.main.title {
+				@apply --paper-font-title;
+			}
+
+			.component.title {
+				@apply --paper-font-title;
+			}
+			.section.title {
+				@apply --paper-font-subhead;
+			}
+
+			.code,
+			code {
+				@apply --paper-font-common-code;
+			}
+
+			paper-item {
+				--paper-item-selected: {
+					border-color: var(--primary-color);
+				};
+				--paper-item-focused: {
+					background: var(--paper-amber-500);
+					font-weight: bold;
+				};
+				--paper-item-focused-before: {
+					opacity: 0;
+				};
+
+			}
+
+			paper-item.list.item,
+			paper-icon-item.list.item,
+			paper-item.list.item > paper-item-body,
+			paper-icon-item.list.item > paper-item-body,
+			paper-item.list.item > paper-item-body > div[secondary],
+			paper-icon-item.list.item > paper-item-body > div[secondary] {
+				@apply --paper-font-caption;
+			}
+
+			paper-progress {
+				width: 100%;
+				border: 1px solid;
+				border-color: var(--divider-color);
+				--paper-progress-height: 2px;
+				--paper-progress-container-color: transparent;
+				/*--paper-progress-container: {
+					min-height: 2px;
+				};*/
+			}
+			paper-progress[invisible] {
+				visibility: hidden;
+			}
+
+			.actions {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-center-justified;
+			}
+		</style>
+	</template>
+</custom-style>

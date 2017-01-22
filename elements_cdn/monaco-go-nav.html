@@ -1,0 +1,63 @@
+<dom-module id="monaco-go-nav">
+	<template>
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
+			:host {
+				@apply --layout-horizontal;
+				margin: 4px;
+				border: 1px solid;
+				border-color: var(--divider-color);
+			}
+
+			.file-details.section {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-flex;
+			}
+			.nav.section {
+				@apply --layout-horizontal;
+				@apply --layout-center;
+				@apply --layout-center-justified;
+			}
+
+			.file-details {
+				@apply --layout-vertical;
+			}
+			.file-detail {
+				@apply --layout-flex;
+			}
+			.file-details.label {
+				@apply --paper-font-subhead;
+			}
+			.file-details.value {
+				@apply --paper-font-subhead;
+			}
+			.file-details.value.name {
+				@apply --paper-font-code1;
+				font-size: 10px;
+			}
+			.file-details.value.url {
+				@apply --paper-font-caption;
+				font-size: 10px;
+			}
+		</style>
+
+		<div class="file-details section">
+			<div class="file-detail">
+				<span class="file-details value name" id="file-selected-name">{{editorModel.name}}</span>
+			</div>
+		</div>
+		<div class="nav section">
+			<paper-icon-button
+				disabled="{{!isBackEnabled}}"
+				icon="icons:arrow-back"
+				on-tap="_onBack"
+				></paper-icon-button>
+			<paper-icon-button
+				disabled="{{!isForwardEnabled}}"
+				icon="icons:arrow-forward"
+				on-tap="_onForward"></paper-icon-button>
+		</div>
+
+	</template>
+	<script src="/monaco-go/elements/monaco-go-nav.js"></script>
+</dom-module>

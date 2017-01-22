@@ -2,7 +2,7 @@
 
 Go lang mode for [monaco-editor](https://github.com/Microsoft/monaco-editor). The implementation is mostly derived from
 [monaco-css](https://github.com/Microsoft/monaco-css) but uses WebSocket as the transport to talk to the
-[go-langserver](https://github.com/sourcegraph/go-langserver). The below are partly if not partly supported, see [Language Server Protocol](https://github.com/Microsoft/language-server-protocol/blob/master/protocol.md#messages-overview):
+[go-langserver](https://github.com/sourcegraph/go-langserver). The below are fully, if not partly, supported, see [Language Server Protocol](https://github.com/Microsoft/language-server-protocol/blob/master/protocol.md#messages-overview):
 
 * `capabilities.textDocumentSync`
 * `textDocument/didChange`

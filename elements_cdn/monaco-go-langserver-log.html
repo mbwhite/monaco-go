@@ -1,0 +1,84 @@
+<dom-module id="monaco-go-langserver-log">
+	<template>
+		<style is="custom-style" include="iron-flex iron-flex-alignment iron-positioning iron-flex-reverse monaco-go-common-styles">
+			:host {
+				@apply --layout-vertical;
+				@apply --layout-flex;
+				border: 1px solid;
+				border-color: var(--divider-color);
+				@apply --paper-font-common-base;
+			}
+
+			.connection {
+				@apply --layout-vertical;
+				@apply --paper-font-body2;
+				margin: 8px;
+			}
+
+			.list.container {
+				@apply --layout-vertical;
+				@apply --layout-flex-5;
+				margin: 8px;
+				border: 1px solid;
+				border-color: var(--primary-color);
+			}
+			.selected.section {
+				margin: 8px;
+				border: 1px solid;
+				border-color: var(--primary-color);
+				@apply --layout-flex;
+			}
+
+			paper-listbox {
+				@apply --layout-flex;
+				overflow: auto;
+			}
+
+			.log.date {
+				@apply --paper-font-caption;
+			}
+		</style>
+			<app-header fixed condenses effects="waterfall">
+				<app-toolbar>
+				<div main-title>Langserver Log</div>
+				</app-toolbar>
+			</app-header>
+			<div class="section connection">
+				<div>
+					<span class="label">Connection State:</span>
+					<span class="value">{{langserverConn.state}}</span>
+				</div>
+				<div>
+					<span class="label">Events:</span>
+					<span class="value">{{langserverLogCollection.length}}</span>
+				</div>
+			</div>
+			<div class="list container">
+				<paper-listbox
+					attr-for-selected="value"
+					selected="{{selectionLog}}">
+					<dom-repeat items="{{langserverLogCollection}}" as="log">
+						<template>
+							<paper-item
+								class="list item"
+								value="{{log}}">
+								<paper-item-body two-line>
+									<div class="log date">{{_formatDate(log.date)}}</div>
+									<div secondary class="log msg code">{{log.msg}}</div>
+								</paper-item-body>
+							</paper-item>
+						</template>
+					</dom-repeat>
+				</paper-listbox>
+			</div>
+			<div class="selected section">
+				<paper-item>
+					<paper-item-body two-line>
+						<div class="log date">{{selectionLog.date}}</div>
+						<div secondary class="log msg">{{selectionLog.msg}}</div>
+					</paper-item-body>
+				</paper-item>
+			</div>
+	</template>
+	<script src="/monaco-go/elements/monaco-go-langserver-log.js"></script>
+</dom-module>
