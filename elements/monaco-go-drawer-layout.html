@@ -1,30 +1,12 @@
-<base href="../">
-
-<!-- app-drawer stuff -->
-<link rel="import" href="bower_components/font-roboto/roboto.html">
-<link rel="import" href="bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
-
-<link rel="import" href="bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
-<link rel="import" href="bower_components/app-layout/app-drawer/app-drawer.html">
-<link rel="import" href="bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
-<link rel="import" href="bower_components/app-layout/app-header/app-header.html">
-<link rel="import" href="bower_components/app-layout/app-header-layout/app-header-layout.html">
-<link rel="import" href="bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="bower_components/app-layout/demo/sample-content.html">
-<link rel="import" href="bower_components/iron-list/iron-list.html">
-<link rel="import" href="bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
-
 <!--monaco-go polymer element-->
-<link rel="import" href="elements/monaco-go-models/monaco-go-models.html">
-<link rel="import" href="elements/monaco-go-common-styles.html">
-<link rel="import" href="elements/monaco-go-langserver-log.html">
-<link rel="import" href="elements/monaco-go-repo-files.html">
-<link rel="import" href="elements/monaco-go-repos.html">
-<link rel="import" href="elements/monaco-go-nav.html">
-<link rel="import" href="elements/monaco-go-operation.html">
-<link rel="import" href="elements/monaco-go-search.html">
+<link rel="import" href="monaco-go-models/monaco-go-models.html">
+<link rel="import" href="monaco-go-common-styles.html">
+<link rel="import" href="monaco-go-langserver-log.html">
+<link rel="import" href="monaco-go-repo-files.html">
+<link rel="import" href="monaco-go-repos.html">
+<link rel="import" href="monaco-go-nav.html">
+<link rel="import" href="monaco-go-operation.html">
+<link rel="import" href="monaco-go-search.html">
 
 <dom-module id="monaco-go-drawer-layout">
 	<template>
@@ -108,13 +90,13 @@
 	<script>
 		GlobalMonacoOutputChannelStore = [];
 	</script>
-	<script src="elements/monaco-editor-require-config.js"></script>
+	<script src="monaco-editor-require-config.js"></script>
 
 	<script src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/loader.js"></script>
 	<script src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/loader.js"></script>
 	<script src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
 	<script src="https://microsoft.github.io/monaco-editor/node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
 
-	<script src="elements/monaco-editor-fillers.js"></script>
-	<script src="elements/monaco-go-drawer-layout.js"></script>
+	<script src="monaco-editor-fillers.js"></script>
+	<script src="monaco-go-drawer-layout.js"></script>
 </dom-module>
