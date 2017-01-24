@@ -12,6 +12,9 @@ echo "           port: " $HTTP_SERVER_PORT
 ( \
 	cd .. ; \
 	pwd ; \
-	$HTTP_SERVER_BIN -p $HTTP_SERVER_PORT -c-1 --utc; \
+	$HTTP_SERVER_BIN \
+    -p $HTTP_SERVER_PORT \
+	-c 3600 \
+    --utc; \
 )
 echo "---------------"
