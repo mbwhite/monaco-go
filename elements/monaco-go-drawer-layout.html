@@ -50,41 +50,19 @@
 				@apply --layout-vertical;
 			}*/
     	</style>
-		<app-drawer-layout fullbleed>
 
-			<app-header-layout fullbleed>
-				<app-header>
-					<app-toolbar>
-						<paper-icon-button icon="menu" on-tap="_onToggleDrawer"></paper-icon-button>
-						<div main-title class="code">monaco-go</div>
-						<paper-icon-button icon="icons:chevron-left" on-tap="_onToggleDrawerEnd"></paper-icon-button>
-					</app-toolbar>
-				</app-header>
 
-				<div class="editor-container">
-					<!--<monaco-go-search></monaco-go-search>-->
-					<slot id="monaco-editor-container" name="editor-slot"></slot>
-					<monaco-go-nav selection-project="{{selectionProject}}" selection-file="{{selectionFile}}" standalone-code-editor="{{standaloneCodeEditor}}"></monaco-go-nav>
-					<monaco-go-operation operation-ui-hooks="{{operationUiHooks}}"></monaco-go-operation>
-				</div>
-			</app-header-layout>
+<app-header-layout has-scrolling-region style="width: 300px; height: 400px;">
+  <app-header slot="header" fixed condenses effects="waterfall">
+    <app-toolbar>
+      <div main-title>App name</div>
+    </app-toolbar>
+  </app-header>
+  <div>
+    main content
+  </div>
+</app-header-layout>
 
-			<!--for the langserver logs-->
-			<app-drawer id="drawer" swipe-open>
-				<div class="drawer-content">
-					<monaco-go-langserver-log></monaco-go-langserver-log>
-				</div>
-			</app-drawer>
-
-			<!--for selecting repos-->
-			<app-drawer id="drawerEnd" align="end" swipe-open>
-				<div class="drawer-content">
-					<monaco-go-repos selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repos>
-					<monaco-go-repo-files selection-project="{{selectionProject}}" selection-file="{{selectionFile}}"></monaco-go-repo-files>
-				</div>
-			</app-drawer>
-
-		</app-drawer-layout>
 	</template>
 
 	<script>
