@@ -245,6 +245,74 @@ export class MonacoLanguages {
 		});
 	}
 
+	// new providers that need noop methods
+	// "{"textDocumentSync":1,"hoverProvider":true,"signatureHelpProvider":{"triggerCharacters":["(",","]},"definitionProvider":true,"referencesProvider":true,"documentSymbolProvider":true,"workspaceSymbolProvider":true,"documentFormattingProvider":true,"xworkspaceReferencesProvider":true,"xdefinitionProvider":true,"xworkspaceSymbolByProperties":true}"
+
+	// call from vscode-node .
+
+	// private createSignatureHelpProvider(options: SignatureHelpRegistrationOptions): Disposable {
+	// 	let triggerCharacters = options.triggerCharacters || [];
+	// 	return Languages.registerSignatureHelpProvider(options.documentSelector!, {
+	// 		provideSignatureHelp: (document: TextDocument, position: VPosition, token: CancellationToken): Thenable<VSignatureHelp> => {
+	// 			return this.sendRequest(SignatureHelpRequest.type, this._c2p.asTextDocumentPositionParams(document, position), token).then(
+	// 				this._p2c.asSignatureHelp,
+	// 				(error) => {
+	// 					this.logFailedRequest(SignatureHelpRequest.type, error);
+	// 					return Promise.resolve(null);
+	// 				}
+	// 			);
+	// 		}
+	// 	}, ...triggerCharacters);
+	// }
+
+	// api call into vscode from vscode-node-
+
+	// /**
+	//  * Register a signature help provider.
+	//  *
+	//  * Multiple providers can be registered for a language. In that case providers are sorted
+	//  * by their [score](#languages.match) and called sequentially until a provider returns a
+	//  * valid result.
+	//  *
+	//  * @param selector A selector that defines the documents this provider is applicable to.
+	//  * @param provider A signature help provider.
+	//  * @param triggerCharacters Trigger signature help when the user types one of the characters, like `,` or `(`.
+	//  * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	//  */
+	// export function registerSignatureHelpProvider(selector: DocumentSelector, provider: SignatureHelpProvider, ...triggerCharacters: string[]): Disposable;
+
+	// return a noop Disposable for now
+	// should probably change this to accept DocumentSelector as the first arg
+	// cant find the matching type in monaco-editor ...
+	registerSignatureHelpProvider(languageId: string, provider: monaco.languages.SignatureHelpProvider): Disposable {
+		return {
+			dispose: () => {
+				// noop
+			}
+		};
+	}
+
+	// /**
+	//  * Register a formatting provider for a document.
+	//  *
+	//  * Multiple providers can be registered for a language. In that case providers are sorted
+	//  * by their [score](#languages.match) and the best-matching provider is used. Failure
+	//  * of the selected provider will cause a failure of the whole operation.
+	//  *
+	//  * @param selector A selector that defines the documents this provider is applicable to.
+	//  * @param provider A document formatting edit provider.
+	//  * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	//  */
+	// export function registerDocumentFormattingEditProvider(selector: DocumentSelector, provider: DocumentFormattingEditProvider): Disposable;
+
+	registerDocumentFormattingEditProvider(languageId: string, provider: monaco.languages.DocumentFormattingEditProvider): Disposable {
+		return {
+			dispose: () => {
+				// noop
+			}
+		};
+	}
+
 	registerDocumentSymbolProvider(selector: DocumentSelector, provider: DocumentSymbolProvider): Disposable {
 		let languageId = this._getLanguageId(selector);
 		return monaco.languages.registerDocumentSymbolProvider(languageId, provider);
@@ -253,6 +321,7 @@ export class MonacoLanguages {
 	registerWorkspaceSymbolProvider(provider: any): Disposable {
 		return {
 			dispose() {
+				// noop
 			}
 		};
 	}
@@ -342,7 +411,7 @@ export class MonacoLanguages {
 		let fullFileUri = filePath.includes(prefix) ? filePath.replace(prefix, '') : filePath;
 
 		let fileSelectedEl = document.getElementById('file-selected-name');
-		
+
 		// let elFileUri = document.getElementById('file_uri');
 		// elFileUri.innerHTML = fullFileUri;
 	}
