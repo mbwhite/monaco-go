@@ -1,26 +1,34 @@
 #!/bin/bash
 
 IMAGE_NAME_PREFIX="mohamedbana"
-IMAGE_TAG="latest"
-GIT_REV=$(git rev-parse --short HEAD)
-IMAGE_NAMES="base-langserver base-go-langserver go-langserver"
+
+# the tags to use when publishing the image
+IMAGE_TAG_LATEST="latest"
+IMAGE_TAG_GIT_REV=$(git rev-parse --short HEAD)
+
+# list of images to publish
+IMAGE_NAMES_TAGS_NONE="base-langserver base-go-langserver"
+IMAGE_NAMES_TAGS_CONTAINS="go-langserver monaco-go"
 
 echo "---------"
-echo "> pushing:" $IMAGE_NAMES "@" $IMAGE_NAME_PREFIX ":" $IMAGE_TAG
+echo "> pushing:" $IMAGE_NAMES_TAGS_NONE "@" $IMAGE_NAME_PREFIX ":" $IMAGE_TAG_LATEST
+echo "> pushing:" $IMAGE_NAMES_TAGS_CONTAINS "@" $IMAGE_NAME_PREFIX ":" $IMAGE_TAG_GIT_REV
 
-for IMAGE_NAME in $IMAGE_NAMES
+for IMAGE_TAG_NONE_NAME in $IMAGE_NAMES_TAGS_NONE
   do
-  IMAGE_REPO="${IMAGE_NAME_PREFIX}/${IMAGE_NAME}:${IMAGE_TAG}"
-  echo ">   image:" $IMAGE_REPO
-  docker push $IMAGE_REPO
-  echo "<   image:" $IMAGE_REPO
+  IMAGE_TAG_NONE_REPO="${IMAGE_NAME_PREFIX}/${IMAGE_TAG_NONE_NAME}:${IMAGE_TAG_LATEST}"
+  echo ">   image:" $IMAGE_TAG_NONE_REPO
+  docker push $IMAGE_TAG_NONE_REPO
+  echo "<   image:" $IMAGE_TAG_NONE_REPO
 done
 
-IMAGE_MONACO_GO_NAME="monaco-go"
-IMAGE_MONACO_GO="${IMAGE_NAME_PREFIX}/${IMAGE_MONACO_GO_NAME}:${GIT_REV}"
-echo ">   image:" $IMAGE_MONACO_GO
-docker push $IMAGE_MONACO_GO
-echo "<   image:" $IMAGE_MONACO_GO
+for IMAGE_TAG_CONTAINS_NAME in $IMAGE_NAMES_TAGS_CONTAINS
+  do
+  IMAGE_TAG_CONTAINS_REPO="${IMAGE_NAME_PREFIX}/${IMAGE_TAG_CONTAINS_NAME}:${IMAGE_TAG_GIT_REV}"
+  echo ">   image:" $IMAGE_TAG_CONTAINS_REPO
+  docker push $IMAGE_TAG_CONTAINS_REPO
+  echo "<   image:" $IMAGE_TAG_CONTAINS_REPO
+done
 
 echo "---------"
 echo "< pushing:"

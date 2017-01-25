@@ -24,7 +24,7 @@ echo "   docker debug: " $LANGSERVER_DOCKER_DEBUG
 $LANGSERVER_DOCKER_DEBUG
 echo "---------------"
 
-langserver-antha -mode ws -trace -addr $LANGSERVER_ADDR &
+langserver-go -mode ws -trace -addr $LANGSERVER_ADDR &
 
 echo "---------------"
 HTTP_SERVER_PORT="8080"

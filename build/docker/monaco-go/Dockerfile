@@ -1,4 +1,4 @@
-FROM mohamedbana/go-langserver:latest
+FROM mohamedbana/go-langserver:33d1174
 
 ENV NVM_DIR $HOME/.nvm
 ENV NODE_VERSION v7.0.0
