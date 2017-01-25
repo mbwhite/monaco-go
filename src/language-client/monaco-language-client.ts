@@ -22,7 +22,7 @@ export class MonacoLanguageClient extends LanguageClient {
 	}
 
 	static create(uiHooks: UIHooks): LanguageClient {
-		let id = 'langserver-antha';
+		let id = 'langserver-go';
 		let serverOptions: () => Thenable<StreamInfo> = () => {
 			return WebSocketStream.create(uiHooks);
 		};

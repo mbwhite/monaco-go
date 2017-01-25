@@ -20,27 +20,52 @@ import {
 import * as vscodeToMonaco from './vscode-to-monaco-utils';
 
 export class MonacoWorkspaceConfig {
-	private _id: string = 'langserver-antha';
+	private static TRACE_DEFAULT = 'messages';
+
+	private _id: string;
+	private _storageKeys: string[];
 	private _sections: {};
 
-	constructor(id: string = 'langserver-antha') {
+	constructor(id: string = 'langserver-go') {
 		this._id = id;
-		this.parseSections();
+		this._storageKeys = this.makeStorageKeys(id);
+		this._sections = this.makeSections();
 	}
 
-	private parseSections() {
-		const STORAGE_KEY = 'monaco.workspace.langserver-antha';
-		const TRACE_DEFAULT = 'messages';
+	private makeStorageKeys(id: string) {
+		const STORAGE_KEY_PREFIX = 'monaco.workspace';
 
-		let trace = TRACE_DEFAULT;
+		// make storage keys - will remove in near future.
+		// just needed for backwards compat.
+		return ([
+			`.${id}`,
+			`.langserver-antha`
+		]).map((langserverId) => {
+			return `${STORAGE_KEY_PREFIX}.${langserverId}`;
+		});
+	}
 
-		let langserverStr = localStorage.getItem(STORAGE_KEY);
-		if (langserverStr) {
-			let langserverJson = JSON.parse(langserverStr);
-			trace = _.get(langserverJson, 'trace.server', TRACE_DEFAULT);
+	private makeSections() {
+		let trace = MonacoWorkspaceConfig.TRACE_DEFAULT;
+
+		// find first non-null config using the storage keys
+		let langserverConfig = this._storageKeys.map((storageKey) => {
+			let langserverConfig = localStorage.getItem(storageKey);
+			return langserverConfig;
+		}).find((langserverConfig) => {
+			if (langserverConfig) {
+				return true;
+			} else {
+				return false;
+			}
+		});
+
+		if (langserverConfig) {
+			let langserverConfigJson = JSON.parse(langserverConfig);
+			trace = _.get(langserverConfigJson, 'trace.server', MonacoWorkspaceConfig.TRACE_DEFAULT);
 		}
 
-		this._sections = {
+		return {
 			'trace.server': trace
 		};
 	}
