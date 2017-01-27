@@ -8,7 +8,7 @@
     "prepublish": "./node_modules/.bin/gulp release",
     "lint": "./node_modules/.bin/tslint --config ./ --project ./",
     "serve": "./node_modules/.bin/http-server -c-1 --utc",
-    "test": "npm run compile; npm run serve & sleep 2; open http://127.0.0.1:8080/index_mocha.html"
+    "test": "npm run compile; npm run serve & sleep 2; open https://127.0.0.1:8080/index_mocha.html"
   },
   "author": "Microsoft Corporation",
   "license": "MIT",

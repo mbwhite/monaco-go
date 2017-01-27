@@ -39,6 +39,11 @@
 				margin: 4px;
 			}
 
+			/*https://github.com/Microsoft/monaco-editor/issues/29*/
+			.editor-container {
+				height: calc(100% - 35px);
+			}
+
 			::slotted(#container) {
 				@apply --layout-flex;
 				margin: 4px;

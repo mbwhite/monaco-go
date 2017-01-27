@@ -19,8 +19,38 @@
 		<link rel="import" href="elements/monaco-go-common-styles.html">
 		<link rel="import" href="elements/monaco-go-drawer-layout.html">
 
+		<!--do dynamic calculations as per this issue:
+		https://github.com/Microsoft/monaco-editor/issues/29-->
+
+		<!--I ran into this problem and it decided to see how VSCode handles it and found the following style
+
+		.monaco-workbench>.editor>.content .editor-container {
+		height: calc(100% - 35px);
+		}
+		So, try adding this to your container, it resolved my problem. You can obviously drop the leading selectors...
+
+		.editor-container {
+		height: calc(100% - 35px);
+		}
+
+		or
+
+		#container {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		width: 100%;
+		height: calc(100% - 35px);
+		}-->
 		<custom-style>
 			<style is="custom-style" include="iron-flex iron-positioning monaco-go-common-styles">
+				#container {
+					/*margin: 0;*/
+					padding: 0;
+					/*border: 0;*/
+					/*width: 100%;*/
+					height: calc(100% - 35px);
+				}
 			</style>
 		</custom-style>
 </head>

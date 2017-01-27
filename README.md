@@ -25,10 +25,12 @@ WebSocket at go-langserver.cloudapp.net:
 `monaco-go`:
 
 * <http://azure.bana.io/monaco-go/>
+* <http://cloud.bana.io/monaco-go/>, shortly <https://cloud.bana.io/monaco-go/>
 
 `go-langserver`:
 
 * <ws://azure.bana.io:4389>
+* <ws://cloud.bana.io:4389>, shortly <wss://cloud.bana.io:4389>
 
 ### screenshot
 
@@ -79,7 +81,7 @@ TODO: move to [./docs/TODO.md](./docs/TODO.md).
 
 ## build
 
-the script to start <http://azure.bana.io/monaco-go/> is available at:
+the script to start <https://cloud.bana.io/monaco-go/> is available at:
 
 ```sh
 ( \
