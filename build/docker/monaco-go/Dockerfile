@@ -32,18 +32,3 @@ RUN \
   ls -lah ./Users; \
   ls -lah ./repos; \
   exit 0
-
-ENV WEBSOCKET_PORT 4389
-ENV LANGSERVER_ADDR ":$WEBSOCKET_PORT"
-EXPOSE $WEBSOCKET_PORT
-
-COPY ./build/docker/docker-entrypoint.sh /
-RUN \
-  chmod +x /docker-entrypoint.sh; \
-  ls -lah /docker-entrypoint.sh
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD [ \
-  "-r", "https://github.com/mbana/go-langserver.git", \
-  "-p", "4389" \
-]
