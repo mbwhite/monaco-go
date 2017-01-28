@@ -68,16 +68,33 @@ export class WebSocketStream implements StreamInfo {
 			host.port = workspaceConfig.port;
 		}
 
-		return `${scheme}://${host.hostname}:${host.port}`;
+		return `${scheme}://${host.hostname}/ws`;
+		// return WebSocketStream.doCreateUrl(scheme, host);
 	}
 
+	// static doCreateUrl(scheme, host) {
+	// 	let isSecure = WebSocketStream.isSecure();
+	// 	// return with port, otherwise remove port
+	// 	// we're going to use a proxy in the nginx conf
+	// 	if (!isSecure) {
+	// 		return `${scheme}://${host.hostname}:${host.port}`;
+	// 	} else {
+	// 		return `${scheme}://${host.hostname}/ws`;
+	// 	}
+	// 	// return `${scheme}://${host.hostname}/ws`;
+	// }
+
 	static getDefaultScheme() {
-		// "https:"
+		let isSecure = WebSocketStream.isSecure();
+		return isSecure ? 'wss' : 'ws';
+	}
+
+	static isSecure() {
 		let protocol = location.protocol;
 		if (protocol.includes('https:')) {
-			return 'wss';
+			return true;
 		} else {
-			return 'ws';
+			return false;
 		}
 	}
 
