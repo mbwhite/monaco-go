@@ -46,7 +46,7 @@ export class WebSocketStream implements StreamInfo {
 	static createUrl() {
 		let workspaceConfig = WebSocketStream.getWorkspaceConfig();
 
-		let scheme = `ws`;
+		let scheme = WebSocketStream.getDefaultScheme();
 		if (workspaceConfig && workspaceConfig.scheme) {
 			scheme = workspaceConfig.scheme;
 		}
@@ -69,6 +69,16 @@ export class WebSocketStream implements StreamInfo {
 		}
 
 		return `${scheme}://${host.hostname}:${host.port}`;
+	}
+
+	static getDefaultScheme() {
+		// "https:"
+		let protocol = location.protocol;
+		if (protocol.includes('https:')) {
+			return 'wss';
+		} else {
+			return 'ws';
+		}
 	}
 
 	static create(uiHooks: UIHooks): Promise<StreamInfo> {
