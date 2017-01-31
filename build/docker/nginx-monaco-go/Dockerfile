@@ -1,53 +1,49 @@
-FROM mohamedbana/monaco-go:3a1dd25
-# FROM mohamedbana/monaco-go:latest
+FROM mohamedbana/monaco-go:145a117
 
-# https://github.com/dockerfile/nginx/blob/master/Dockerfile
+RUN apt-get install -qq -y  \
+  supervisor \
+  openssh-server
+RUN mkdir -p \
+  /var/run/sshd \
+  /var/log/supervisor \
+  /var/log/monaco-go
 
-# Install Nginx.
+# >>>>>>>>>>>>
+# https://docs.docker.com/engine/examples/running_ssh_service/
+# http://www.tothenew.com/blog/dockerizing-nginx-and-ssh-using-supervisord/
+RUN echo 'root:password' | chpasswd
+RUN sed -i 's/PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
+# <<<<<<<<<<<<
+
+# >>>>>>>>>>>>
+# nginx
 RUN \
-  add-apt-repository -y ppa:nginx/stable && \
-  apt-get update && \
-  apt-get install -y nginx && \
-  rm -rf /var/lib/apt/lists/* && \
-  echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
-  chown -R www-data:www-data /var/lib/nginx
+  apt-get update -qq -y && \
+  apt-get upgrade -qq -y
 
-# verify it has http/2 and version is the one i tested under
-RUN \
-  nginx -V 2>&1 | grep 'http_v2'; \
-  nginx -v | grep 'nginx/1.10.2'; \
-  exit 0
+RUN apt-get install -qq -y \
+  nginx
+# <<<<<<<<<<<<
 
-RUN \
-	mkdir -p /var/log/nginx/cloud.bana.io && \
-	mkdir -p /etc/nginx/certs/cloud.bana.io && \
-	mkdir -p /var/www/html/cloud.bana.io && \
-	cd /var/www/html/cloud.bana.io && \
-	ln -s $HOME/monaco-go monaco-go && \
-	ls -lah && \
-	ls -lah monaco-go
+# >>>>>>>>>>>>
+# Expose ports
+ENV LANGSERVER_PORT "4389"
+EXPOSE $LANGSERVER_PORT
+EXPOSE 80 443
+EXPOSE 22
+# <<<<<<<<<<<<
 
-# Define mountable directories.
-VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
-# VOLUME [\
-# 	"/etc/nginx/sites-enabled", \
-# 	"/etc/nginx/certs", \
-# 	"/etc/nginx/conf.d", \
-# 	"/var/log/nginx", \
-# 	"/var/www/html" \
-# ]
+# ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-# Define working directory.
-# WORKDIR /etc/nginx
+CMD ["/usr/bin/supervisord"]
 
-# Expose ports.
-EXPOSE 80
-EXPOSE 443
-EXPOSE 4389
-
-RUN \
-  chmod +x /docker-entrypoint-nginx.sh; \
-  ls -lah /docker-entrypoint-nginx.sh
-COPY ./build/docker/docker-entrypoint.sh /
-
-CMD ["/docker-entrypoint.sh"]
+# COPY ./build/docker/docker-entrypoint.sh /docker-entrypoint.sh
+# RUN chmod +x /docker-entrypoint.sh
+# SHELL ["/bin/bash"]
+# ENTRYPOINT ["/entry/docker-entrypoint.sh"]
