@@ -20,17 +20,42 @@ forths isn't.
 ## azure live example
 
 live running version of `monaco-go` talking to the `go-langserver` using a
-WebSocket at go-langserver.cloudapp.net:
+WebSocket at <https://cloud.bana.io/monaco-go/> (go-langserver.cloudapp.net):
 
 `monaco-go`:
 
-* <http://azure.bana.io/monaco-go/>
-* <http://cloud.bana.io/monaco-go/>, shortly <https://cloud.bana.io/monaco-go/>
+* <https://cloud.bana.io/monaco-go/>, legacy <http://cloud.bana.io/monaco-go/>
 
 `go-langserver`:
 
-* <ws://azure.bana.io:4389>
-* <ws://cloud.bana.io:4389>, shortly <wss://cloud.bana.io:4389>
+* <wss://cloud.bana.io:4389>, legacy <ws://cloud.bana.io:4389>
+
+### changes/notes:
+
+#### ssl - http/2
+after moving to SSL so that the server can use http/2 sometimes the requests
+either take a while to respond, or it doesn't even respond at all. i'm not sure
+if this is an issue with the multi-container setup or the code itself. you can
+view the logs remotely using:
+
+```sh
+curl https://cloud.bana.io/logs/go-lanserver/go-langserver.log
+```
+
+or if you've built it locally:
+
+```sh
+docker exec -it monaco-go_nginx-up sh -c 'tail -f /Users/mbana/monaco-go/go-langserver.log'
+```
+
+if it still doesn't work, please try again in a while. i've resolve this once
+i can get to the root cause of the problem.
+
+#### images
+
+currently the images are built from `ubuntu:14.04` bar the `mohamedbana/monaco-go_nginx` image which is uses
+`FROM nginx:1.10-alpine` as the base. i will start moving the rest of the images to a more light-weight distro, maybe
+`alpine` or `debain`. this should reduce the build and fetch times.
 
 ### screenshot
 

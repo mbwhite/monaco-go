@@ -20,3 +20,4 @@ STALE_CONTAINERS=$(docker ps -a --filter 'status=exited' -q --no-trunc)
   docker rm $STALE_CONTAINERS
 
 echo "<<<<<<<<<<<<"
+echo ""

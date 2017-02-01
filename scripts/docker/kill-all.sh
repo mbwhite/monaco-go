@@ -44,3 +44,4 @@ IMG_RUNNING_LANGSERVER_STALE=$(docker ps -a -f name=$IMG_ALIAS_LANGSERVER -q)
 #   echo "killed: $IMG_ALIAS_LANGSERVER"
 
 echo "<<<<<<<<<<<<"
+echo ""

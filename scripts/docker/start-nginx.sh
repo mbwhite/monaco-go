@@ -11,12 +11,9 @@ IMG_VOLS_ALPINE="\
 -v /Users/mbana/dev/server/ssl/cloud.bana.io_bk:/etc/nginx/certs:ro"
 
 CMD_START_NGINX="docker run -d --link "$IMG_ALIAS_LANGSERVER" --name "$IMG_ALIAS_ALPINE" $IMG_VOLS_ALPINE $IMG_PORTS_ALPINE $IMG_ALPINE"
-
-
-echo "CMD_START_NGINX: $CMD_START_NGINX"
-
 ID_NGINX=$($CMD_START_NGINX)
 sleep 10
 
 echo >&2 $(echo $ID_NGINX)
 echo "<<<<<<<<<<<<"
+echo ""

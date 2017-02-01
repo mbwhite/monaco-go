@@ -38,6 +38,7 @@ echo ">>>>>>>>>>>>"
 echo "   docker ps: $(docker ps)"
 echo "docker ps -a: $(docker ps -a)"
 echo "<<<<<<<<<<<<"
+echo ""
 
 $SCRIPTS_DIR/docker/list-ports.sh
 $SCRIPTS_DIR/docker/wait.sh
