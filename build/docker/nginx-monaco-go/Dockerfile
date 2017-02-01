@@ -5,8 +5,7 @@ RUN apt-get install -qq -y  \
   openssh-server
 RUN mkdir -p \
   /var/run/sshd \
-  /var/log/supervisor \
-  /var/log/monaco-go
+  /var/log/supervisor
 
 # >>>>>>>>>>>>
 # https://docs.docker.com/engine/examples/running_ssh_service/
@@ -21,29 +20,20 @@ ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
 # <<<<<<<<<<<<
 
-# >>>>>>>>>>>>
-# nginx
-RUN \
-  apt-get update -qq -y && \
-  apt-get upgrade -qq -y
+ENV LOG_LANGSERVER_PATH="/var/log/monaco-go"
+ENV LOG_LANGSERVER_FILE="go-langserver.log"
+ENV LOG_LANGSERVER="$LOG_LANGSERVER_PATH/$LOG_LANGSERVER_FILE"
 
-RUN apt-get install -qq -y \
-  nginx
-# <<<<<<<<<<<<
+RUN \
+  mkdir -p $LOG_LANGSERVER_PATH && touch $LOG_LANGSERVER
 
 # >>>>>>>>>>>>
 # Expose ports
 ENV LANGSERVER_PORT "4389"
-EXPOSE $LANGSERVER_PORT
-EXPOSE 80 443
-EXPOSE 22
+EXPOSE $LANGSERVER_PORT 22
 # <<<<<<<<<<<<
 
 # ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
+# COPY ./build/docker/nginx-monaco-go/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD ./build/docker/nginx-monaco-go/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord"]
-
-# COPY ./build/docker/docker-entrypoint.sh /docker-entrypoint.sh
-# RUN chmod +x /docker-entrypoint.sh
-# SHELL ["/bin/bash"]
-# ENTRYPOINT ["/entry/docker-entrypoint.sh"]

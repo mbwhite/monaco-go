@@ -1,62 +1,39 @@
-#!/bin/bash -x
+#!/bin/bash
 
-# set -e -o pipefail
-# trap 'jobs -p | xargs kill' EXIT
+# capture errors and export all
+set -e
+set -a
 
-# shopt -s expand_aliases
-
-# IMG_VOL_NAME="monaco-go-share"
-# alias docker_find_vol='docker volume ls | grep "$IMG_VOL_NAME"'
-
-# HAS_VOLUME=$(docker_find_vol)
-# if [[ -z $HAS_VOLUME ]]; then
-#   echo "creating volume"
-# fi
+SCRIPTS_DIR=$(dirname "$0")
 
 # >>>>>>>>>>>>
+# vars
+GIT_REV=$(git rev-parse --short HEAD)
 IMAGE_NAME_PREFIX="mohamedbana"
+IMG_TAG=$GIT_REV
+
 IMG_NAME="nginx-monaco-go"
-IMG_TAG="145a117"
-IMG="$IMAGE_NAME_PREFIX/$IMG_NAME:$IMG_TAG"
+# IMG_TAG="145a117"
+IMG_LANGSERVER="$IMAGE_NAME_PREFIX/$IMG_NAME:$IMG_TAG"
+IMG_ALIAS_LANGSERVER="$IMG_NAME-running"
+
+IMAGE_ALPINE_NAME="nginx-alpine"
+IMAGE_ALPINE="$IMAGE_NAME_PREFIX/$IMAGE_ALPINE_NAME"
+IMG_ALPINE="$IMAGE_ALPINE:$IMG_TAG"
+# IMG_ALIAS_ALPINE="$IMAGE_ALPINE_NAME-running"
+IMG_ALIAS_ALPINE="some-nginx"
+
+IMG_VOL_SHARED="monaco-go-volume"
+IMG_VOL_HOST_PATH="/Users/mbana"
 # <<<<<<<<<<<<
 
-# >>>>>>>>>>>>
-IMG_RUNNING=$(docker ps -f ancestor=$IMG -q)
-echo $IMG_RUNNING
-[[ -n $IMG_RUNNING ]] && docker kill $ && sleep 2;
-# <<<<<<<<<<<<
+$SCRIPTS_DIR/docker/kill-all.sh
+$SCRIPTS_DIR/docker/vols-remove.sh
 
-# >>>>>>>>>>>>
-IMG_ALIAS="$IMG_NAME-running"
-IMG_PORTS="-p 4389:4389 -p 22"
-IMG_VOLS="\
--v $(pwd)/build/docker/entry/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf"
+ID_LANGSERVER=$($SCRIPTS_DIR/docker/start-langserver.sh)
+ID_NGINX=$($SCRIPTS_DIR/docker/start-nginx.sh)
 
-docker run \
-  -t --rm \
-	$IMG_PORTS \
-  $IMG_VOLS \
-  --name $IMG_ALIAS \
-	$IMG & sleep 2
-# <<<<<<<<<<<<
-
-# >>>>>>>>>>>>
-PORT_SSH_DOCKER=$(docker port $IMG_ALIAS 22)
-echo "$PORT_SSH_DOCKER"
-# PORT_SSH=$(docker ps | ggrep -oP '[0-9]+(?=\->22)')
-# echo "ssh root@localhost -p $PORT_SSH"
-# <<<<<<<<<<<<
-
-# IMG_PORTS_NGINX="-p 80:80 -p 443:443"
-# IMG_VOL_NGINX="\
-# -v /usr/local/go \
-# -v /Users/mbana/go \
-# "
-
-# docker run \
-#   -it \
-#   --rm \
-#   $IMG_PORTS_NGINX \
-#    $IMG_VOLS_NGINX \
-#   -v monaco-go-share:/Users/mbana \
-#   ubuntu:14.04 /bin/bash
+$SCRIPTS_DIR/docker/list-ports.sh
+$SCRIPTS_DIR/docker/wait.sh
+$SCRIPTS_DIR/docker/kill-all.sh
+$SCRIPTS_DIR/docker/vols-remove.sh
