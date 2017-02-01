@@ -20,7 +20,7 @@ EXPOSE 80 443
 # <<<<<<<<<<<<
 
 ADD ./build/nginx/nginx.conf /etc/nginx/nginx.conf
-ADD ./build/docker/nginx-alpine/docker-entrypoint.sh /docker-entrypoint.sh
+ADD ./build/docker/monaco-go_nginx/docker-entrypoint.sh /docker-entrypoint.sh
 RUN \
   chmod +x /docker-entrypoint.sh
 

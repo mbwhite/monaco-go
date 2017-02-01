@@ -1,13 +1,16 @@
 #!/bin/bash -e
 
+PORTS_LANGSERVER=$(docker port $IMG_ALIAS_LANGSERVER 22 | cut -d ':' -f 2)
+
 echo ">>>>>>>>>>>>"
 echo "waiting:
-
 $IMG_LANGSERVER
 $ID_LANGSERVER
+ssh root@localhost -p $PORTS_LANGSERVER
 
 $IMG_ALPINE
 $ID_NGINX
+docker exec -it $ID_NGINX sh
 
 ..."
 

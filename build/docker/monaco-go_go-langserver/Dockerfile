@@ -25,7 +25,11 @@ ENV LOG_LANGSERVER_FILE="go-langserver.log"
 ENV LOG_LANGSERVER="$LOG_LANGSERVER_PATH/$LOG_LANGSERVER_FILE"
 
 RUN \
-  mkdir -p $LOG_LANGSERVER_PATH && touch $LOG_LANGSERVER
+  (mkdir -p $LOG_LANGSERVER_PATH && touch $LOG_LANGSERVER)
+# RUN \
+#   (ls -lah /Users/ && ls -lah /Users/mbana/) && \
+#   (mkdir -p /Users/mbana/logs && touch /Users/mbana/logs/go-langserver.log) && \
+#   (ls -lah /Users/ && ls -la /Users/mbana/)
 
 # >>>>>>>>>>>>
 # Expose ports
@@ -33,7 +37,5 @@ ENV LANGSERVER_PORT "4389"
 EXPOSE $LANGSERVER_PORT 22
 # <<<<<<<<<<<<
 
-# ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-# COPY ./build/docker/nginx-monaco-go/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ADD ./build/docker/nginx-monaco-go/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD ./build/docker/monaco-go_go-langserver/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 CMD ["/usr/bin/supervisord"]
