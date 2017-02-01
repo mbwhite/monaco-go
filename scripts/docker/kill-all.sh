@@ -1,5 +1,4 @@
-#!/bin/bash
-set -e
+#!/bin/bash -e
 
 echo ">>>>>>>>>>>>"
 echo "killing old"
@@ -20,4 +19,9 @@ IMG_RUNNING_ALPINE=$(docker ps -f ancestor=$IMG_ALPINE -q)
   docker kill $IMG_RUNNING_ALPINE && \
   sleep 2 && \
   echo "killed: $IMG_ALPINE:$IMG_RUNNING_ALPINE"
+
+[[ -z $IMG_RUNNING_LANGSERVER ]] && [[ -z $IMG_RUNNING_ALPINE ]] && \
+  docker kill $IMG_ALIAS_LANGSERVER $IMG_ALIAS_APLINE && \
+  echo "killed: $IMG_ALIAS_LANGSERVER $IMG_ALIAS_APLINE"
+
 echo "<<<<<<<<<<<<"

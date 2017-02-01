@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 # capture errors and export all
 set -e
@@ -29,11 +29,14 @@ IMG_VOL_HOST_PATH="/Users/mbana"
 
 $SCRIPTS_DIR/docker/kill-all.sh
 $SCRIPTS_DIR/docker/vols-remove.sh
+$SCRIPTS_DIR/docker/kill-all.sh
 
 ID_LANGSERVER=$($SCRIPTS_DIR/docker/start-langserver.sh)
 ID_NGINX=$($SCRIPTS_DIR/docker/start-nginx.sh)
 
 $SCRIPTS_DIR/docker/list-ports.sh
 $SCRIPTS_DIR/docker/wait.sh
+
 $SCRIPTS_DIR/docker/kill-all.sh
 $SCRIPTS_DIR/docker/vols-remove.sh
+$SCRIPTS_DIR/docker/kill-all.sh
