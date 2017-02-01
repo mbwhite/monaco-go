@@ -1,4 +1,4 @@
-FROM mohamedbana/monaco-go:145a117
+FROM mohamedbana/monaco-go:e772534
 
 RUN apt-get install -qq -y  \
   supervisor \

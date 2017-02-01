@@ -11,7 +11,7 @@ SCRIPTS_DIR=$(dirname "$0")
 GIT_REV=$(git rev-parse --short HEAD)
 IMAGE_NAME_PREFIX="mohamedbana"
 # IMG_TAG=$GIT_REV
-IMG_TAG="7c2c12b"
+IMG_TAG="e772534"
 
 IMG_NAME="monaco-go_go-langserver"
 # IMG_TAG="145a117"
@@ -51,3 +51,7 @@ echo ">>>>>>>>>>>>"
 echo "   docker ps: $(docker ps)"
 echo "docker ps -a: $(docker ps -a)"
 echo "<<<<<<<<<<<<"
+
+
+# remove images based on filter value
+#  1563  docker rmi $(docker images | grep "7c2c12b" | tr -s " " ":" | cut -d ':' -f 3)
