@@ -1,7 +1,5 @@
 # `monaco-go`
 
-**nb**: currently updating the hosting server to use ssl to get http/2 so don't assume everything is stable.
-
 Go lang mode for [monaco-editor](https://github.com/Microsoft/monaco-editor). The implementation is mostly derived from
 [monaco-css](https://github.com/Microsoft/monaco-css) but uses WebSocket as the transport to talk to the
 [go-langserver](https://github.com/sourcegraph/go-langserver). The below are fully, if not partly, supported, see [Language Server Protocol](https://github.com/Microsoft/language-server-protocol/blob/master/protocol.md#messages-overview):
@@ -53,7 +51,7 @@ docker exec -it monaco-go_nginx-up sh -c 'tail -f /Users/mbana/monaco-go/go-lang
 if it still doesn't work, please try again in a while. i've resolve this once
 i can get to the root cause of the problem.
 
-#### images
+#### image sizes
 
 currently the images are built from `ubuntu:14.04` bar the `mohamedbana/monaco-go_nginx` image which is uses
 `FROM nginx:1.10-alpine` as the base. i will start moving the rest of the images to a more light-weight distro, maybe
