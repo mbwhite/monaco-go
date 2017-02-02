@@ -19,8 +19,9 @@ forths isn't.
 
 ## azure live example
 
-live running version of `monaco-go` talking to the `go-langserver` using a
-WebSocket at <https://cloud.bana.io/monaco-go/> (go-langserver.cloudapp.net):
+**nb:** the server is running on a very low powered VM. live running version
+of `monaco-go` talking to the `go-langserver` using a WebSocket at
+ <https://cloud.bana.io/monaco-go/> (go-langserver.cloudapp.net):
 
 `monaco-go`:
 
