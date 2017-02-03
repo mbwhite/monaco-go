@@ -58,6 +58,17 @@ currently the images are built from `ubuntu:14.04` bar the `mohamedbana/monaco-g
 `FROM nginx:1.10-alpine` as the base. i will start moving the rest of the images to a more light-weight distro, maybe
 `alpine` or `debain`. this should reduce the build and fetch times.
 
+#### debug containers
+
+if something isn't responding try one of these servers:
+
+* <https://cloud.bana.io:4433/
+* <http://cloud.bana.io:8080/>
+
+```sh
+curl -v https://cloud.bana.io:4433/ http://cloud.bana.io:8080/
+```
+
 ### screenshot
 
 ![./images/monaco-go.png](./images/monaco-go.png)
